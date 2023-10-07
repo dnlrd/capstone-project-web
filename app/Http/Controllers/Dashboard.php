@@ -22,20 +22,24 @@ class Dashboard extends Controller
         $selectedYear = $request->input('year', $currentYear);
 
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
-
+        
+        //Household
         $totalHouseholds = Household::totalHouseholds($selectedYear);
         $previousYearHousehold = Household::previousYearHousehold($selectedYear);
         $previousPercentageHousehold = Household::previousPercentageHousehold($selectedYear);
-
+        //Resident
         $totalResidents = FamilyMembers::totalResidents($selectedYear);
         $previousYearResidents = FamilyMembers::previousYearResidents($selectedYear);
         $previousPercentageResidents = FamilyMembers::previousPercentageResidents($selectedYear);
-
+        //Male
         $maleResidents = FamilyMembers::maleResidents($selectedYear);
         $previousYearMale = FamilyMembers::previousYearMale($selectedYear);
         $previousPercentageMale = FamilyMembers::previousPercentageMale($selectedYear);
+        //Female
+        $femaleResidents = FamilyMembers::femaleResidents($selectedYear);
+        $previousYearFemale = FamilyMembers::previousYearFemale($selectedYear);
+        $previousPercentageFemale = FamilyMembers::previousPercentageFemale($selectedYear);
 
-        
         return view('pages.dashboard.dashboard', compact(
             'currentYear',
             'selectedYear',
@@ -52,6 +56,10 @@ class Dashboard extends Controller
             'maleResidents',
             'previousYearMale',
             'previousPercentageMale',
+
+            'femaleResidents',
+            'previousYearFemale',
+            'previousPercentageFemale',
         ));
     }
 

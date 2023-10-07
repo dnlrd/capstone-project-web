@@ -131,10 +131,10 @@ class FamilyMembers extends Model
     
         return $femaleCountPreviousYear;
     }
-    public static function getPercentageChangeInFemaleResidents($selectedYear)
+    public static function previousPercentageFemale($selectedYear)
     {
-        $femaleCountSelectedYear = self::getFemaleResidentsCount($selectedYear);
-        $femaleCountPreviousYear = self::getFemaleResidentsCountPreviousYear($selectedYear);
+        $femaleCountSelectedYear = self::femaleResidents($selectedYear);
+        $femaleCountPreviousYear = self::previousYearFemale($selectedYear);
     
         if ($femaleCountPreviousYear != 0) {
             $percentageChange = (($femaleCountSelectedYear - $femaleCountPreviousYear) / $femaleCountPreviousYear) * 100;

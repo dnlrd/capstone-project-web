@@ -39,6 +39,7 @@
                 </div>
 
                 <div class="col-sm-6 col-lg-3">
+                    @include('pages.dashboard.total-females')
                 </div>
             </div>
             <div class="row">
