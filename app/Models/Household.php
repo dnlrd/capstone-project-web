@@ -53,14 +53,14 @@ class Household extends Model
         29 => "Santiago",
         30 => "Santa Teresita",
     ];
-    public static function getTotalHouseholds($selectedYear)
+    public static function totalHouseholds($selectedYear)
     {
         $totalHouseholds = Household::where('year', $selectedYear)->count();
     
         return $totalHouseholds;
     }
 
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);

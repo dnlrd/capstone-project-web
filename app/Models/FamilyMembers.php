@@ -38,7 +38,35 @@ class FamilyMembers extends Model
         'iba_pa_kapansanan',
         'household_id',
     ];
+    public static function totalResidents($selectedYear)
+    {
+        $total = DB::table('family_members')
+            ->join('household', 'family_members.household_id', '=', 'household.id')
+            ->where('household.year', $selectedYear)
+            ->count();
 
+        return $total;
+    }
+    public static function maleResidents($selectedYear)
+    {
+        $total = DB::table('family_members')
+            ->join('household', 'family_members.household_id', '=', 'household.id')
+            ->where('household.year', $selectedYear)
+            ->where('family_members.gender', '1')
+            ->count();
+
+        return $total;
+    }
+    public static function femaleResidents($selectedYear)
+    {
+        $total = DB::table('family_members')
+            ->join('household', 'family_members.household_id', '=', 'household.id')
+            ->where('household.year', $selectedYear)
+            ->where('family_members.gender', '2')
+            ->count();
+
+        return $total;
+    }
     public function household()
     {
         return $this->belongsTo(Household::class);
