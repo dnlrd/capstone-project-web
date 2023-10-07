@@ -59,8 +59,30 @@ class Household extends Model
     
         return $totalHouseholds;
     }
+    public static function previousYearHousehold($selectedYear)
+    {
+        $previousYear = $selectedYear - 1;
 
+        $totalHouseholds = Household::where('year', $previousYear)->count();
 
+        return $totalHouseholds;
+    }
+    public static function previousPercentageHousehold($selectedYear)
+    {
+        $previousYear = $selectedYear - 1;
+
+        $totalHouseholdsSelectedYear = Household::where('year', $selectedYear)->count();
+
+        $totalHouseholdsPreviousYear = Household::where('year', $previousYear)->count();
+
+        if ($totalHouseholdsPreviousYear != 0) {
+            $percentageChange = (($totalHouseholdsSelectedYear - $totalHouseholdsPreviousYear) / $totalHouseholdsPreviousYear) * 100;
+        } else {
+            $percentageChange = 0;
+        }
+
+        return $percentageChange;
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
