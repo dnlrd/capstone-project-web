@@ -154,18 +154,49 @@
                        
                     </div>
                 </div>
-                <div class="col-md-6 gy-3">
+                <div class="col-md-8 gy-3">
                     <div class="card ">
                         <div class="card-body p-3">
                             <div class="row d-flex justify-content-center">
-                            <div class="col-md-12 d-flex align-items-center">
-                                   
-                                <div class="col-md-12">
-                                    @include('pages.dashboard.chart5')
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <div class="row d-flex justify-content-start">
+                                        <div class="col-auto d-flex align-items-center mb-1">
+                                            <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
+                                            <span>May-ari ng Lupa at Bahay ({{$Question11c['answer3_q11']['answer1']}})</span>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center mb-1">
+                                            <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
+                                            <span>Nangungupahan sa lupa at may-ari ng bahay ({{$Question11c['answer3_q11']['answer2']}})</span>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center mb-1">
+                                            <span class="legend me-2"  style="background-color:rgba(255, 205, 86);"></span>
+                                            <span>Nagtayo ng bahay nang walang pahintulot ({{$Question11c['answer3_q11']['answer3']}})</span>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center mb-1">
+                                            <span class="legend me-2"  style="background-color:rgba(0, 128, 255);"></span>
+                                            <span>Nangungupahan sa bahay ({{$Question11c['answer3_q11']['answer4']}})</span>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center mb-1">
+                                            <span class="legend me-2" style="background-color:rgba(255, 0, 0);"></span>
+                                            <span>Nakikitira sa bahay ({{$Question11c['answer3_q11']['answer5']}})</span>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center mb-1">
+                                            <span class="legend me-2"  style="background-color:rgba(0, 255, 0);"></span>
+                                            <span>Katiwala sa bahay ({{$Question11c['answer3_q11']['answer6']}})</span>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center mb-1">
+                                            <span class="legend me-2"  style="background-color:rgba(128, 0, 128);"></span>
+                                            <span>Iba pa ({{$Question11c['answer3_q11']['answer7']}})</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 d-flex align-items-center">
+                                    <div class="col-md-12">
+                                        @include('pages.dashboard.chart5')
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                       
                     </div>
                 </div>
             </div>

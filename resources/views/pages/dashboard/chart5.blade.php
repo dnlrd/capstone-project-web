@@ -14,12 +14,12 @@
             data: {
             labels: [
                 'May-ari ng Lupa at Bahay ({{$Question11c['answer3_q11']['answer1']}})', 
-                'Konkreto at Kahoy ({{$Question11c['answer3_q11']['answer2']}})', 
-                'Kahoy ({{$Question11c['answer3_q11']['answer3']}})',
-                'Barong-barong ({{$Question11c['answer3_q11']['answer4']}})',
-                'Konkreto at Kahoy ({{$Question11c['answer3_q11']['answer5']}})', 
-                'Kahoy ({{$Question11c['answer3_q11']['answer6']}})',
-                'Barong-barong ({{$Question11c['answer3_q11']['answer7']}})'
+                'Nangungupahan sa lupa at may-ari ng bahay ({{$Question11c['answer3_q11']['answer2']}})', 
+                'Nagtayo ng bahay nang walang pahintulot ({{$Question11c['answer3_q11']['answer3']}})',
+                'Nangungupahan sa bahay ({{$Question11c['answer3_q11']['answer4']}})',
+                'Nakikitira sa bahay ({{$Question11c['answer3_q11']['answer5']}})', 
+                'Katiwala sa bahay ({{$Question11c['answer3_q11']['answer6']}})',
+                'Iba pa ({{$Question11c['answer3_q11']['answer7']}})'
             ],
             datasets: [{
                 label: 'Total',
