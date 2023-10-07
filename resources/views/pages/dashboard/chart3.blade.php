@@ -12,7 +12,11 @@
         new Chart(ctx3, {
             type: 'bar',
             data: {
-            labels: ['Konkreto', 'Konkreto at Kahoy', 'Kahoy', 'Barong-barong'],
+            labels: [
+                'Konkreto ({{$Question11a['answer1_q11']['answer1']}})', 
+                'Konkreto at Kahoy ({{$Question11a['answer1_q11']['answer2']}})', 
+                'Kahoy ({{$Question11a['answer1_q11']['answer3']}})',
+                'Barong-barong ({{$Question11a['answer1_q11']['answer4']}})'],
             datasets: [{
                 label: 'Total',
                 data: [

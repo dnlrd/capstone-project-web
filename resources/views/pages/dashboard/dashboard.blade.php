@@ -55,15 +55,15 @@
                         <div class="row d-flex justify-content-center">
                             <div class="col-auto d-flex align-items-center pe-2">
                                 <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
-                                <span>Magtratrabaho</span>
+                                <span>Magtratrabaho ({{$Question5['answer1_q5']['answer1']}})</span>
                             </div>
                             <div class="col-auto d-flex align-items-center px-2">
                                 <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
-                                <span>Tumira sa kamag-anak</span>
+                                <span>Tumira sa kamag-anak ({{$Question5['answer1_q5']['answer2']}})</span>
                             </div>
                             <div class="col-auto d-flex align-items-center px-2">
                                 <span class="legend me-2"  style="background-color:rgba(255, 205, 86);"></span>
-                                <span>Ibang dahilan</span>
+                                <span>Ibang dahilan ({{$Question5['answer1_q5']['answer3']}})</span>
                             </div>
                         </div>
                     </div>
@@ -80,15 +80,15 @@
                                     <div class="row d-flex justify-content-start">
                                         <div class="col-auto d-flex align-items-center mb-2">
                                             <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
-                                            <span>Kasama lahat ng pamilya</span>
+                                            <span>Kasama lahat ng pamilya ({{$Question6['answer1_q6']['answer1']}})</span>
                                         </div>
                                         <div class="col-auto d-flex align-items-center mb-2">
                                             <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
-                                            <span>Kasama ang ilang myembro ng pamilya</span>
+                                            <span>Kasama ang ilang myembro ng pamilya ({{$Question6['answer1_q6']['answer2']}})</span>
                                         </div>
                                         <div class="col-auto d-flex align-items-center mb-2">
                                             <span class="legend me-2"  style="background-color:rgba(255, 205, 86);"></span>
-                                            <span>Nag-iisang lumipat</span>
+                                            <span>Nag-iisang lumipat ({{$Question6['answer1_q6']['answer3']}})</span>
                                         </div>
                                     </div>
                                 </div>
@@ -115,14 +115,14 @@
                         <div class="card-body p-3">
                             <div class="row d-flex justify-content-center">
                             <div class="col-md-6 d-flex align-items-center">
-                                    <div class="row d-flex justify-content-start">
+                                    <div class="row d-flex justify-content-end">
                                         <div class="col-auto d-flex align-items-center mb-2">
                                             <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
-                                            <span>Pribadong Lupa</span>
+                                            <span>Pribadong Lupa ({{$Question11b['answer2_q11']['answer1']}})</span>
                                         </div>
                                         <div class="col-auto d-flex align-items-center mb-2">
                                             <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
-                                            <span>Lupa ng Gobyerno</span>
+                                            <span>Lupa ng Gobyerno ({{$Question11b['answer2_q11']['answer2']}})</span>
                                         </div>
                                     </div>
                                 </div>
