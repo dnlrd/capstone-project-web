@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 use App\Models\Household;
 use App\Models\FamilyMembers;
-
+use App\Models\Question5;
 class Dashboard extends Controller
 {
     /**
@@ -22,7 +22,7 @@ class Dashboard extends Controller
         $selectedYear = $request->input('year', $currentYear);
 
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
-        
+
         //Household
         $totalHouseholds = Household::totalHouseholds($selectedYear);
         $previousYearHousehold = Household::previousYearHousehold($selectedYear);
@@ -40,6 +40,8 @@ class Dashboard extends Controller
         $previousYearFemale = FamilyMembers::previousYearFemale($selectedYear);
         $previousPercentageFemale = FamilyMembers::previousPercentageFemale($selectedYear);
 
+        //Dahilan ng Paglipat --- {{$Question5['answer1_q5']['answer1']}}
+        $Question5 = Question5::Question5($selectedYear);
         return view('pages.dashboard.dashboard', compact(
             'currentYear',
             'selectedYear',
@@ -60,6 +62,8 @@ class Dashboard extends Controller
             'femaleResidents',
             'previousYearFemale',
             'previousPercentageFemale',
+
+            'Question5',
         ));
     }
 

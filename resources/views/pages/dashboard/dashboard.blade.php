@@ -25,7 +25,7 @@
                     </form>
                 </div>
             </div>
-            
+            @include('pages.dashboard.chart1')
             <div class="row row-deck row-cards">
                 <div class="col-sm-6 col-lg-3">
                     @include('pages.dashboard.total-households')
