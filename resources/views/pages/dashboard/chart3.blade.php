@@ -48,8 +48,11 @@
                         display: false
                     }
                 },
-            scales: {
-            }
+                scales: {
+                    y: {
+                        display: false 
+                    }
+                }  
             }
         });
     </script>

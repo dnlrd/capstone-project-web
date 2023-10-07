@@ -37,8 +37,7 @@
                         display: false
                     }
                 },
-            scales: {
-            }
+                
             }
         });
     </script>

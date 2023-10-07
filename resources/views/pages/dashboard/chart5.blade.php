@@ -37,18 +37,18 @@
                     'rgba(255, 159, 64)',
                     'rgba(255, 205, 86)',
                     'rgba(0, 128, 255)',
-                    'rgba(255, 0, 0)',    // New color (red)
-                    'rgba(0, 255, 0)',    // New color (green)
-                    'rgba(128, 0, 128)',  // New color (purple)
+                    'rgba(255, 0, 0)',    
+                    'rgba(0, 255, 0)',    
+                    'rgba(128, 0, 128)',  
                 ],
                 borderColor: [
                     'rgb(255, 99, 132)',
                     'rgb(255, 159, 64)',
                     'rgb(255, 205, 86)',
                     'rgb(0, 128, 255)',
-                    'rgb(255, 0, 0)',    // New color (red)
-                    'rgb(0, 255, 0)',    // New color (green)
-                    'rgb(128, 0, 128)',  // New color (purple)
+                    'rgb(255, 0, 0)',   
+                    'rgb(0, 255, 0)',  
+                    'rgb(128, 0, 128)', 
                 ],
                 borderWidth: 1
             }]
@@ -62,7 +62,7 @@
                 },
                 scales: {
                     x: {
-                        display: false // Hide X axis labels
+                        display: false 
                     }
                 }  
             }
