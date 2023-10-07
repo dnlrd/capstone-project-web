@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Models\Household;
 use App\Models\FamilyMembers;
 use App\Models\Question5;
+use App\Models\Question6;
 class Dashboard extends Controller
 {
     /**
@@ -42,6 +43,9 @@ class Dashboard extends Controller
 
         //Dahilan ng Paglipat --- {{$Question5['answer1_q5']['answer1']}}
         $Question5 = Question5::Question5($selectedYear);
+        //Uri ng Paglipat --- {{$Question6['answer1_q6']['answer1']}}
+        $Question6 = Question6::Question6($selectedYear);
+
         return view('pages.dashboard.dashboard', compact(
             'currentYear',
             'selectedYear',
@@ -64,6 +68,7 @@ class Dashboard extends Controller
             'previousPercentageFemale',
 
             'Question5',
+            'Question6',
         ));
     }
 
