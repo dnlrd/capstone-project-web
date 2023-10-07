@@ -25,7 +25,7 @@
                     </form>
                 </div>
             </div>
-            @include('pages.dashboard.chart1')
+            
             <div class="row row-deck row-cards">
                 <div class="col-sm-6 col-lg-3">
                     @include('pages.dashboard.total-households')
@@ -48,26 +48,30 @@
                         <div class="card-body p-3">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-6">
-                                        <canvas id="myChart" class="img-fluid"></canvas>
-                                  
-                                    
+                                @include('pages.dashboard.chart1')
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-auto d-flex align-items-center pe-2">
+                                    <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
+                                    <span>Magtratrabaho</span>
+                                </div>
+                                <div class="col-auto d-flex align-items-center px-2">
+                                    <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
+                                    <span>Tumira sa kamag-anak</span>
+                                </div>
+                                <div class="col-auto d-flex align-items-center px-2">
+                                    <span class="legend me-2"  style="background-color:rgba(255, 205, 86);"></span>
+                                    <span>Ibang dahilan</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                 </div>
-                <div class="col-md-6 gy-3">
-                    <div class="card ">
-                        <div class="card-body p-3">
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-md-12">
-                                    <canvas id="myChart1" class="img-fluid"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
