@@ -11,6 +11,8 @@ use App\Models\Household;
 use App\Models\FamilyMembers;
 use App\Models\Question5;
 use App\Models\Question6;
+
+use App\Models\Question11;
 class Dashboard extends Controller
 {
     /**
@@ -46,6 +48,9 @@ class Dashboard extends Controller
         //Uri ng Paglipat --- {{$Question6['answer1_q6']['answer1']}}
         $Question6 = Question6::Question6($selectedYear);
 
+
+        $Question11a = Question11::Question11a($selectedYear);
+        $Question11b = Question11::Question11b($selectedYear);
         return view('pages.dashboard.dashboard', compact(
             'currentYear',
             'selectedYear',
@@ -69,6 +74,8 @@ class Dashboard extends Controller
 
             'Question5',
             'Question6',
+            'Question11a',
+            'Question11b',
         ));
     }
 

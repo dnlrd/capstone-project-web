@@ -94,7 +94,44 @@
                                 </div>
                             </div>
                         </div>
-                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 gy-3">
+                    <div class="card ">
+                        <div class="card-body p-3">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-12">
+                                    @include('pages.dashboard.chart3')
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-md-6 gy-3">
+                    <div class="card ">
+                        <div class="card-body p-3">
+                            <div class="row d-flex justify-content-center">
+                            <div class="col-md-6 d-flex align-items-center">
+                                    <div class="row d-flex justify-content-start">
+                                        <div class="col-auto d-flex align-items-center mb-2">
+                                            <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
+                                            <span>Pribadong Lupa</span>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center mb-2">
+                                            <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
+                                            <span>Lupa ng Gobyerno</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    @include('pages.dashboard.chart4')
+                                </div>
+                            </div>
+                        </div>
+                       
                     </div>
                 </div>
             </div>
