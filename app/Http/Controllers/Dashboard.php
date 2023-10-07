@@ -13,6 +13,7 @@ use App\Models\Question5;
 use App\Models\Question6;
 
 use App\Models\Question11;
+use App\Models\Question12;
 class Dashboard extends Controller
 {
     /**
@@ -52,6 +53,10 @@ class Dashboard extends Controller
         $Question11a = Question11::Question11a($selectedYear);
         $Question11b = Question11::Question11b($selectedYear);
         $Question11c = Question11::Question11c($selectedYear);
+
+        $Question12a = Question12::Question12a($selectedYear);
+        $Question12b = Question12::Question12b($selectedYear);
+        
         return view('pages.dashboard.dashboard', compact(
             'currentYear',
             'selectedYear',
@@ -75,9 +80,13 @@ class Dashboard extends Controller
 
             'Question5',
             'Question6',
+
             'Question11a',
             'Question11b',
             'Question11c',
+
+            'Question12a',
+            'Question12b',
         ));
     }
 

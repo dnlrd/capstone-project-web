@@ -45,6 +45,9 @@
             <div class="row">
                 <div class="col-md-6 gy-3">
                     <div class="card ">
+                        <div class="card-title">
+                            Dahilan ng Paglipat
+                        </div>
                         <div class="card-body p-3">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-6">
@@ -71,6 +74,9 @@
 
                 <div class="col-md-6 gy-3">
                     <div class="card ">
+                        <div class="card-title">
+                            Uri ng Paglipat
+                        </div>
                         <div class="card-body p-3">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-6 col-sm-12 mb-2">
@@ -100,6 +106,9 @@
             <div class="row">
                 <div class="col-md-6 gy-3">
                     <div class="card ">
+                        <div class="card-title">
+                            Uri ng tirahan/bahay
+                        </div>
                         <div class="card-body p-3">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-8">
@@ -132,6 +141,9 @@
                 </div>
                 <div class="col-md-6 gy-3">
                     <div class="card ">
+                        <div class="card-title">
+                            Uri ng lupang kinatatayuan ng bahay
+                        </div>
                         <div class="card-body p-3">
                             <div class="row d-flex justify-content-center">
                             <div class="col-md-6 d-flex align-items-center">
@@ -156,6 +168,9 @@
                 </div>
                 <div class="col-md-8 gy-3">
                     <div class="card ">
+                        <div class="card-title">
+                            Katayuan sa lupa at bahay
+                        </div>
                         <div class="card-body p-3">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-4 d-flex align-items-center">
@@ -199,7 +214,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4 gy-3">
+                    <div class="card ">
+                        <div class="card-title">
+                            Saan kumukuha ng tubig?
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-6">
+                                @include('pages.dashboard.chart6')
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-auto d-flex align-items-center pe-2">
+                                <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
+                                <span>Poso ({{$Question12a['answer1_q12']['answer1']}})</span>
+                            </div>
+                            <div class="col-auto d-flex align-items-center px-2">
+                                <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
+                                <span>Gripo ({{$Question12a['answer1_q12']['answer2']}})</span>
+                            </div>
+                            <div class="col-auto d-flex align-items-center px-2">
+                                <span class="legend me-2"  style="background-color:rgba(255, 205, 86);"></span>
+                                <span>Iba pa ({{$Question12a['answer1_q12']['answer3']}})</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+                
         </div>
     </div>
     @push('scripts')
