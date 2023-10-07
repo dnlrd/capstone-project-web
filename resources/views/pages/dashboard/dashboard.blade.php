@@ -134,6 +134,20 @@
                        
                     </div>
                 </div>
+                <div class="col-md-6 gy-3">
+                    <div class="card ">
+                        <div class="card-body p-3">
+                            <div class="row d-flex justify-content-center">
+                            <div class="col-md-12 d-flex align-items-center">
+                                   
+                                <div class="col-md-12">
+                                    @include('pages.dashboard.chart5')
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
             </div>
         </div>
     </div>

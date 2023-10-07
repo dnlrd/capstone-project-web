@@ -51,6 +51,7 @@ class Dashboard extends Controller
 
         $Question11a = Question11::Question11a($selectedYear);
         $Question11b = Question11::Question11b($selectedYear);
+        $Question11c = Question11::Question11c($selectedYear);
         return view('pages.dashboard.dashboard', compact(
             'currentYear',
             'selectedYear',
@@ -76,6 +77,7 @@ class Dashboard extends Controller
             'Question6',
             'Question11a',
             'Question11b',
+            'Question11c',
         ));
     }
 
