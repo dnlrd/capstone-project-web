@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Report;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,3 +15,5 @@ use App\Http\Controllers\Dashboard;
 */
 
 Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
+
+Route::get('/demographic-report', [Report::class, 'demographic'])->name('demographic-report');

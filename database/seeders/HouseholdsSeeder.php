@@ -235,7 +235,7 @@ class HouseholdsSeeder extends Seeder
                     'religion' => $faker->numberBetween(1, 6),
                     'ibang_relihiyon' => $faker->word,
 
-                    'studying' => $faker->numberBetween(1, 2),
+                    'studying' => $faker->numberBetween(1, 8),
 
                     
                     'has_job' => $faker->numberBetween(1, 2),
@@ -247,11 +247,11 @@ class HouseholdsSeeder extends Seeder
                     'sector' => $faker->numberBetween(1, 5),
                     'iba_pa_sektor' => $faker->word,
                     'position' => $faker->numberBetween(1, 6),
-                    'monthly_income' => $faker->randomFloat(2, 1000, 10000),
+                    'monthly_income' => $faker->randomFloat(2, 4000, 100000),
                     
-                    'level_of_nutrition' => $faker->randomElement(['Good', 'Average', 'Poor']),
-                    'type_of_disability' => $faker->word,
-                    'iba_pa_kapansanan' => $faker->numberBetween(1, 12)
+                    'level_of_nutrition' => $faker->numberBetween(1, 3),
+                    'type_of_disability' => $faker->numberBetween(1, 12),
+                    'iba_pa_kapansanan' => $faker->word
                 ];
                
                 $familyMembers[] = $familyMember;

@@ -34,16 +34,19 @@ class FamilyMembers extends Model
         'where', //
         'iba_pa_saan', //
 
-        'sector',
-        'iba_pa_sektor',
+        'sector', //
+        'iba_pa_sektor', //
 
-        'position',
+        'position', //
 
         'monthly_income',
 
-        'level_of_nutrition',
-        'type_of_disability',
+        'level_of_nutrition', //
+
+        'type_of_disability', //
+
         'iba_pa_kapansanan',
+
         'household_id',
     ];
     //Dashboard
@@ -372,8 +375,69 @@ class FamilyMembers extends Model
         return $results;
     }
 
+    //Position
+    public static function totalPosition($year)
+    {
+        $total = Household::select(
+            DB::raw("SUM(CASE WHEN family_members.position = '1' THEN 1 ELSE 0 END) AS permanente_count"),
+            DB::raw("SUM(CASE WHEN family_members.position = '2' THEN 1 ELSE 0 END) AS kaswal_count"),
+            DB::raw("SUM(CASE WHEN family_members.position = '3' THEN 1 ELSE 0 END) AS may_kontrata_count"),
+            DB::raw("SUM(CASE WHEN family_members.position = '4' THEN 1 ELSE 0 END) AS pana_panahon_count"),
+            DB::raw("SUM(CASE WHEN family_members.position = '5' THEN 1 ELSE 0 END) AS self_employed_count"),
+            DB::raw("SUM(CASE WHEN family_members.position = '6' THEN 1 ELSE 0 END) AS job_order_count")
+        )
+        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+        ->where('household.year', $year)
+        ->get();
 
+        return $total;
+    }
 
+    public static function totalNutrition($year)
+    {
+        $nutritionCounts = Household::select(
+            DB::raw("SUM(CASE WHEN family_members.level_of_nutrition = '1' THEN 1 ELSE 0 END) AS wastong_nutrisyon_count"),
+            DB::raw("SUM(CASE WHEN family_members.level_of_nutrition = '2' THEN 1 ELSE 0 END) AS undernutrition_count"),
+            DB::raw("SUM(CASE WHEN family_members.level_of_nutrition = '3' THEN 1 ELSE 0 END) AS overnutrition_count")
+        )
+        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+        ->where('household.year', $year)
+        ->get();
+
+        return $nutritionCounts;
+    }
+
+    public static function totalDisability($year)
+    {
+        $disabilityCounts = Household::select(
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '1' THEN 1 ELSE 0 END) AS hearing_impairment_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '2' THEN 1 ELSE 0 END) AS visual_impairment_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '3' THEN 1 ELSE 0 END) AS mental_retardation_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '4' THEN 1 ELSE 0 END) AS autism_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '5' THEN 1 ELSE 0 END) AS cerebral_palsy_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '6' THEN 1 ELSE 0 END) AS epilepsy_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '7' THEN 1 ELSE 0 END) AS amputee_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '8' THEN 1 ELSE 0 END) AS polio_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '9' THEN 1 ELSE 0 END) AS clubfoot_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '10' THEN 1 ELSE 0 END) AS hunchback_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '11' THEN 1 ELSE 0 END) AS dwarfism_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '12' THEN 1 ELSE 0 END) AS others_count")
+        )
+        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+        ->where('household.year', $year)
+        ->first();
+
+        return $disabilityCounts;
+    }
+
+    public static function AverageMonthlyIncome()
+    {
+        $averageIncomes = Household::select(DB::raw('AVG(monthly_income) as average_income'))
+            ->groupBy('household_id')
+            ->get();
+
+        return $averageIncomes;
+    }
 
 
 
