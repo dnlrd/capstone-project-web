@@ -223,6 +223,7 @@
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-6">
                                 @include('pages.dashboard.chart6')
+                                
                                 </div>
                             </div>
                         </div>
@@ -243,12 +244,57 @@
                     </div>
                 </div>
             </div>
-
-                
+            <canvas id="lineChart" width="400" height="200"></canvas>
+            
+           
         </div>
     </div>
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+    // Retrieve the data from your Laravel function (you may need to pass it from the controller)
+    var data = @json($getHouseholdStatistics);
+    var ctx78 = document.getElementById('lineChart').getContext('2d');
+    var mixedChart = new Chart(ctx78, {
+        type: 'bar',
+        data: {
+            datasets: [
+                
+                {
+                    type: 'bar',
+                    label: 'Average Household Size',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: data.map(item => item.totalHouseholds),
+                },
+                {
+                    type: 'bar',
+                    label: 'Household Population',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    data: data.map(item => item.householdPopulation),
+                    yAxisID: 'right-y-axis', // Assign this dataset to the right y-axis
+                },
+                {
+                    type: 'line',
+                    label: 'Line Dataset',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    data: data.map(item => item.averageSize),
+                }
+            ],
+            labels: data.map(item => item.year),
+        },
+        options: {
+            scales: {
+                right: {
+                    position: 'right', // Position the right y-axis on the right side
+                },
+            },
+        },
+    });
+</script>
 
     @endpush
     

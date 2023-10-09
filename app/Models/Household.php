@@ -59,6 +59,7 @@ class Household extends Model
     
         return $totalHouseholds;
     }
+
     public static function previousYearHousehold($selectedYear)
     {
         $previousYear = $selectedYear - 1;
@@ -83,6 +84,78 @@ class Household extends Model
 
         return $percentageChange;
     }
+
+
+    // public static function getAverageHouseholdSize($year)
+    // {
+    //     $totalHouseholds = Household::where('year', $year)->count();
+
+    //     $familyMemberCounts = [];
+
+    //     if ($totalHouseholds > 0) {
+    //         $households = Household::where('year', $year)->get();
+
+    //         foreach ($households as $household) {
+    //             $familyMemberCount = FamilyMembers::where('household_id', $household->id)->count();
+
+    //             $familyMemberCounts[$household->id] = $familyMemberCount;
+    //         }
+    //     }
+
+    //     $totalFamilyMembers = array_sum($familyMemberCounts);
+
+    //     $averageSize = ($totalHouseholds > 0) ? ($totalFamilyMembers / $totalHouseholds) : 0;
+
+    //     return [
+    //         'totalHouseholds' => $totalHouseholds,
+    //         'averageSize' => $averageSize,
+    //     ];
+    // }
+    public static function getHouseholdStatistics()
+    {
+        // Retrieve all unique years for which data is available
+        $years = Household::distinct('year')->pluck('year')->toArray();
+
+        $data = [];
+
+        // Loop through each year and calculate household statistics
+        foreach ($years as $year) {
+            $totalHouseholds = Household::where('year', $year)->count();
+
+            $familyMemberCounts = [];
+
+            if ($totalHouseholds > 0) {
+                $households = Household::where('year', $year)->get();
+
+                foreach ($households as $household) {
+                    $familyMemberCount = FamilyMembers::where('household_id', $household->id)->count();
+
+                    $familyMemberCounts[$household->id] = $familyMemberCount;
+                }
+            }
+
+            $totalFamilyMembers = array_sum($familyMemberCounts);
+
+            $averageSize = ($totalHouseholds > 0) ? ($totalFamilyMembers / $totalHouseholds) : 0;
+
+            // Calculate household population
+            $householdPopulation = $totalHouseholds * $averageSize;
+
+            // Store the data for this year
+            $data[] = [
+                'year' => $year,
+                'totalHouseholds' => $totalHouseholds,
+                'averageSize' => $averageSize,
+                'householdPopulation' => $householdPopulation,
+            ];
+        }
+
+        return $data;
+    }
+
+    
+    
+
     public function user()
     {
         return $this->belongsTo(User::class);

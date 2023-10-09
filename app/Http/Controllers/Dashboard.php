@@ -31,6 +31,9 @@ class Dashboard extends Controller
         $totalHouseholds = Household::totalHouseholds($selectedYear);
         $previousYearHousehold = Household::previousYearHousehold($selectedYear);
         $previousPercentageHousehold = Household::previousPercentageHousehold($selectedYear);
+        $getHouseholdStatistics = Household::getHouseholdStatistics($selectedYear);
+
+
         //Resident
         $totalResidents = FamilyMembers::totalResidents($selectedYear);
         $previousYearResidents = FamilyMembers::previousYearResidents($selectedYear);
@@ -57,6 +60,7 @@ class Dashboard extends Controller
         $Question12a = Question12::Question12a($selectedYear);
         $Question12b = Question12::Question12b($selectedYear);
         
+
         return view('pages.dashboard.dashboard', compact(
             'currentYear',
             'selectedYear',
@@ -65,6 +69,8 @@ class Dashboard extends Controller
             'totalHouseholds',
             'previousYearHousehold',
             'previousPercentageHousehold',
+
+             'getHouseholdStatistics',
 
             'totalResidents',
             'previousYearResidents',
