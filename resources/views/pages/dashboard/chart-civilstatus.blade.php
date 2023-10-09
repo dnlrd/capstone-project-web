@@ -1,6 +1,6 @@
 <div class="card ">
     <div class="card-header fw-bold">
-        Marital Status
+        Marital Status Distribution
     </div>
     <div class="card-body p-3">
         <div class="row d-flex justify-content-center">

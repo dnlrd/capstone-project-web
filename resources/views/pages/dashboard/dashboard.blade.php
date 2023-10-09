@@ -47,7 +47,8 @@
                     @include('pages.dashboard.chart-civilstatus')
                 </div>
 
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-sm-12 col-lg-6  col-md-6">
+                    @include('pages.dashboard.chart-agerangedistribution')
                 </div>
 
                 <div class="col-sm-6 col-lg-3">

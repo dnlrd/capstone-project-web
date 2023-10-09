@@ -1,0 +1,61 @@
+<div class="card ">
+    <div class="card-header fw-bold">
+        Age Distribution
+    </div>
+    <div class="card-body p-3">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <canvas id="DashboardChartAgeRangeDistribution" class="img-fluid" height="150"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Retrieve the data from your PHP function
+    var ageRangeData = @json($DashboardAgeRangeDistribution);
+
+    // Extract age range labels and counts
+    var ageRanges = ageRangeData.map(function(item) {
+        return item.age_range;
+    });
+    var ageCounts = ageRangeData.map(function(item) {
+        return item.count;
+    });
+
+    var DashboardChartAgeRangeDistribution = document.getElementById('DashboardChartAgeRangeDistribution').getContext('2d');
+    var ageRangeChart = new Chart(DashboardChartAgeRangeDistribution, {
+        type: 'bar',
+        data: {
+            labels: ageRanges,
+            datasets: [{
+                label: 'Age Range Distribution',
+                data: ageCounts,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            plugins: {
+                    legend: {
+                        display: false
+                    }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Age Range'
+                    }
+                },
+            }
+        }
+    });
+</script>
+   
+@endpush
