@@ -25,8 +25,7 @@
                     </form>
                 </div>
             </div>
-            
-            <div class="row row-deck row-cards">
+            <div class="row row-deck row-cards mb-3">
                 <div class="col-sm-6 col-lg-3">
                     @include('pages.dashboard.total-households')
                 </div>
@@ -42,7 +41,25 @@
                     @include('pages.dashboard.total-females')
                 </div>
             </div>
+
+            <div class="row row-deck row-cards">
+                <div class="col-sm-12 col-lg-6">
+                    @include('pages.dashboard.chart-civilstatus')
+                </div>
+                
+                <div class="col-sm-6 col-lg-3">
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                </div>
+            </div>
             <div class="row">
+                <div class="col-md-6 gy-3">
+                    @include('pages.dashboard.chart-civilstatus')
+                </div>
                 <div class="col-md-6 gy-3">
                     <div class="card ">
                         <div class="card-title">
@@ -244,10 +261,9 @@
                     </div>
                 </div>
             </div>
-            <canvas id="lineChart" width="400" height="200"></canvas>
             
-           
         </div>
+        
     </div>
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

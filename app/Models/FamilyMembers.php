@@ -181,6 +181,90 @@ class FamilyMembers extends Model
         return $results;
     }
 
+    // public static function DashboardChartCivilStatus()
+    // {
+    //     $results = Household::select(
+    //         'household.year',
+    //         DB::raw("SUM(CASE WHEN family_members.civil_status = '1' THEN 1 ELSE 0 END) AS total_single"),
+    //         DB::raw("SUM(CASE WHEN family_members.civil_status = '2' THEN 1 ELSE 0 END) AS total_cohabiting"),
+    //         DB::raw("SUM(CASE WHEN family_members.civil_status = '3' THEN 1 ELSE 0 END) AS total_married"),
+    //         DB::raw("SUM(CASE WHEN family_members.civil_status = '4' THEN 1 ELSE 0 END) AS total_separated"),
+    //         DB::raw("SUM(CASE WHEN family_members.civil_status = '5' THEN 1 ELSE 0 END) AS total_widowed")
+    //     )
+    //         ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+    //         ->groupBy('household.year')
+    //         ->get();
+
+    //     // Prepare the final result array
+    //     $finalResults = [];
+    //     foreach ($results as $result) {
+    //         $finalResults[$result->year] = [
+    //             'single' => $result->total_single,
+    //             'cohabiting' => $result->total_cohabiting,
+    //             'married' => $result->total_married,
+    //             'separated' => $result->total_separated,
+    //             'widowed' => $result->total_widowed,
+    //         ];
+    //     }
+
+    //     return $finalResults;
+    // }
+
+    public static function DashboardChartCivilStatus()
+    {
+        $results = Household::select(
+            'household.year',
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '1' THEN 1 ELSE 0 END) AS total_single_male"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '2' THEN 1 ELSE 0 END) AS total_single_female"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '1' THEN 1 ELSE 0 END) AS total_cohabiting_male"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '2' THEN 1 ELSE 0 END) AS total_cohabiting_female"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '3' AND family_members.gender = '1' THEN 1 ELSE 0 END) AS total_married_male"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '3' AND family_members.gender = '2' THEN 1 ELSE 0 END) AS total_married_female"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '4' AND family_members.gender = '1' THEN 1 ELSE 0 END) AS total_separated_male"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '4' AND family_members.gender = '2' THEN 1 ELSE 0 END) AS total_separated_female"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '5' AND family_members.gender = '1' THEN 1 ELSE 0 END) AS total_widowed_male"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '5' AND family_members.gender = '2' THEN 1 ELSE 0 END) AS total_widowed_female")
+        )
+            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+            ->groupBy('household.year')
+            ->get();
+
+        // Prepare the final result array
+        $finalResults = [];
+            foreach ($results as $result) {
+                $finalResults[$result->year] = [
+                    'single' => [
+                        'male' => $result->total_single_male,
+                        'female' => $result->total_single_female,
+                        'total' => $result->total_single_male + $result->total_single_female,
+                    ],
+                    'cohabiting' => [
+                        'male' => $result->total_cohabiting_male,
+                        'female' => $result->total_cohabiting_female,
+                        'total' => $result->total_cohabiting_male + $result->total_cohabiting_female,
+                    ],
+                    'married' => [
+                        'male' => $result->total_married_male,
+                        'female' => $result->total_married_female,
+                        'total' => $result->total_married_male + $result->total_married_female,
+                    ],
+                    'separated' => [
+                        'male' => $result->total_separated_male,
+                        'female' => $result->total_separated_female,
+                        'total' => $result->total_separated_male + $result->total_separated_female,
+                    ],
+                    'widowed' => [
+                        'male' => $result->total_widowed_male,
+                        'female' => $result->total_widowed_female,
+                        'total' => $result->total_widowed_male + $result->total_widowed_female,
+                    ],
+                ];
+            }
+        return $finalResults;
+    }
+
+
+
     public static function totalSoloParent($year)
     {
         $soloParentCounts = Household::select(

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 use App\Models\FamilyMembers;
+use App\Models\Household;
 class Report extends Controller
 {
     /**
@@ -18,8 +19,13 @@ class Report extends Controller
         //
     }
 
-    public function demographic()
+    public function demographic(Request $request)
     {
+        $currentYear = Carbon::now()->year;
+        $selectedYear = $request->input('year', $currentYear);
+        $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
+
+
         
         return view('pages.report.demographic');
     }

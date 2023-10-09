@@ -60,7 +60,7 @@ class Dashboard extends Controller
         $Question12a = Question12::Question12a($selectedYear);
         $Question12b = Question12::Question12b($selectedYear);
         
-
+        $DashboardChartCivilStatus = FamilyMembers::DashboardChartCivilStatus($selectedYear);
         return view('pages.dashboard.dashboard', compact(
             'currentYear',
             'selectedYear',
@@ -70,7 +70,7 @@ class Dashboard extends Controller
             'previousYearHousehold',
             'previousPercentageHousehold',
 
-             'getHouseholdStatistics',
+            'getHouseholdStatistics',
 
             'totalResidents',
             'previousYearResidents',
@@ -93,6 +93,9 @@ class Dashboard extends Controller
 
             'Question12a',
             'Question12b',
+
+
+            'DashboardChartCivilStatus'
         ));
     }
 
