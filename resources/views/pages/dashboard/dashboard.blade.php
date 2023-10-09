@@ -59,9 +59,6 @@
             </div>
             <div class="row">
                 <div class="col-md-6 gy-3">
-                    @include('pages.dashboard.chart-civilstatus')
-                </div>
-                <div class="col-md-6 gy-3">
                     <div class="card ">
                         <div class="card-title">
                             Dahilan ng Paglipat
