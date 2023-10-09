@@ -42,7 +42,7 @@
         data: {
             labels: ageRanges,
             datasets: [{
-                label: 'Age Range Distribution',
+                label: 'Total',
                 data: ageCounts,
                 backgroundColor: backgroundColors,
                 borderColor: backgroundColors.map(color => color.replace('0.2', '1')),
