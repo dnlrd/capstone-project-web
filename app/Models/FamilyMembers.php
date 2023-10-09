@@ -263,7 +263,84 @@ class FamilyMembers extends Model
         return $finalResults;
     }
 
-
+    public static function DashboardChartCivilStatus1()
+    {
+        $results = Household::select(
+            'household.year',
+            // Age range breakdown for single males
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '1' AND family_members.age BETWEEN 0 AND 4 THEN 1 ELSE 0 END) AS total_single_male_age_0_4"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '1' AND family_members.age BETWEEN 5 AND 9 THEN 1 ELSE 0 END) AS total_single_male_age_5_9"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '1' AND family_members.age BETWEEN 10 AND 19 THEN 1 ELSE 0 END) AS total_single_male_age_10_19"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '1' AND family_members.age BETWEEN 20 AND 29 THEN 1 ELSE 0 END) AS total_single_male_age_20_29"),
+            // Add more age ranges for single males as needed
+            // Age range breakdown for single females
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '2' AND family_members.age BETWEEN 0 AND 4 THEN 1 ELSE 0 END) AS total_single_female_age_0_4"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '2' AND family_members.age BETWEEN 5 AND 9 THEN 1 ELSE 0 END) AS total_single_female_age_5_9"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '2' AND family_members.age BETWEEN 10 AND 19 THEN 1 ELSE 0 END) AS total_single_female_age_10_19"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '2' AND family_members.age BETWEEN 20 AND 29 THEN 1 ELSE 0 END) AS total_single_female_age_20_29"),
+            // Add more age ranges for single females as needed
+            // Age range breakdown for cohabiting males
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '1' AND family_members.age BETWEEN 0 AND 4 THEN 1 ELSE 0 END) AS total_cohabiting_male_age_0_4"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '1' AND family_members.age BETWEEN 5 AND 9 THEN 1 ELSE 0 END) AS total_cohabiting_male_age_5_9"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '1' AND family_members.age BETWEEN 10 AND 19 THEN 1 ELSE 0 END) AS total_cohabiting_male_age_10_19"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '1' AND family_members.age BETWEEN 20 AND 29 THEN 1 ELSE 0 END) AS total_cohabiting_male_age_20_29"),
+            // Add more age ranges for cohabiting males as needed
+            // Age range breakdown for cohabiting females
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '2' AND family_members.age BETWEEN 0 AND 4 THEN 1 ELSE 0 END) AS total_cohabiting_female_age_0_4"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '2' AND family_members.age BETWEEN 5 AND 9 THEN 1 ELSE 0 END) AS total_cohabiting_female_age_5_9"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '2' AND family_members.age BETWEEN 10 AND 19 THEN 1 ELSE 0 END) AS total_cohabiting_female_age_10_19"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '2' AND family_members.age BETWEEN 20 AND 29 THEN 1 ELSE 0 END) AS total_cohabiting_female_age_20_29"),
+            // Add more age ranges for cohabiting females as needed
+            // Repeat similar blocks for other civil statuses (married, separated, widowed) and genders
+        )
+            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+            ->groupBy('household.year')
+            ->get();
+    
+        // Prepare the final result array
+        $finalResults = [];
+        foreach ($results as $result) {
+            $finalResults[$result->year] = [
+                'single' => [
+                    'male' => [
+                        '0-4' => $result->total_single_male_age_0_4,
+                        '5-9' => $result->total_single_male_age_5_9,
+                        '10-19' => $result->total_single_male_age_10_19,
+                        '20-29' => $result->total_single_male_age_20_29,
+                        // Add more age ranges for single males as needed
+                    ],
+                    'female' => [
+                        '0-4' => $result->total_single_female_age_0_4,
+                        '5-9' => $result->total_single_female_age_5_9,
+                        '10-19' => $result->total_single_female_age_10_19,
+                        '20-29' => $result->total_single_female_age_20_29,
+                        // Add more age ranges for single females as needed
+                    ],
+                ],
+                'cohabiting' => [
+                    'male' => [
+                        '0-4' => $result->total_cohabiting_male_age_0_4,
+                        '5-9' => $result->total_cohabiting_male_age_5_9,
+                        '10-19' => $result->total_cohabiting_male_age_10_19,
+                        '20-29' => $result->total_cohabiting_male_age_20_29,
+                        // Add more age ranges for cohabiting males as needed
+                    ],
+                    'female' => [
+                        '0-4' => $result->total_cohabiting_female_age_0_4,
+                        '5-9' => $result->total_cohabiting_female_age_5_9,
+                        '10-19' => $result->total_cohabiting_female_age_10_19,
+                        '20-29' => $result->total_cohabiting_female_age_20_29,
+                        // Add more age ranges for cohabiting females as needed
+                    ],
+                ],
+                // Repeat similar blocks for other civil statuses (married, separated, widowed) and genders
+            ];
+        }
+    
+        return $finalResults;
+    }
+    
+    
 
     public static function totalSoloParent($year)
     {

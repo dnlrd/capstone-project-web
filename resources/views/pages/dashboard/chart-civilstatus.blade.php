@@ -46,6 +46,7 @@
             data: singleData,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
+            tension: 0.3,
             borderWidth: 1
         },
         {
@@ -53,6 +54,7 @@
             data: cohabitingData,
             backgroundColor: 'rgba(255, 159, 64, 0.2)',
             borderColor: 'rgba(255, 159, 64, 1)',
+            tension: 0.3,
             borderWidth: 1
         },
         {
@@ -60,6 +62,7 @@
             data: marriedData,
             backgroundColor: 'rgba(255, 205, 86, 0.2)',
             borderColor: 'rgba(255, 205, 86, 1)',
+            tension: 0.3,
             borderWidth: 1
         },
         {
@@ -67,6 +70,7 @@
             data: separatedData,
             backgroundColor: 'rgba(0, 128, 255, 0.2)',
             borderColor: 'rgba(0, 128, 255, 1)',
+            tension: 0.3,
             borderWidth: 1
         },
         {
@@ -74,6 +78,7 @@
             data: widowedData,
             backgroundColor: 'rgba(0, 255, 0, 0.2)',
             borderColor: 'rgba(0, 255, 0, 1)',
+            tension: 0.3,
             borderWidth: 1
         },
         {
@@ -82,33 +87,39 @@
                 return value + cohabitingData[index] + marriedData[index] + separatedData[index] + widowedData[index];
             }),
             fill: false,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 2,
-            type: 'line',
-            tension: 0.3
+            borderWidth: 1,
+            type: 'bar',
+            yAxisID: 'right-y-axis'
         },
     ];
 
     // Create the stacked bar chart
     var stackedBarChart = new Chart(stackedBarChartCanvas, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: years,
             datasets: datasets
         },
         maintainAspectRatio: true,
         responsive: true,
+        
         options: {
-            
+            interaction: {
+                intersect: true,
+                mode: 'index',
+            },
             scales: {
-                x: {
-                    stacked: true // Stack the bars
-                },
-                y: {
-                    stacked: true,
-                    beginAtZero: true,
-                }
-            }
+        y: {
+            beginAtZero: true, // Start the numbering at zero
+            position: 'left', // Position the y-axis labels on the left
+        },
+        'right-y-axis': {
+            beginAtZero: true, // Start the numbering at zero for the custom y-axis
+            position: 'right', // Position the y-axis labels on the right
+        }
+    }
         }
     });
 </script>
