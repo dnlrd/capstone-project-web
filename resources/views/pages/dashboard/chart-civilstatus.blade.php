@@ -4,24 +4,20 @@
     </div>
     <div class="card-body p-3">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-lg-12">
                 <canvas id="DashboardChartCivilStatus" class="img-fluid" height="150"></canvas>
             </div>
         </div>
     </div>
-    
 </div>
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-    // Get the canvas element
+<script>
     var stackedBarChartCanvas = document.getElementById('DashboardChartCivilStatus').getContext('2d');
 
-    // Retrieve the data from PHP using Blade syntax
     var data = @json($DashboardChartCivilStatus);
 
-    // Extract the years and data for single, cohabiting, married, separated, and widowed
     var years = Object.keys(data);
     var singleData = Object.values(data).map(function (yearData) {
         return yearData.single.total;
@@ -39,7 +35,6 @@
         return yearData.widowed.total;
     });
 
-    // Create the datasets for single, cohabiting, married, separated, and widowed
     var datasets = [
         {
             label: 'Single',
@@ -94,8 +89,6 @@
             yAxisID: 'right-y-axis'
         },
     ];
-
-    // Create the stacked bar chart
     var stackedBarChart = new Chart(stackedBarChartCanvas, {
         type: 'line',
         data: {
@@ -106,10 +99,6 @@
         responsive: true,
         
         options: {
-            interaction: {
-                intersect: true,
-                mode: 'index',
-            },
             scales: {
                 x: {
                     title: {
