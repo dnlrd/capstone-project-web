@@ -99,6 +99,10 @@
         responsive: true,
         
         options: {
+            interaction: {
+                intersect: true,
+                mode: 'index',
+            },
             scales: {
                 x: {
                     title: {
