@@ -111,15 +111,29 @@
                 mode: 'index',
             },
             scales: {
-        y: {
-            beginAtZero: true, // Start the numbering at zero
-            position: 'left', // Position the y-axis labels on the left
-        },
-        'right-y-axis': {
-            beginAtZero: true, // Start the numbering at zero for the custom y-axis
-            position: 'right', // Position the y-axis labels on the right
-        }
-    }
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Years'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Marital Status'
+                    }
+                },
+                'right-y-axis': {
+                    beginAtZero: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Total'
+                    }
+                }
+            }
         }
     });
 </script>
