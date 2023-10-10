@@ -1,7 +1,4 @@
 <div class="card">
-    <div class="card-title">
-        Dahilan ng Paglipat
-    </div>
     <div class="card-body p-3">
         <div class="row d-flex justify-content-center">
             <div class="col-md-12">

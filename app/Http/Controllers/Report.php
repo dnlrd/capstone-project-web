@@ -29,12 +29,17 @@ class Report extends Controller
         
 
         $DemographicReportGender = FamilyMembers::DemographicReportGender($selectedYear);
-
+        $DemographicReportCivilStatus = FamilyMembers::DemographicReportCivilStatus($selectedYear);
+        $DemographicReportAge = FamilyMembers::DemographicReportAge($selectedYear);
+        
         return view('pages.report.demographic', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
+
             'DemographicReportGender',
+            'DemographicReportCivilStatus',
+            'DemographicReportAge'
         ));
     }
 

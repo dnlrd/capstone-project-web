@@ -218,8 +218,48 @@ class FamilyMembers extends Model
 
     public static function DemographicReportAge($year)
     {
+        $ageRangeDistribution = Household::select(
+            DB::raw("CASE 
+                WHEN age BETWEEN 0 AND 4 THEN '0-4'
+                WHEN age BETWEEN 5 AND 9 THEN '5-9'
+                WHEN age BETWEEN 10 AND 19 THEN '10-19'
+                WHEN age BETWEEN 20 AND 29 THEN '20-29'
+                WHEN age BETWEEN 30 AND 39 THEN '30-39'
+                WHEN age BETWEEN 40 AND 49 THEN '40-49'
+                WHEN age BETWEEN 50 AND 59 THEN '50-59'
+                WHEN age BETWEEN 60 AND 69 THEN '60-69'
+                WHEN age BETWEEN 70 AND 79 THEN '70-79'
+                ELSE '80+' END AS age_range"),
+            DB::raw('COUNT(*) as count')
+        )
+        ->join('family_members', 'household.id', '=', 'family_members.household_id')
+        ->where('household.year', $year)
+        ->groupBy('age_range')
+        ->orderByRaw("CASE 
+            WHEN age_range = '0-4' THEN 1
+            WHEN age_range = '5-9' THEN 2
+            WHEN age_range = '10-19' THEN 3
+            WHEN age_range = '20-29' THEN 4
+            WHEN age_range = '30-39' THEN 5
+            WHEN age_range = '40-49' THEN 6
+            WHEN age_range = '50-59' THEN 7
+            WHEN age_range = '60-69' THEN 8
+            WHEN age_range = '70-79' THEN 9
+            ELSE 10 END")
+        ->get();
 
+        $result = [];
+
+        foreach ($ageRangeDistribution as $data) {
+            $result[] = [
+                'age_range' => $data->age_range,
+                'count' => $data->count,
+            ];
+        }
+
+        return $result;
     }
+    
     public static function DemographicReportSoloParent($year)
     {
 

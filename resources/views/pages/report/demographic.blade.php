@@ -25,20 +25,18 @@
         <button class="btn btn-primary printDemo">Print</button>
 
         <div class="row row-deck row-cards" id="printable-content">
-                <div class="col-sm-12 col-lg-6 col-md-6  d-flex justify-content-center">
+                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
                     @include('pages.report.demographic.chart-gender')
                 </div>
-                
-              
-
-                <div class="col-sm-12 col-lg-4  col-md-6">
+                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.demographic.chart-civil-status')
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.demographic.chart-age-distribution')
                 </div>
             </div>
-        
+        @json($DemographicReportAge[0]['count'])
     </div>
 </div>
 
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-@endpush
 @endsection
