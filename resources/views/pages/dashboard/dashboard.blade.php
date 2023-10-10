@@ -46,39 +46,24 @@
                 <div class="col-sm-12 col-lg-6 col-md-6  d-flex justify-content-cente">
                     @include('pages.dashboard.chart-civilstatus')
                 </div>
-
-                <div class="col-sm-12 col-lg-6 col-md-6  d-flex justify-content-cente">
-                    @include('pages.dashboard.chart-employmentstatus')
-                </div>
+                
                 <div class="col-sm-12 col-lg-6 col-md-6  d-flex justify-content-cente">
                     @include('pages.dashboard.chart-education')
                 </div>
-                <div class="col-sm-12 col-lg-6 col-md-6  d-flex justify-content-cente">
+
+                <div class="col-sm-12 col-lg-4 col-md-6  d-flex justify-content-cente">
+                    @include('pages.dashboard.chart-employmentstatus')
+                </div>
+
+                <div class="col-sm-12 col-lg-4 col-md-6  d-flex justify-content-cente">
                     @include('pages.dashboard.chart-nutrition')
                 </div>
 
-                <div class="col-sm-12 col-lg-6  col-md-6">
+                <div class="col-sm-12 col-lg-4  col-md-6">
                     @include('pages.dashboard.chart-agerangedistribution')
                 </div>
 
-                <div class="col-sm-12 col-lg-6 col-md-6">
-                    @include('pages.dashboard.chart1')
-                </div>
-                <div class="col-sm-12 col-lg-6 col-md-6">
-                    @include('pages.dashboard.chart2')
-                </div>
-                <div class="col-sm-12 col-lg-6 col-md-6">
-                    @include('pages.dashboard.chart3')
-                </div>
-                <div class="col-sm-12 col-lg-6 col-md-6">
-                    @include('pages.dashboard.chart4')
-                </div>
-                <div class="col-sm-12 col-lg-6 col-md-6">
-                    @include('pages.dashboard.chart5')
-                </div>
-                <div class="col-sm-12 col-lg-6 col-md-6">
-                    @include('pages.dashboard.chart6')
-                </div>
+               
             </div>
         </div>  
     </div>

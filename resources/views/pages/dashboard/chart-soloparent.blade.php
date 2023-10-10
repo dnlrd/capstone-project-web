@@ -22,7 +22,7 @@
         var myChart = new Chart(DashboardEducationLevel, {
             type: 'doughnut',
             data: {
-                labels: ['Not in School-Age', 'No Education', 'Elementary', 'High School', 'Junior High', 'Senior High', 'Post-Baccalaureate', 'OSY', 'Hindi Nag-aaral'],
+                labels: ['Not in School-Age', 'No Education', 'Elementary', 'High School', 'Junior High', 'Senior High', 'Post-Baccalaureate', 'OSY'],
                 datasets: [{
                     data: [
                         data.not_in_school_age_count,
@@ -32,8 +32,7 @@
                         data.junior_high_count,
                         data.senior_high_count,
                         data.post_baccalaureate_count,
-                        data.osy_count,
-                        data.hindi_nag_aaral
+                        data.osy_count
                     ],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.6)',
@@ -43,8 +42,7 @@
                         'rgba(153, 102, 255, 0.6)',
                         'rgba(255, 159, 64, 0.6)',
                         'rgba(100, 100, 100, 0.6)',
-                        'rgba(200, 100, 50, 0.6)',
-                        'rgba(100, 102, 50, 0.6)',
+                        'rgba(200, 100, 50, 0.6)'
                     ],
                     borderWidth: 1
                 }]
