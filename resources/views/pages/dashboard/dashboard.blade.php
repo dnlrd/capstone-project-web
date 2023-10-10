@@ -43,15 +43,15 @@
             </div>
 
             <div class="row row-deck row-cards">
-                <div class="col-sm-12 col-lg-4 col-md-6">
+                <div class="col-sm-12 col-lg-4 col-md-6  d-flex justify-content-cente">
                     @include('pages.dashboard.chart-civilstatus')
                 </div>
 
-                <div class="col-sm-12 col-lg-4 col-md-6">
+                <div class="col-sm-12 col-lg-4 col-md-6  d-flex justify-content-cente">
                     @include('pages.dashboard.chart-employmentstatus')
                 </div>
 
-                <div class="col-sm-12 col-lg-4 col-md-6">
+                <div class="col-sm-12 col-lg-4 col-md-6  d-flex justify-content-cente">
                     @include('pages.dashboard.chart-nutrition')
                 </div>
 

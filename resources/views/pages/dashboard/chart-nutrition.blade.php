@@ -26,25 +26,24 @@
                     data: nutritionData.map(item => item.wastong_nutrisyon_count),
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    fill: false,
-                    
-                    tension:0.3
+                    tension:0.3,
+                    borderWidth: 1
                 },
                 {
                     label: 'Undernutrition',
                     data: nutritionData.map(item => item.undernutrition_count),
                     borderColor: 'rgba(255, 99, 132, 1)',
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    fill: false,
-                    tension:0.3
+                    tension:0.3,
+                    borderWidth: 1
                 },
                 {
                     label: 'Overnutrition',
                     data: nutritionData.map(item => item.overnutrition_count),
                     borderColor: 'rgba(54, 162, 235, 1)',
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    fill: false,
-                    tension:0.3
+                    tension:0.3,
+                    borderWidth: 1
                 }
             ]
         },

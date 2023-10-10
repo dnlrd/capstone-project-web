@@ -74,19 +74,7 @@
             borderColor: 'rgba(0, 255, 0, 1)',
             tension: 0.3,
             borderWidth: 1
-        },
-        {
-            label: 'Total',
-            data: singleData.map(function (value, index) {
-                return value + cohabitingData[index] + marriedData[index] + separatedData[index] + widowedData[index];
-            }),
-            fill: false,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
-            type: 'bar',
-            yAxisID: 'right-y-axis'
-        },
+        }
     ];
     var stackedBarChart = new Chart(stackedBarChartCanvas, {
         type: 'line',
@@ -103,28 +91,7 @@
                 mode: 'index',
             },
             scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Years'
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    position: 'left',
-                    title: {
-                        display: true,
-                        text: 'Marital Status'
-                    }
-                },
-                'right-y-axis': {
-                    beginAtZero: true,
-                    position: 'right',
-                    title: {
-                        display: true,
-                        text: 'Total'
-                    }
-                }
+              
             }
         }
     });
