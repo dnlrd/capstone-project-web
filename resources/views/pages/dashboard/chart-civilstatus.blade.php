@@ -1,11 +1,11 @@
 <div class="card">
     <div class="card-header fw-bold">
-        Marital Status Distribution
+        Marital Status
     </div>
     <div class="card-body p-3">
         <div class="row d-flex justify-content-center">
             <div class="col-md-12 col-sm-12 col-lg-12">
-                <canvas id="DashboardChartCivilStatus" class="img-fluid" height="150"></canvas>
+                <canvas id="DashboardChartCivilStatus" class="img-fluid"></canvas>
             </div>
         </div>
     </div>

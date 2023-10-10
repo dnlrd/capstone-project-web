@@ -661,7 +661,21 @@ class FamilyMembers extends Model
 
         return $employmentStatusCounts;
     }
-
+    public static function DashboardNutrition()
+    {
+        $nutritionCounts = Household::select(
+            'household.year',
+            DB::raw("SUM(CASE WHEN family_members.level_of_nutrition = '1' THEN 1 ELSE 0 END) AS wastong_nutrisyon_count"),
+            DB::raw("SUM(CASE WHEN family_members.level_of_nutrition = '2' THEN 1 ELSE 0 END) AS undernutrition_count"),
+            DB::raw("SUM(CASE WHEN family_members.level_of_nutrition = '3' THEN 1 ELSE 0 END) AS overnutrition_count")
+        )
+        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+        ->groupBy('household.year')
+        ->get();
+    
+        return $nutritionCounts;
+    }
+    
 
 
     // public static function AgeRangeDistribution($year)

@@ -63,6 +63,7 @@ class Dashboard extends Controller
         $DashboardChartCivilStatus = FamilyMembers::DashboardChartCivilStatus($selectedYear);
         $DashboardAgeRangeDistribution = FamilyMembers::DashboardAgeRangeDistribution($selectedYear);
         $DashboardEmploymentStatus = FamilyMembers::DashboardEmploymentStatus($selectedYear);
+        $DashboardNutrition = FamilyMembers::DashboardNutrition($selectedYear);
         return view('pages.dashboard.dashboard', compact(
             'currentYear',
             'selectedYear',
@@ -100,6 +101,7 @@ class Dashboard extends Controller
             'DashboardChartCivilStatus',
             'DashboardAgeRangeDistribution',
             'DashboardEmploymentStatus',
+            'DashboardNutrition',
         ));
     }
 
