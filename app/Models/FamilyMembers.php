@@ -412,6 +412,25 @@ class FamilyMembers extends Model
         return $total;
     }
 
+    public static function DashboardEducationLevel($year)
+    {
+        $total = Household::select(
+            DB::raw("SUM(CASE WHEN family_members.studying = '1' THEN 1 ELSE 0 END) AS not_in_school_age_count"),
+            DB::raw("SUM(CASE WHEN family_members.studying = '2' THEN 1 ELSE 0 END) AS no_education_count"),
+            DB::raw("SUM(CASE WHEN family_members.studying = '3' THEN 1 ELSE 0 END) AS elementary_count"),
+            DB::raw("SUM(CASE WHEN family_members.studying = '4' THEN 1 ELSE 0 END) AS high_school_count"),
+            DB::raw("SUM(CASE WHEN family_members.studying = '5' THEN 1 ELSE 0 END) AS junior_high_count"),
+            DB::raw("SUM(CASE WHEN family_members.studying = '6' THEN 1 ELSE 0 END) AS senior_high_count"),
+            DB::raw("SUM(CASE WHEN family_members.studying = '7' THEN 1 ELSE 0 END) AS post_baccalaureate_count"),
+            DB::raw("SUM(CASE WHEN family_members.studying = '8' THEN 1 ELSE 0 END) AS osy_count")
+        )
+            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+            ->where('household.year', $year)
+            ->first();
+
+        return $total;
+    }
+
     //Has job
     public static function totalEmploymentStatus($year)
     {
