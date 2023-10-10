@@ -1,4 +1,4 @@
-<div class="card ">
+<div class="card">
     <div class="card-header fw-bold">
         Marital Status Distribution
     </div>
@@ -12,7 +12,6 @@
 </div>
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
     var stackedBarChartCanvas = document.getElementById('DashboardChartCivilStatus').getContext('2d');
 

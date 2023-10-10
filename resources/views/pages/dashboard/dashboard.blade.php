@@ -51,265 +51,29 @@
                     @include('pages.dashboard.chart-agerangedistribution')
                 </div>
 
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-sm-12 col-lg-6 col-md-6">
+                    @include('pages.dashboard.chart-employmentstatus')
                 </div>
 
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-sm-12 col-lg-6 col-md-6">
+                    @include('pages.dashboard.chart1')
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6">
+                    @include('pages.dashboard.chart2')
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6">
+                    @include('pages.dashboard.chart3')
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6">
+                    @include('pages.dashboard.chart4')
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6">
+                    @include('pages.dashboard.chart5')
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6">
+                    @include('pages.dashboard.chart6')
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 gy-3">
-                    <div class="card ">
-                        <div class="card-title">
-                            Dahilan ng Paglipat
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-md-6">
-                                @include('pages.dashboard.chart1')
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-auto d-flex align-items-center pe-2">
-                                <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
-                                <span>Magtratrabaho ({{$Question5['answer1_q5']['answer1']}})</span>
-                            </div>
-                            <div class="col-auto d-flex align-items-center px-2">
-                                <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
-                                <span>Tumira sa kamag-anak ({{$Question5['answer1_q5']['answer2']}})</span>
-                            </div>
-                            <div class="col-auto d-flex align-items-center px-2">
-                                <span class="legend me-2"  style="background-color:rgba(255, 205, 86);"></span>
-                                <span>Ibang dahilan ({{$Question5['answer1_q5']['answer3']}})</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 gy-3">
-                    <div class="card ">
-                        <div class="card-title">
-                            Uri ng Paglipat
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-md-6 col-sm-12 mb-2">
-                                @include('pages.dashboard.chart2')
-                                </div>
-                                <div class="col-md-6 d-flex align-items-center">
-                                    <div class="row d-flex justify-content-start">
-                                        <div class="col-auto d-flex align-items-center mb-2">
-                                            <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
-                                            <span>Kasama lahat ng pamilya ({{$Question6['answer1_q6']['answer1']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-2">
-                                            <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
-                                            <span>Kasama ang ilang myembro ng pamilya ({{$Question6['answer1_q6']['answer2']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-2">
-                                            <span class="legend me-2"  style="background-color:rgba(255, 205, 86);"></span>
-                                            <span>Nag-iisang lumipat ({{$Question6['answer1_q6']['answer3']}})</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 gy-3">
-                    <div class="card ">
-                        <div class="card-title">
-                            Uri ng tirahan/bahay
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-md-8">
-                                    @include('pages.dashboard.chart3')
-                                </div>
-                                <div class="col-md-4 d-flex align-items-center">
-                                    <div class="row d-flex justify-content-start">
-                                        <div class="col-auto d-flex align-items-center mb-2">
-                                            <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
-                                            <span>Konkreto ({{$Question11a['answer1_q11']['answer1']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-2">
-                                            <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
-                                            <span>Konkreto at Kahoy ({{$Question11a['answer1_q11']['answer2']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-2">
-                                            <span class="legend me-2"  style="background-color:rgba(255, 205, 86);"></span>
-                                            <span>Kahoy ({{$Question11a['answer1_q11']['answer3']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-2">
-                                            <span class="legend me-2"  style="background-color:rgba(0, 128, 255);"></span>
-                                            <span>Barong-barong ({{$Question11a['answer1_q11']['answer4']}})</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                       
-                    </div>
-                </div>
-                <div class="col-md-6 gy-3">
-                    <div class="card ">
-                        <div class="card-title">
-                            Uri ng lupang kinatatayuan ng bahay
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="row d-flex justify-content-center">
-                            <div class="col-md-6 d-flex align-items-center">
-                                    <div class="row d-flex justify-content-end">
-                                        <div class="col-auto d-flex align-items-center mb-2">
-                                            <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
-                                            <span>Pribadong Lupa ({{$Question11b['answer2_q11']['answer1']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-2">
-                                            <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
-                                            <span>Lupa ng Gobyerno ({{$Question11b['answer2_q11']['answer2']}})</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    @include('pages.dashboard.chart4')
-                                </div>
-                            </div>
-                        </div>
-                       
-                    </div>
-                </div>
-                <div class="col-md-8 gy-3">
-                    <div class="card ">
-                        <div class="card-title">
-                            Katayuan sa lupa at bahay
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-md-4 d-flex align-items-center">
-                                    <div class="row d-flex justify-content-start">
-                                        <div class="col-auto d-flex align-items-center mb-1">
-                                            <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
-                                            <span>May-ari ng Lupa at Bahay ({{$Question11c['answer3_q11']['answer1']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-1">
-                                            <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
-                                            <span>Nangungupahan sa lupa at may-ari ng bahay ({{$Question11c['answer3_q11']['answer2']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-1">
-                                            <span class="legend me-2"  style="background-color:rgba(255, 205, 86);"></span>
-                                            <span>Nagtayo ng bahay nang walang pahintulot ({{$Question11c['answer3_q11']['answer3']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-1">
-                                            <span class="legend me-2"  style="background-color:rgba(0, 128, 255);"></span>
-                                            <span>Nangungupahan sa bahay ({{$Question11c['answer3_q11']['answer4']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-1">
-                                            <span class="legend me-2" style="background-color:rgba(255, 0, 0);"></span>
-                                            <span>Nakikitira sa bahay ({{$Question11c['answer3_q11']['answer5']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-1">
-                                            <span class="legend me-2"  style="background-color:rgba(0, 255, 0);"></span>
-                                            <span>Katiwala sa bahay ({{$Question11c['answer3_q11']['answer6']}})</span>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center mb-1">
-                                            <span class="legend me-2"  style="background-color:rgba(128, 0, 128);"></span>
-                                            <span>Iba pa ({{$Question11c['answer3_q11']['answer7']}})</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 d-flex align-items-center">
-                                    <div class="col-md-12">
-                                        @include('pages.dashboard.chart5')
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 gy-3">
-                    <div class="card ">
-                        <div class="card-title">
-                            Saan kumukuha ng tubig?
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-md-6">
-                                @include('pages.dashboard.chart6')
-                                
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-auto d-flex align-items-center pe-2">
-                                <span class="legend me-2" style="background-color:rgba(255, 99, 132);"></span>
-                                <span>Poso ({{$Question12a['answer1_q12']['answer1']}})</span>
-                            </div>
-                            <div class="col-auto d-flex align-items-center px-2">
-                                <span class="legend me-2" style="background-color:rgba(255, 159, 64);"></span>
-                                <span>Gripo ({{$Question12a['answer1_q12']['answer2']}})</span>
-                            </div>
-                            <div class="col-auto d-flex align-items-center px-2">
-                                <span class="legend me-2"  style="background-color:rgba(255, 205, 86);"></span>
-                                <span>Iba pa ({{$Question12a['answer1_q12']['answer3']}})</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-        
+        </div>  
     </div>
-    @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-    // Retrieve the data from your Laravel function (you may need to pass it from the controller)
-    var data = @json($getHouseholdStatistics);
-    var ctx78 = document.getElementById('lineChart').getContext('2d');
-    var mixedChart = new Chart(ctx78, {
-        type: 'bar',
-        data: {
-            datasets: [
-                
-                {
-                    type: 'bar',
-                    label: 'Average Household Size',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1,
-                    data: data.map(item => item.totalHouseholds),
-                },
-                {
-                    type: 'bar',
-                    label: 'Household Population',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1,
-                    data: data.map(item => item.householdPopulation),
-                    yAxisID: 'right-y-axis', // Assign this dataset to the right y-axis
-                },
-                {
-                    type: 'line',
-                    label: 'Line Dataset',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    data: data.map(item => item.averageSize),
-                }
-            ],
-            labels: data.map(item => item.year),
-        },
-        options: {
-            scales: {
-                right: {
-                    position: 'right', // Position the right y-axis on the right side
-                },
-            },
-        },
-    });
-</script>
-
-    @endpush
-    
 @endsection

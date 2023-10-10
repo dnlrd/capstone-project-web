@@ -14,10 +14,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    // Retrieve the data from your PHP function
     var ageRangeData = @json($DashboardAgeRangeDistribution);
 
-    // Extract age range labels and counts
     var ageRanges = ageRangeData.map(function(item) {
         return item.age_range;
     });

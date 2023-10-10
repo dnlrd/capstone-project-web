@@ -644,6 +644,24 @@ class FamilyMembers extends Model
 
         return $result;
     }
+    public static function DashboardEmploymentStatus()
+    {
+        $employmentStatusCounts = Household::select(
+            'year',
+            DB::raw("SUM(CASE WHEN family_members.has_job = '1' AND family_members.age >= 15 AND family_members.gender = '1' THEN 1 ELSE 0 END) AS employed_male_count"),
+            DB::raw("SUM(CASE WHEN family_members.has_job = '1' AND family_members.age >= 15 AND family_members.gender = '2' THEN 1 ELSE 0 END) AS employed_female_count"),
+            DB::raw("SUM(CASE WHEN family_members.has_job = '2' AND family_members.age >= 15 AND family_members.gender = '1' THEN 1 ELSE 0 END) AS unemployed_male_count"),
+            DB::raw("SUM(CASE WHEN family_members.has_job = '2' AND family_members.age >= 15 AND family_members.gender = '2' THEN 1 ELSE 0 END) AS unemployed_female_count"),
+            DB::raw("SUM(CASE WHEN family_members.has_job = '1' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS total_employed_count"),
+            DB::raw("SUM(CASE WHEN family_members.has_job = '2' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS total_unemployed_count")
+        )
+            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+            ->groupBy('year') // Group by year to get counts for each year
+            ->get();
+
+        return $employmentStatusCounts;
+    }
+
 
 
     // public static function AgeRangeDistribution($year)
