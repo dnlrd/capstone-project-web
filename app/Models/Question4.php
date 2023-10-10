@@ -16,6 +16,12 @@ class Question4 extends Model
         'answer3_q4',
         'household_id',
     ];
+
+    //MIGRATION
+    public static function MigrationReportQuestion4($year)
+    {
+
+    }
     public function household()
     {
         return $this->belongsTo(Household::class);

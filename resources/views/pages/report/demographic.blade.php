@@ -1,90 +1,44 @@
+@extends('layouts.app')
+@section('title', 'Population report')
+@section('content')
+<div class="page-header d-print-none text-black">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">
+                    Demographic Reports
+                </h2>
+            </div>
+            <div class="col-auto ms-auto d-print-none">
+                <form method="get" action="{{ route('demographic-report') }}" class="mb-3">
+                    @csrf
+                    <select name="year" id="year" class="form-select" onchange="this.form.submit()">
+                        @foreach ($availableYears as $yearOption)
+                            <option value="{{ $yearOption }}" {{ $yearOption == $selectedYear ? 'selected' : '' }}>
+                                {{ $yearOption }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
+            </div>
+        </div>
+        <button class="btn btn-primary printDemo">Print</button>
 
-<canvas id="civilStatusChart" width="400" height="200"></canvas>
+        <div class="row row-deck row-cards" id="printable-content">
+                <div class="col-sm-12 col-lg-6 col-md-6  d-flex justify-content-center">
+                    @include('pages.report.demographic.chart-gender')
+                </div>
+                
+              
+
+                <div class="col-sm-12 col-lg-4  col-md-6">
+                </div>
+            </div>
+        
+    </div>
+</div>
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-    // Get the canvas element
-    var DashboardChartCivilStatus = document.getElementById('civilStatusChart').getContext('2d');
-
-    // Retrieve the data from PHP using Blade syntax
-    var data = @json($DashboardChartCivilStatus);
-
-    // Extract the years and civil status data
-    var years = Object.keys(data);
-    var civilStatusData = Object.values(data);
-
-    // Create the datasets for each civil status category
-    var datasets = [
-        {
-            label: 'Single',
-            data: civilStatusData.map(function (yearData) {
-                return yearData.single;
-            }),
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1,
-            tension: 0.1
-        },
-        {
-            label: 'Cohabiting',
-            data: civilStatusData.map(function (yearData) {
-                return yearData.cohabiting;
-            }),
-            backgroundColor: 'rgba(255, 159, 64, 0.2)',
-            borderColor: 'rgba(255, 159, 64, 1)',
-            borderWidth: 1,
-            tension: 0.1
-        },
-        {
-            label: 'Married',
-            data: civilStatusData.map(function (yearData) {
-                return yearData.married;
-            }),
-            backgroundColor: 'rgba(255, 205, 86, 0.2)',
-            borderColor: 'rgba(255, 205, 86, 1)',
-            borderWidth: 1,
-            tension: 0.1
-        },
-        {
-            label: 'Separated',
-            data: civilStatusData.map(function (yearData) {
-                return yearData.separated;
-            }),
-            backgroundColor: 'rgba(0, 128, 255, 0.2)',
-            borderColor: 'rgba(0, 128, 255, 1)',
-            borderWidth: 1,
-            tension: 0.1
-        },
-        {
-            label: 'Widowed',
-            data: civilStatusData.map(function (yearData) {
-                return yearData.widowed;
-            }),
-            backgroundColor: 'rgba(0, 255, 0, 0.2)',
-            borderColor: 'rgba(0, 255, 0, 1)',
-            borderWidth: 1,
-            tension: 0.1
-        }
-    ];
-
-    // Create the chart
-    var myChart = new Chart(DashboardChartCivilStatus, {
-        type: 'line', // You can change the chart type as needed
-        data: {
-            labels: years,
-            datasets: datasets,
-            
-        },
-        
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
 @endpush
+@endsection

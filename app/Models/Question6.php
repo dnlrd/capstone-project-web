@@ -36,7 +36,11 @@ class Question6 extends Model
 
         return $result;
     }
+    //MIGRATION
+    public static function MigrationReportQuestion6($year)
+    {
 
+    }
 
     public function household()
     {

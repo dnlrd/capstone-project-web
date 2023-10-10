@@ -43,27 +43,25 @@
             </div>
 
             <div class="row row-deck row-cards">
-                <div class="col-sm-12 col-lg-6 col-md-6  d-flex justify-content-cente">
+                <div class="col-sm-12 col-lg-6 col-md-6  d-flex justify-content-center">
                     @include('pages.dashboard.chart-civilstatus')
                 </div>
                 
-                <div class="col-sm-12 col-lg-6 col-md-6  d-flex justify-content-cente">
+                <div class="col-sm-12 col-lg-6 col-md-6  d-flex justify-content-center">
                     @include('pages.dashboard.chart-education')
                 </div>
 
-                <div class="col-sm-12 col-lg-4 col-md-6  d-flex justify-content-cente">
+                <div class="col-sm-12 col-lg-4 col-md-6  d-flex justify-content-center">
                     @include('pages.dashboard.chart-employmentstatus')
                 </div>
 
-                <div class="col-sm-12 col-lg-4 col-md-6  d-flex justify-content-cente">
+                <div class="col-sm-12 col-lg-4 col-md-6  d-flex justify-content-center">
                     @include('pages.dashboard.chart-nutrition')
                 </div>
 
                 <div class="col-sm-12 col-lg-4  col-md-6">
                     @include('pages.dashboard.chart-agerangedistribution')
                 </div>
-
-               
             </div>
         </div>  
     </div>

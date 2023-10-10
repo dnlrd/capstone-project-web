@@ -39,6 +39,12 @@ class Question14 extends Model
 
         return $result;
     }
+
+    //HOUSING
+    public static function HealthReportQuestion14($year)
+    {
+
+    }
     public function household()
     {
         return $this->belongsTo(Household::class);

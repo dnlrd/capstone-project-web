@@ -157,7 +157,7 @@ class FamilyMembers extends Model
     }
     //End Dashboard
 
-    public static function totalCivilStatus($year)
+    public static function totalCivilStatus($selectedYear)
     {
         $total = Household::select(
             DB::raw("SUM(CASE WHEN family_members.civil_status = '1' THEN 1 ELSE 0 END) AS total_single"),
@@ -181,35 +181,90 @@ class FamilyMembers extends Model
         return $results;
     }
 
-    // public static function DashboardChartCivilStatus()
-    // {
-    //     $results = Household::select(
-    //         'household.year',
-    //         DB::raw("SUM(CASE WHEN family_members.civil_status = '1' THEN 1 ELSE 0 END) AS total_single"),
-    //         DB::raw("SUM(CASE WHEN family_members.civil_status = '2' THEN 1 ELSE 0 END) AS total_cohabiting"),
-    //         DB::raw("SUM(CASE WHEN family_members.civil_status = '3' THEN 1 ELSE 0 END) AS total_married"),
-    //         DB::raw("SUM(CASE WHEN family_members.civil_status = '4' THEN 1 ELSE 0 END) AS total_separated"),
-    //         DB::raw("SUM(CASE WHEN family_members.civil_status = '5' THEN 1 ELSE 0 END) AS total_widowed")
-    //     )
-    //         ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
-    //         ->groupBy('household.year')
-    //         ->get();
+    //DEMOGRAPHIC
+    public static function DemographicReportResidents($selectedYear)
+    {
 
-    //     // Prepare the final result array
-    //     $finalResults = [];
-    //     foreach ($results as $result) {
-    //         $finalResults[$result->year] = [
-    //             'single' => $result->total_single,
-    //             'cohabiting' => $result->total_cohabiting,
-    //             'married' => $result->total_married,
-    //             'separated' => $result->total_separated,
-    //             'widowed' => $result->total_widowed,
-    //         ];
-    //     }
+    }
+    public static function DemographicReportGender($selectedYear)
+    {
+        $total = Household::select(
+            DB::raw("SUM(CASE WHEN family_members.gender = '1' THEN 1 ELSE 0 END) AS male_count"),
+            DB::raw("SUM(CASE WHEN family_members.gender = '2' THEN 1 ELSE 0 END) AS female_count")
+        )
+        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+        ->where('household.year', $selectedYear)
+        ->first();
 
-    //     return $finalResults;
-    // }
+        return $total;
+    }
 
+    public static function DemographicReportCivilStatus($selectedYear)
+    {
+        $total = Household::select(
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' THEN 1 ELSE 0 END) AS total_single"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' THEN 1 ELSE 0 END) AS total_cohabiting"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '3' THEN 1 ELSE 0 END) AS total_married"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '4' THEN 1 ELSE 0 END) AS total_separated"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '5' THEN 1 ELSE 0 END) AS total_widowed")
+        )
+            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+            ->where('household.year', $selectedYear)
+            ->first();
+
+
+        return $total;
+    }
+
+    public static function DemographicReportAge($year)
+    {
+
+    }
+    public static function DemographicReportSoloParent($year)
+    {
+
+    }
+    //ECONOMIC
+    public static function EconomicReportEmploymentStatus($year)
+    {
+
+    }
+    public static function EconomicReportIncome($year)
+    {
+
+    }
+
+    public static function EconomicReportWhere($year)
+    {
+
+    }
+    public static function EconomicReportSector($year)
+    {
+
+    }
+    public static function EconomicReportPosition($year)
+    {
+
+    }
+
+    //EDUCATIONAL
+    public static function EducationalReport($year)
+    {
+
+    }
+
+    //HEALTH
+    public static function HealthReportDisability($year)
+    {
+
+    }
+    public static function HealthReportNutrition($year)
+    {
+
+    }
+
+
+    
     public static function DashboardChartCivilStatus()
     {
         $results = Household::select(

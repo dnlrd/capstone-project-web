@@ -93,6 +93,21 @@ class Question11 extends Model
 
         return $result;
     }
+
+    //HOUSING
+    public static function HousingReportQuestion11a($year)
+    {
+
+    }
+    public static function HousingReportQuestion11b($year)
+    {
+
+    }
+    public static function HousingReportQuestion11c($year)
+    {
+
+    }
+
     public function household()
     {
         return $this->belongsTo(Household::class);

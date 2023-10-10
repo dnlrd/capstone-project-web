@@ -9,6 +9,8 @@ use Carbon\Carbon;
 
 use App\Models\FamilyMembers;
 use App\Models\Household;
+
+use App\Models\Question5;
 class Report extends Controller
 {
     /**
@@ -24,10 +26,16 @@ class Report extends Controller
         $currentYear = Carbon::now()->year;
         $selectedYear = $request->input('year', $currentYear);
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
-
-
         
-        return view('pages.report.demographic');
+
+        $DemographicReportGender = FamilyMembers::DemographicReportGender($selectedYear);
+
+        return view('pages.report.demographic', compact(
+            'currentYear',
+            'selectedYear',
+            'availableYears',
+            'DemographicReportGender',
+        ));
     }
 
     public function economic()
@@ -50,8 +58,13 @@ class Report extends Controller
         //
     }
 
-    public function migration()
+    public function migration(Request $request)
     {
         //
+        $currentYear = Carbon::now()->year;
+        $selectedYear = $request->input('year', $currentYear);
+        $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
+
+        $MigrationReportQuestion5 = FamilyMembers::MigrationReportQuestion5($selectedYear);
     }
 }
