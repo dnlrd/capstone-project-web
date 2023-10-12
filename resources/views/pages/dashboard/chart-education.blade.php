@@ -22,7 +22,16 @@
         var myChart = new Chart(DashboardEducationLevel, {
             type: 'doughnut',
             data: {
-                labels: ['Not in School-Age', 'No Education', 'Elementary', 'High School', 'Junior High', 'Senior High', 'Post-Baccalaureate', 'OSY', 'Hindi Nag-aaral'],
+                labels: [
+                    'Not in School-Age ({{ $DashboardEducationLevel->not_in_school_age_count }})', 
+                    'No Education ({{ $DashboardEducationLevel->no_education_count }})', 
+                    'Elementary ({{ $DashboardEducationLevel->elementary_count }})', 
+                    'High School ({{ $DashboardEducationLevel->high_school_count }})', 
+                    'Junior High ({{ $DashboardEducationLevel->junior_high_count }})', 
+                    'Senior High ({{ $DashboardEducationLevel->senior_high_count }})', 
+                    'Post-Baccalaureate ({{ $DashboardEducationLevel->post_baccalaureate_count }})', 
+                    'OSY ({{ $DashboardEducationLevel->osy_count }})', 
+                    'Hindi Nag-aaral ({{ $DashboardEducationLevel->hindi_nag_aaral }})'],
                 datasets: [{
                     data: [
                         data.not_in_school_age_count,
@@ -50,12 +59,17 @@
                 }]
             },
             options: {
+                
                 responsive: true,
                 maintainAspectRatio: false,
+                plugins: {
+                
+                
                 legend: {
                     display: true,
                     position: 'right'
                 }
+            },
             }
         });
     </script>

@@ -11,6 +11,8 @@ use App\Models\FamilyMembers;
 use App\Models\Household;
 
 use App\Models\Question5;
+use App\Models\Question6;
+
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 class Report extends Controller
@@ -134,6 +136,18 @@ class Report extends Controller
         $selectedYear = $request->input('year', $currentYear);
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
 
-        $MigrationReportQuestion5 = FamilyMembers::MigrationReportQuestion5($selectedYear);
+        $MigrationReportQuestion5 = Question5::MigrationReportQuestion5($selectedYear);
+        $MigrationReportQuestion6 = Question6::MigrationReportQuestion6($selectedYear);
+
+        return view('pages.report.migration', compact(
+            'currentYear',
+            'selectedYear',
+            'availableYears',
+
+            'MigrationReportQuestion5',
+            'MigrationReportQuestion6'
+
+
+        ));
     }
 }
