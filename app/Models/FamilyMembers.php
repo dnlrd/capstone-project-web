@@ -391,11 +391,38 @@ class FamilyMembers extends Model
     //HEALTH
     public static function HealthReportDisability($year)
     {
+        $total = Household::select(
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '1' THEN 1 ELSE 0 END) AS hearing_impairment_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '2' THEN 1 ELSE 0 END) AS visual_impairment_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '3' THEN 1 ELSE 0 END) AS mental_retardation_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '4' THEN 1 ELSE 0 END) AS autism_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '5' THEN 1 ELSE 0 END) AS cerebral_palsy_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '6' THEN 1 ELSE 0 END) AS epilepsy_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '7' THEN 1 ELSE 0 END) AS amputee_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '8' THEN 1 ELSE 0 END) AS polio_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '9' THEN 1 ELSE 0 END) AS clubfoot_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '10' THEN 1 ELSE 0 END) AS hunchback_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '11' THEN 1 ELSE 0 END) AS dwarfism_count"),
+            DB::raw("SUM(CASE WHEN family_members.type_of_disability = '12' THEN 1 ELSE 0 END) AS others_count")
+        )
+        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+        ->where('household.year', $year)
+        ->first();
 
+        return $total;
     }
     public static function HealthReportNutrition($year)
     {
+        $total = Household::select(
+            DB::raw("SUM(CASE WHEN family_members.level_of_nutrition = '1' THEN 1 ELSE 0 END) AS wastong_nutrisyon_count"),
+            DB::raw("SUM(CASE WHEN family_members.level_of_nutrition = '2' THEN 1 ELSE 0 END) AS undernutrition_count"),
+            DB::raw("SUM(CASE WHEN family_members.level_of_nutrition = '3' THEN 1 ELSE 0 END) AS overnutrition_count")
+        )
+        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+        ->where('household.year', $year)
+        ->first();
 
+        return $total;
     }
 
 

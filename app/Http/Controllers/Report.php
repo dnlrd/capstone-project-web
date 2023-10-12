@@ -84,9 +84,22 @@ class Report extends Controller
         ));
     }
 
-    public function health()
+    public function health(Request $request)
     {
-        //
+        $currentYear = Carbon::now()->year;
+        $selectedYear = $request->input('year', $currentYear);
+        $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
+
+        $HealthReportDisability = FamilyMembers::HealthReportDisability($selectedYear);
+        $HealthReportNutrition = FamilyMembers::HealthReportNutrition($selectedYear);
+        return view('pages.report.health', compact(
+            'currentYear',
+            'selectedYear',
+            'availableYears',
+            'HealthReportDisability',
+            'HealthReportNutrition'
+
+        ));
     }
 
     public function housing()
