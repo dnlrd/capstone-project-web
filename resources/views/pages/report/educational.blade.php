@@ -37,6 +37,7 @@
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
                 </div>
             </div>
+
     </div>
 </div>
 

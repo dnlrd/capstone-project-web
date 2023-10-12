@@ -69,7 +69,7 @@
                 },
                 legend: {
                     display: true,
-                    position: 'bottom'
+                    position: 'right'
                 }
             },
         }

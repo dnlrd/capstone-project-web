@@ -56,12 +56,15 @@ class Report extends Controller
         $EconomicReportWhere = FamilyMembers::EconomicReportWhere($selectedYear);
         $EconomicReportSector = FamilyMembers::EconomicReportSector($selectedYear);
         $EconomicReportPosition = FamilyMembers::EconomicReportPosition($selectedYear);
+        $EconomicReportEmploymentStatusByBarangay = FamilyMembers::EconomicReportEmploymentStatusByBarangay($selectedYear);
         return view('pages.report.economic', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
 
             'EconomicReportEmploymentStatus',
+            'EconomicReportEmploymentStatusByBarangay',
+
             'EconomicReportWhere',
             'EconomicReportSector',
             'EconomicReportPosition',
@@ -83,7 +86,8 @@ class Report extends Controller
             'availableYears',
 
             'EducationalReport',
-            'EducationalReportByBarangay'
+            'EducationalReportByBarangay',
+            
 
         ));
     }
@@ -95,14 +99,20 @@ class Report extends Controller
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
 
         $HealthReportDisability = FamilyMembers::HealthReportDisability($selectedYear);
+        $HealthReportDisabilityByBarangay = FamilyMembers::HealthReportDisabilityByBarangay($selectedYear);
+        $HealthReportNutritionByBarangay = FamilyMembers::HealthReportNutritionByBarangay($selectedYear);
         $HealthReportNutrition = FamilyMembers::HealthReportNutrition($selectedYear);
+
         return view('pages.report.health', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
 
             'HealthReportDisability',
-            'HealthReportNutrition'
+            'HealthReportNutritionByBarangay',
+
+            'HealthReportNutrition',
+            'HealthReportDisabilityByBarangay',
 
         ));
     }

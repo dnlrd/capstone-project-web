@@ -50,14 +50,14 @@
     var data = @json($EducationalReportByBarangay);
 
     var sortedData = data.sort(function (a, b) {
-    var barangayA = customBarangayOrder[a.barangay];
-    var barangayB = customBarangayOrder[b.barangay];
-    return barangayA.localeCompare(barangayB);
-});
+        var barangayA = customBarangayOrder[a.barangay];
+        var barangayB = customBarangayOrder[b.barangay];
+        return barangayA.localeCompare(barangayB);
+    });
 
-var sortedLabels = sortedData.map(function (item) {
-    return customBarangayOrder[item.barangay];
-});
+    var sortedLabels = sortedData.map(function (item) {
+        return customBarangayOrder[item.barangay];
+    });
 
 
 
@@ -104,7 +104,7 @@ var sortedLabels = sortedData.map(function (item) {
             labels: sortedLabels,
             datasets: [
                 {
-                    label: 'Not in School Age',
+                    label: `Not in School Age 5`,
                     data: notInSchoolAgeData,
                     backgroundColor: 'rgba(75, 192, 192, 0.6)',
                     borderWidth: 1,
@@ -172,6 +172,10 @@ var sortedLabels = sortedData.map(function (item) {
                         family: 'Arial'
                     }
                 },
+                legend: {
+                    display: true,
+                    position: 'right'
+                }
             },
             scales: {
                 x: {

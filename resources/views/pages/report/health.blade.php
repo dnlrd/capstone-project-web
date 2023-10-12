@@ -31,9 +31,13 @@
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
                     @include('pages.report.health.chart-nutrition-level')
                 </div>
-                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                <div class="col-sm-12 col-lg-12 col-md-12 d-flex justify-content-center">
+                    @include('pages.report.health.chart-nutrition-level-barangay')
                 </div>
-                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                <div class="col-sm-12 col-lg-12 col-md-12 d-flex justify-content-center">
+                    @include('pages.report.health.chart-disability-barangay')
+                </div>
+                <div class="col-sm-12 col-lg-12 col-md-12 d-flex justify-content-center">
                 </div>
             </div>
     </div>

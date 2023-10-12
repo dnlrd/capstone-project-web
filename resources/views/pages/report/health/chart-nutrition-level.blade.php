@@ -53,7 +53,7 @@
                 },
                 legend: {
                     display: true,
-                    position: 'bottom'
+                    position: 'left'
                 }
             }
         }
