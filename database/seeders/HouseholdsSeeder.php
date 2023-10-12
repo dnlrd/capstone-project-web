@@ -116,7 +116,7 @@ class HouseholdsSeeder extends Seeder
                  'middlename' => $faker->lastName,
                  'lastname' => $faker->lastName,
                  'status' => $faker->numberBetween(0, 1),
-                 'user_id' => 2,
+                 'user_id' => 1,
              ];
  
              $householdId = DB::table('household')->insertGetId($household);

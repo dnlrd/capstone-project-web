@@ -84,7 +84,7 @@
 </head>
 <body>
     <div class="page">
-        
+        @include('components.navbar')
         <div class="page-wrapper">
             @yield('content')
         </div>

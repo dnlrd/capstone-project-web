@@ -64,10 +64,6 @@
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Age Range'
-                    }
                 },
             }
         }

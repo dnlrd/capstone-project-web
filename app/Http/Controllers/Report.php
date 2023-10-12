@@ -11,6 +11,7 @@ use App\Models\FamilyMembers;
 use App\Models\Household;
 
 use App\Models\Question5;
+
 class Report extends Controller
 {
     /**
@@ -18,7 +19,7 @@ class Report extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.report.reports');
     }
 
     public function demographic(Request $request)
