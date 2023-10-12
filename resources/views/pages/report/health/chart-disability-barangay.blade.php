@@ -189,7 +189,12 @@ var others = sortedData.map(function (item) {
             responsive: true,
             maintainAspectRatio: true,
             indexAxis: 'y',
+            interaction: {
+                intersect: true,
+                mode: 'index',
+                },
             plugins: {
+                
                 title: {
                     display: true,
                     text: 'Types of Disabilities Distribution By Barangay ({{ $selectedYear }})',

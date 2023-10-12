@@ -93,6 +93,10 @@
         responsive: true,
         maintainAspectRatio: true,
         indexAxis: 'y',
+        interaction: {
+                intersect: true,
+                mode: 'index',
+                },
         plugins: {
             title: {
                 display: true,

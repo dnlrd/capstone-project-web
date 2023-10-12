@@ -11,7 +11,8 @@ use App\Models\FamilyMembers;
 use App\Models\Household;
 
 use App\Models\Question5;
-
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 class Report extends Controller
 {
     /**
@@ -97,7 +98,10 @@ class Report extends Controller
         $currentYear = Carbon::now()->year;
         $selectedYear = $request->input('year', $currentYear);
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
+        $list = FamilyMembers::BARANGAY_NAMES;
 
+        $perPage = 8;
+        
         $HealthReportDisability = FamilyMembers::HealthReportDisability($selectedYear);
         $HealthReportDisabilityByBarangay = FamilyMembers::HealthReportDisabilityByBarangay($selectedYear);
         $HealthReportNutritionByBarangay = FamilyMembers::HealthReportNutritionByBarangay($selectedYear);
@@ -113,6 +117,7 @@ class Report extends Controller
 
             'HealthReportNutrition',
             'HealthReportDisabilityByBarangay',
+            'list'
 
         ));
     }
