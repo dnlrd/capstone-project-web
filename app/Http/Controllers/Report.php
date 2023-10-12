@@ -12,6 +12,7 @@ use App\Models\Household;
 
 use App\Models\Question5;
 use App\Models\Question6;
+use App\Models\Question14;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -106,10 +107,14 @@ class Report extends Controller
         
         $HealthReportDisability = FamilyMembers::HealthReportDisability($selectedYear);
         $HealthReportDisabilityByBarangay = FamilyMembers::HealthReportDisabilityByBarangay($selectedYear);
+
         $HealthReportNutritionByBarangay = FamilyMembers::HealthReportNutritionByBarangay($selectedYear);
         $HealthReportNutrition = FamilyMembers::HealthReportNutrition($selectedYear);
 
+        $HealthReportQuestion14 = Question14::HealthReportQuestion14($selectedYear);
+        $HealthReportQuestion14ByBarangay = Question14::HealthReportQuestion14ByBarangay($selectedYear);
         return view('pages.report.health', compact(
+            'list',
             'currentYear',
             'selectedYear',
             'availableYears',
@@ -119,7 +124,10 @@ class Report extends Controller
 
             'HealthReportNutrition',
             'HealthReportDisabilityByBarangay',
-            'list'
+           
+
+            'HealthReportQuestion14',
+            'HealthReportQuestion14ByBarangay',
 
         ));
     }

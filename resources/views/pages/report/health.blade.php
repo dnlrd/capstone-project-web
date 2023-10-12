@@ -37,8 +37,12 @@
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
                     @include('pages.report.health.chart-nutrition-level')
                 </div>
-                
-                
+                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.health.chart-question14')
+                </div>
+                <div class="col-sm-12 col-lg-12 col-md-12 d-flex justify-content-center">
+                    
+                </div>
                 <div id="carouselExample" class="carousel slide col-sm-12 col-lg-12 col-md-12 ">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -51,7 +55,11 @@
                                 @include('pages.report.health.chart-disability-barangay')
                             </div>
                         </div>
-                        
+                        <div class="carousel-item">
+                            <div class="col-sm-12 col-lg-12 col-md-12 d-flex justify-content-center">
+                                @include('pages.report.health.chart-question14-barangay')
+                            </div>
+                        </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left text-black" width="50" height="50" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

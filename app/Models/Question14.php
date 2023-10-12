@@ -40,10 +40,35 @@ class Question14 extends Model
         return $result;
     }
 
-    //HOUSING
-    public static function HealthReportQuestion14($year)
+    public static function HealthReportQuestion14($selectedYear)
     {
+        $total = Household::select(
+            DB::raw('SUM(CASE WHEN question_14.answer1_q14 = 1 THEN 1 ELSE 0 END) AS answer1'),
+            DB::raw('SUM(CASE WHEN question_14.answer1_q14 = 2 THEN 1 ELSE 0 END) AS answer2'),
+            DB::raw('SUM(CASE WHEN question_14.answer1_q14 = 3 THEN 1 ELSE 0 END) AS answer3'),
+            DB::raw('SUM(CASE WHEN question_14.answer1_q14 = 4 THEN 1 ELSE 0 END) AS answer4'),
+        )
+        ->join('question_14', 'household.id', '=', 'question_14.household_id')
+        ->where('household.year', $selectedYear)
+        ->get();
 
+        return $total;
+    }
+    public static function HealthReportQuestion14ByBarangay($selectedYear)
+    {
+        $total = Household::select(
+            'household.barangay',
+            DB::raw('SUM(CASE WHEN question_14.answer1_q14 = 1 THEN 1 ELSE 0 END) AS answer1'),
+            DB::raw('SUM(CASE WHEN question_14.answer1_q14 = 2 THEN 1 ELSE 0 END) AS answer2'),
+            DB::raw('SUM(CASE WHEN question_14.answer1_q14 = 3 THEN 1 ELSE 0 END) AS answer3'),
+            DB::raw('SUM(CASE WHEN question_14.answer1_q14 = 4 THEN 1 ELSE 0 END) AS answer4'),
+        )
+        ->join('question_14', 'household.id', '=', 'question_14.household_id')
+        ->where('household.year', $selectedYear)
+        ->groupBy('household.barangay')
+        ->get();
+
+        return $total;
     }
     public function household()
     {
