@@ -75,11 +75,15 @@ class Report extends Controller
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
 
         $EducationalReport = FamilyMembers::EducationalReport($selectedYear);
+        $EducationalReportByBarangay = FamilyMembers::EducationalReportByBarangay($selectedYear);
+        
         return view('pages.report.educational', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
-            'EducationalReport'
+
+            'EducationalReport',
+            'EducationalReportByBarangay'
 
         ));
     }
@@ -96,6 +100,7 @@ class Report extends Controller
             'currentYear',
             'selectedYear',
             'availableYears',
+
             'HealthReportDisability',
             'HealthReportNutrition'
 

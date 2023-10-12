@@ -29,8 +29,10 @@
                     @include('pages.report.educational.chart-education-level')
                 </div>
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                   
                 </div>
-                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                <div class="col-sm-12 col-lg-12 col-md-12 d-flex justify-content-center">
+                    @include('pages.report.educational.chart-education-level-barangay')
                 </div>
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
                 </div>

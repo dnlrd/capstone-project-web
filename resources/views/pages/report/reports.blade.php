@@ -44,7 +44,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">
-                                <a href="" class="text-black">Health</a>
+                                <a href="{{ route('health-report')}}" class="text-black">Health</a>
                             </div>
                         </div>
                     </li>

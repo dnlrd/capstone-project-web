@@ -10,7 +10,7 @@
                 </h2>
             </div>
             <div class="col-auto ms-auto d-print-none">
-                <form method="get" action="{{ route('educational-report') }}" class="mb-3">
+                <form method="get" action="{{ route('health-report') }}" class="mb-3">
                     @csrf
                     <select name="year" id="year" class="form-select" onchange="this.form.submit()">
                         @foreach ($availableYears as $yearOption)
@@ -29,6 +29,7 @@
                     @include('pages.report.health.chart-disability')
                 </div>
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.health.chart-nutrition-level')
                 </div>
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
                 </div>
