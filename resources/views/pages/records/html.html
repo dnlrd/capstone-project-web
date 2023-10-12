@@ -1,0 +1,274 @@
+<div class="card-body">
+    <h3 class="card-title">8. Impormasyon tungkol sa mga kasapi ng pamilya</h3>
+    <div class="row row-cards">
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Apelyedo</label>
+                <input type="text" name="family_members[0][lastname]" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Pangalan</label>
+                <input type="text" name="family_members[0][firstname]" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Gitnang Pangalan</label>
+                <input type="text" name="family_members[0][middlename]" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Kapanganakan <i>(mm/dd/yy)</i></label>
+                <input type=date name="family_members[0][birthdate]" class="form-control"> 
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Relasyon sa Puno ng Pamilya</label>
+                <select class="form-select" name="family_members[0][relationship_to_head]">
+                    <option value="0">Select...</option>
+                    <option value="1">Puno</option>
+                    <option value="2">Asawa</option>
+                    <option value="3">Anak na Lalaki</option>
+                    <option value="4">Anak na Babae</option>
+                    <option value="5">Magulang</option>
+                    <option value="6">Kapatid na Lalaki</option>
+                    <option value="7">Kapatid na Babae</option>
+                    <option value="8">Apo</option>
+                    <option value="9">Pamangkin</option>
+                    <option value="10">Hindi kamag-anak</option>
+                    <option value="11">Manugang</option>
+                    <option value="12">Pinsan</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Kasarian</label>
+                <select class="form-select" name="family_members[0][gender]">
+                    <option value="0">Select...</option>
+                    <option value="1">Lalaki</option>
+                    <option value="2">Babae</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Edad</label>
+                <input type="text" name="family_members[0][age]" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Katayuang Sibil</label>
+                <select class="form-select" name="family_members[0][civil_status]">
+                    <option value="0">Select...</option>
+                    <option value="1">Walang Asawa</option>
+                    <option value="2">Nagsasama ng Hindi Kasal</option>
+                    <option value="3">Kasal</option>
+                    <option value="4">Hiwalay sa Asawa</option>
+                    <option value="5">Balo</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Solo Parent</label>
+                <select class="form-select" name="family_members[0][solor_parent]">
+                    <option value="0">Select...</option>
+                    <option value="1">Oo</option>
+                    <option value="2">Hindi</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label>Relihiyon</label>
+                <select class="form-select" name="family_members[0][religion]">
+                    <option value="0">Select...</option>
+                    <option value="1">Katoliko</option>
+                    <option value="2">Born-Again</option>
+                    <option value="3">Iglesia ni Cristo</option>
+                    <option value="4">Islam</option>
+                    <option value="5">Buddism</option>
+                    <option value="6">Ibang Relihiyon</option>
+                </select>
+
+                <div class="row row-cards" id="">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="input-group mb-2 ">
+                            <span class="input-group-text">
+                                &nbsp;Ibang dahilan:
+                            </span>
+                            <input type="text" class="form-control" name="family_members[0][ibang_relihiyon]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label>Antas ng Pinag-aralan</label>
+                <select class="form-select" name="family_members[0][studying]">
+                    <option value="0">Select...</option>
+                    <option value="1">Not in school age (0-5 y/o)</option>
+                    <option value="2">No Education</option>
+                    <option value="3">Elementarya (1-6)</option>
+                    <option value="4">High School (1-4)</option>
+                    <option value="5">Junior High (7-10)</option>
+                    <option value="6">Senior High School (11-12)</option>
+                    <option value="7">Post Baccalaureate</option>
+                    <option value="8">OSY</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Mayroon/Walang Trabaho <i>(15-65 y/o)</i></label>
+                <select class="form-select" name="family_members[0][has_job]">
+                    <option value="0">Select...</option>
+                    <option value="1">Meron</option>
+                    <option value="2">Wala</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Trabaho <i>(Hanapbuhay)</i></label>
+                <input type="text" name="family_members[0][job]" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Alam na Trabaho <i>(Hanapbuhay)</i></label>
+                <input type="text" name="family_members[0][known_work]" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label>Saan <i>(Hanapbuhay)</i></label>
+                <select class="form-select" name="family_members[0][where]">
+                    <option value="0">Select...</option>
+                    <option value="1">Tirahan</option>
+                    <option value="2">Kapitbahay</option>
+                    <option value="3">Sa loob ng Sto. Tomas</option>
+                    <option value="4">Sa labas ng Sto. Tomas ngunit sa loob ng Batangas</option>
+                    <option value="5">Sa labas ng Batangas</option>
+                    <option value="6">Hindi tiyak</option>
+                    <option value="7">Iba pa</option>
+                </select>
+
+                <div class="row row-cards" id="">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="input-group mb-2 ">
+                            <span class="input-group-text">
+                                &nbsp;Ibang dahilan:
+                            </span>
+                            <input type="text" class="form-control" name="family_members[0][iba_pa_saan]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+                <label>Sektor <i>(Hanapbuhay)</i></label>
+                <select class="form-select" name="family_members[0][sector]">
+                    <option value="0">Select...</option>
+                    <option value="1">Pagmamanupaktyur</option>
+                    <option value="2">Konstruksyon</option>
+                    <option value="3">Pagbubukid</option>
+                    <option value="4">Serbisyo</option>
+                    <option value="5">Iba pa</option>
+                </select>
+
+                <div class="row row-cards" id="">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="input-group mb-2 ">
+                            <span class="input-group-text">
+                                &nbsp;Ibang dahilan:
+                            </span>
+                            <input type="text" class="form-control" name="family_members[0][iba_pa_sektor]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Katayuan <i>(Hanapbuhay)</i></label>
+                <select class="form-select" name="family_members[0][position]">
+                    <option value="0">Select...</option>
+                    <option value="1">Permanente</option>
+                    <option value="2">Kaswal</option>
+                    <option value="3">May Kontrata</option>
+                    <option value="4">Pana-panahon</option>
+                    <option value="5">Self-Employed</option>
+                    <option value="6">Job Order</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Buwanang Kita</label>
+                <input type="text" name="family_members[0][monthly_income]" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <label>Antas ng Nutrisyon</label>
+                <select class="form-select" name="family_members[0][level_of_nutrition]">
+                    <option value="0">Select...</option>
+                    <option value="1">Wastong Nutrisyon</option>
+                    <option value="2">Undernutrition</option>
+                    <option value="3">Overnutrition</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12">
+            <div class="form-group">
+                <label>Uri ng Kapansanan</label>
+                <select class="form-select" name="family_members[0][type_of_disability]">
+                    <option value="0">Select...</option>
+                    <option value="1">Hearing Impairment</option>
+                    <option value="2">Visual Impairment</option>
+                    <option value="3">Mental Retardation</option>
+                    <option value="4">Autism</option>
+                    <option value="5">Cerebral Palsy</option>
+                    <option value="6">Epilepsy</option>
+                    <option value="7">Amputatee</option>
+                    <option value="8">Autism</option>
+                    <option value="9">Polio</option>
+                    <option value="10">Hunchback</option>
+                    <option value="11">Dwarfism</option>
+                    <option value="12">Iba pa</option>
+                </select>
+
+                <div class="row row-cards" id="">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="input-group mb-2 ">
+                            <span class="input-group-text">
+                                &nbsp;Ibang dahilan:
+                            </span>
+                            <input type="text" class="form-control" name="family_members[0][iba_pa_kapansanan]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

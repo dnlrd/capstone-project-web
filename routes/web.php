@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Report;
 use App\Http\Controllers\AccountSettingsController;
+use App\Http\Controllers\RecordsController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\Auth\LoginController;
 /*
@@ -23,11 +24,11 @@ Route::middleware(['web'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:0,1'])->group(function () {
-    // Route::get('/records', [RecordsController::class, 'index'])->middleware('auth')->name('records');
-    // Route::get('/records/create', [RecordsController::class, 'create'])->middleware('auth')->name('create-records');
-    // Route::post('/records', [RecordsController::class, 'store'])->name('store-records');
-    // Route::get('/records/edit', [RecordsController::class, 'edit'])->middleware('auth')->name('edit-records');
-    // Route::delete('/records/delete/{id}', [RecordsController::class, 'delete'])->name('delete-records');
+    Route::get('/records', [RecordsController::class, 'index'])->middleware('auth')->name('records');
+    Route::get('/records/create', [RecordsController::class, 'create'])->middleware('auth')->name('create-records');
+    Route::post('/records', [RecordsController::class, 'store'])->name('store-records');
+    Route::get('/records/edit', [RecordsController::class, 'edit'])->middleware('auth')->name('edit-records');
+    Route::delete('/records/delete/{id}', [RecordsController::class, 'delete'])->name('delete-records');
 
     Route::get('/account-settings', [AccountSettingsController::class, 'index'])->middleware('auth')->name('account-settings');
     Route::get('/account-settings/edit', [AccountSettingsController::class, 'edit'])->middleware('auth')->name('edit-account-settings');

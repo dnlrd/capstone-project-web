@@ -55,13 +55,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold">
-                                <a href="" class="text-black">Social Data:</a>
-                            </div>
-                        </div>
-                    </li>
+                    
                 </ol>
             </div>
         </div>
