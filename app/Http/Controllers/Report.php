@@ -137,16 +137,20 @@ class Report extends Controller
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
 
         $MigrationReportQuestion5 = Question5::MigrationReportQuestion5($selectedYear);
-        $MigrationReportQuestion6 = Question6::MigrationReportQuestion6($selectedYear);
+        $MigrationReportQuestion5ByBarangay = Question5::MigrationReportQuestion5ByBarangay($selectedYear);
 
+        $MigrationReportQuestion6 = Question6::MigrationReportQuestion6($selectedYear);
+        $MigrationReportQuestion6ByBarangay = Question6::MigrationReportQuestion6ByBarangay($selectedYear);
+        
         return view('pages.report.migration', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
 
             'MigrationReportQuestion5',
-            'MigrationReportQuestion6'
-
+            'MigrationReportQuestion5ByBarangay',
+            'MigrationReportQuestion6',
+            'MigrationReportQuestion6ByBarangay',
 
         ));
     }

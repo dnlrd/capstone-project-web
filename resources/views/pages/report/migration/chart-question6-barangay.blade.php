@@ -2,12 +2,11 @@
     <div class="card-body p-3">
         <div class="row d-flex justify-content-center">
             <div class="col-md-12">
-                <canvas id="HealthReportNutritionByBarangay" class="img-fluid"></canvas>
+                <canvas id="MigrationReportQuestion6ByBarangay" class="img-fluid"></canvas>
             </div>
         </div>
     </div>
 </div>
-
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -45,49 +44,46 @@
         29: "Santiago",
         30: "Santa Teresita",
     };
-    var nutritionData = @json($HealthReportNutritionByBarangay);
+    var backgroundColors = [
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+    ];
 
-    
-    var sortedData = nutritionData.sort(function (a, b) {
-        var barangayA = customBarangayOrder[a.barangay];
-        var barangayB = customBarangayOrder[b.barangay];
-        return barangayA.localeCompare(barangayB);
-    });
+    var borderColors = [
+        'rgba(75, 192, 192, 1)',
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+    ];
 
-    var labels = sortedData.map(function (item) {
-        return customBarangayOrder[item.barangay];
-    });
+    var data = @json($MigrationReportQuestion6ByBarangay);
+    var MigrationReportQuestion6ByBarangay = document.getElementById('MigrationReportQuestion6ByBarangay').getContext('2d');
+    data.sort((a, b) => customBarangayOrder[a.barangay].localeCompare(customBarangayOrder[b.barangay]));
 
-    var undernutritionCounts = nutritionData.map(function (item) {
-        return item.undernutrition_count;
-    });
-
-    var overnutritionCounts = nutritionData.map(function (item) {
-        return item.overnutrition_count;
-    });
-
-    var wastongNutrisyonCounts = nutritionData.map(function (item) {
-        return item.wastong_nutrisyon_count;
-    });
-
-    var HealthReportNutritionByBarangay = document.getElementById('HealthReportNutritionByBarangay').getContext('2d');
-    var chart = new Chart(HealthReportNutritionByBarangay, {
+    var chart = new Chart(MigrationReportQuestion6ByBarangay, {
         type: 'bar',
         data: {
-            labels: labels,
-            datasets: [{
-                label: 'Undernutrition',
-                data: undernutritionCounts,
-                backgroundColor: 'rgba(255, 99, 132, 0.6)'
-            }, {
-                label: 'Overnutrition',
-                data: overnutritionCounts,
-                backgroundColor: 'rgba(54, 162, 235, 0.6)'
-            }, {
-                label: 'Wastong Nutrisyon',
-                data: wastongNutrisyonCounts,
-                backgroundColor: 'rgba(75, 192, 192, 0.6)'
-            }]
+            labels: data.map(item => customBarangayOrder[item.barangay]),
+            datasets: [
+                {
+                    label: 'Kasama lahat ng pamilya',
+                    data: data.map(item => item.answer1),
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Kasama ang ibang myembro ng pamilya',
+                    data: data.map(item => item.answer2),
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Nag-iisang lumipat',
+                    data: data.map(item => item.answer3),
+                    backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                    borderWidth: 1,
+                },
+            ],
         },
         options: {
             responsive: true,
@@ -100,7 +96,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Nutrition Level Distribution By Barangay ({{ $selectedYear }})',
+                    text: 'Uri ng Pag-lipat Distribution Chart ({{$selectedYear}})',
                     font: {
                         size: 17,
                         family: 'Arial'
@@ -118,7 +114,7 @@
             }
         }
     });
-</script>
+    </script>
 <script>
     $( ".printDemo" ).click(function() {
         $('#printable-content').printThis({

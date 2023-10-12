@@ -2,7 +2,7 @@
     <div class="card-body p-3">
         <div class="row d-flex justify-content-center">
             <div class="col-md-12">
-                <canvas id="MigrationReportQuestion5" class="img-fluid"></canvas>
+                <canvas id="MigrationReportQuestion6" class="img-fluid"></canvas>
             </div>
         </div>
     </div>
@@ -24,15 +24,15 @@
         'rgba(54, 162, 235, 1)',
     ];
 
-        var data = @json($MigrationReportQuestion5);
+        var data = @json($MigrationReportQuestion6);
 
-        var MigrationReportQuestion5 = document.getElementById('MigrationReportQuestion5').getContext('2d');
-        var chart = new Chart(MigrationReportQuestion5, {
-            type: 'doughnut',
+        var MigrationReportQuestion6 = document.getElementById('MigrationReportQuestion6').getContext('2d');
+        var chart = new Chart(MigrationReportQuestion6, {
+            type: 'pie',
             data: {
-                labels: ['Magtratrabaho ({{ $MigrationReportQuestion5[0]->answer1 }})', 
-                'Tumira sa kamag-anak ({{ $MigrationReportQuestion5[0]->answer2 }})', 
-                'Iba pa ({{ $MigrationReportQuestion5[0]->answer3 }})'],
+                labels: ['Kasama lahat ng pamilya ({{ $MigrationReportQuestion6[0]->answer1 }})', 
+                'Kasama ang ibang myembro ng pamilya ({{ $MigrationReportQuestion6[0]->answer2 }})', 
+                'Nag-iisang lumipat ({{ $MigrationReportQuestion6[0]->answer3 }})'],
                 datasets: [{
                     label: 'Migration Report',
                     data: [data[0].answer1, data[0].answer2, data[0].answer3],
@@ -47,7 +47,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Dahilan ng Pag-lipat Distribution Chart ({{$selectedYear}})',
+                    text: 'Uri ng Pag-lipat Distribution Chart ({{$selectedYear}})',
                     font: {
                         size: 17,
                         family: 'Arial'
@@ -55,7 +55,7 @@
                 },
                 legend: {
                     display: true,
-                    position: 'right'
+                    position: 'bottom'
                 }
             },
         }

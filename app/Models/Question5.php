@@ -52,6 +52,21 @@ class Question5 extends Model
 
         return $total;
     }
+    public static function MigrationReportQuestion5ByBarangay($selectedYear)
+    {
+        $total = Household::select(
+            'household.barangay',
+            DB::raw('SUM(CASE WHEN question_5.answer1_q5 = 1 THEN 1 ELSE 0 END) AS answer1'),
+            DB::raw('SUM(CASE WHEN question_5.answer1_q5 = 2 THEN 1 ELSE 0 END) AS answer2'),
+            DB::raw('SUM(CASE WHEN question_5.answer1_q5 = 3 THEN 1 ELSE 0 END) AS answer3')
+        )
+        ->join('question_5', 'household.id', '=', 'question_5.household_id')
+        ->where('household.year', $selectedYear)
+        ->groupBy('household.barangay')
+        ->get();
+
+        return $total;
+    }
     
     public function household()
     {
