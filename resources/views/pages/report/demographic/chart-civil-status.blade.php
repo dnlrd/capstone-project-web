@@ -49,6 +49,14 @@
             responsive: true,
             maintainAspectRatio: true,
             plugins: {
+                title: {
+                    display: true,
+                    text: 'Civil Status Distribution Chart ({{$selectedYear}})',
+                    font: {
+                        size: 17,
+                        family: 'Arial'
+                    }
+                },
                 legend: {
                     display: false,
                 }

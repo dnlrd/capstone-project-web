@@ -32,7 +32,8 @@ class Report extends Controller
         $DemographicReportGender = FamilyMembers::DemographicReportGender($selectedYear);
         $DemographicReportCivilStatus = FamilyMembers::DemographicReportCivilStatus($selectedYear);
         $DemographicReportAge = FamilyMembers::DemographicReportAge($selectedYear);
-        
+        $DemographicGenderAgeDistribution = FamilyMembers::GenderAgeDistribution($selectedYear);
+
         return view('pages.report.demographic', compact(
             'currentYear',
             'selectedYear',
@@ -40,13 +41,25 @@ class Report extends Controller
 
             'DemographicReportGender',
             'DemographicReportCivilStatus',
-            'DemographicReportAge'
+            'DemographicReportAge',
+            'DemographicGenderAgeDistribution',
         ));
     }
 
-    public function economic()
+    public function economic(Request $request)
     {
-        
+        $currentYear = Carbon::now()->year;
+        $selectedYear = $request->input('year', $currentYear);
+        $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
+
+        $EconomicReportEmploymentStatus = FamilyMembers::EconomicReportEmploymentStatus($selectedYear);
+        return view('pages.report.economic', compact(
+            'currentYear',
+            'selectedYear',
+            'availableYears',
+
+            'EconomicReportEmploymentStatus'
+        ));
     }
 
     public function educational()

@@ -264,10 +264,53 @@ class FamilyMembers extends Model
     {
 
     }
+    public static function GenderAgeDistribution($year)
+    {
+        return DB::table('household')
+            ->select(
+                DB::raw("CASE 
+                    WHEN family_members.age BETWEEN 0 AND 4 THEN '0-4'
+                    WHEN family_members.age BETWEEN 5 AND 9 THEN '5-9'
+                    WHEN family_members.age BETWEEN 10 AND 19 THEN '10-19'
+                    WHEN family_members.age BETWEEN 20 AND 29 THEN '20-29'
+                    WHEN family_members.age BETWEEN 30 AND 39 THEN '30-39'
+                    WHEN family_members.age BETWEEN 40 AND 49 THEN '40-49'
+                    WHEN family_members.age BETWEEN 50 AND 59 THEN '50-59'
+                    WHEN family_members.age BETWEEN 60 AND 69 THEN '60-69'
+                    WHEN family_members.age BETWEEN 70 AND 79 THEN '70-79'
+                    ELSE '80+' END AS age_range"),
+                DB::raw("SUM(CASE WHEN family_members.gender = '1' THEN 1 ELSE 0 END) AS male_count"),
+                DB::raw("SUM(CASE WHEN family_members.gender = '2' THEN 1 ELSE 0 END) AS female_count")
+            )
+            ->join('family_members', 'household.id', '=', 'family_members.household_id')
+            ->where('household.year', $year)
+            ->groupBy('age_range')
+            ->orderByRaw("CASE 
+                WHEN age_range = '0-4' THEN 1
+                WHEN age_range = '5-9' THEN 2
+                WHEN age_range = '10-19' THEN 3
+                WHEN age_range = '20-29' THEN 4
+                WHEN age_range = '30-39' THEN 5
+                WHEN age_range = '40-49' THEN 6
+                WHEN age_range = '50-59' THEN 7
+                WHEN age_range = '60-69' THEN 8
+                WHEN age_range = '70-79' THEN 9
+                ELSE 10 END")
+            ->get();
+    }
+
     //ECONOMIC
     public static function EconomicReportEmploymentStatus($year)
     {
+        $total = Household::select(
+            DB::raw("SUM(CASE WHEN family_members.has_job = '1' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS employed_count"),
+            DB::raw("SUM(CASE WHEN family_members.has_job = '2' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS unemployed_count")
+        )
+            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+            ->where('household.year', $year)
+            ->get();
 
+        return $total;
     }
     public static function EconomicReportIncome($year)
     {
@@ -851,55 +894,58 @@ class FamilyMembers extends Model
     // }
 
     public static function genderDistributionByCivilStatus($year)
-{
-    $civilStatuses = Household::select(
-        'family_members.civil_status',
-        DB::raw("SUM(CASE WHEN family_members.civil_status = 1 AND family_members.gender = 1 THEN 1 ELSE 0 END) AS single_male_count"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = 1 AND family_members.gender = 2 THEN 1 ELSE 0 END) AS single_female_count"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = 2 AND family_members.gender = 1 THEN 1 ELSE 0 END) AS cohabiting_male_count"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = 2 AND family_members.gender = 2 THEN 1 ELSE 0 END) AS cohabiting_female_count"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = 3 AND family_members.gender = 1 THEN 1 ELSE 0 END) AS married_male_count"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = 3 AND family_members.gender = 2 THEN 1 ELSE 0 END) AS married_female_count"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = 4 AND family_members.gender = 1 THEN 1 ELSE 0 END) AS separated_male_count"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = 4 AND family_members.gender = 2 THEN 1 ELSE 0 END) AS separated_female_count"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = 5 AND family_members.gender = 1 THEN 1 ELSE 0 END) AS widowed_male_count"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = 5 AND family_members.gender = 2 THEN 1 ELSE 0 END) AS widowed_female_count")
-    )
-        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
-        ->where('household.year', $year)
-        ->groupBy('family_members.civil_status')
-        ->get();
+    {
+        $civilStatuses = Household::select(
+            'family_members.civil_status',
+            DB::raw("SUM(CASE WHEN family_members.civil_status = 1 AND family_members.gender = 1 THEN 1 ELSE 0 END) AS single_male_count"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = 1 AND family_members.gender = 2 THEN 1 ELSE 0 END) AS single_female_count"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = 2 AND family_members.gender = 1 THEN 1 ELSE 0 END) AS cohabiting_male_count"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = 2 AND family_members.gender = 2 THEN 1 ELSE 0 END) AS cohabiting_female_count"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = 3 AND family_members.gender = 1 THEN 1 ELSE 0 END) AS married_male_count"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = 3 AND family_members.gender = 2 THEN 1 ELSE 0 END) AS married_female_count"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = 4 AND family_members.gender = 1 THEN 1 ELSE 0 END) AS separated_male_count"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = 4 AND family_members.gender = 2 THEN 1 ELSE 0 END) AS separated_female_count"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = 5 AND family_members.gender = 1 THEN 1 ELSE 0 END) AS widowed_male_count"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = 5 AND family_members.gender = 2 THEN 1 ELSE 0 END) AS widowed_female_count")
+        )
+            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+            ->where('household.year', $year)
+            ->groupBy('family_members.civil_status')
+            ->get();
 
-    $results = [];
+        $results = [];
 
-    foreach ($civilStatuses as $civilStatus) {
-        $results[$civilStatus->civil_status] = [
-            'single' => [
-                'male' => $civilStatus->single_male_count,
-                'female' => $civilStatus->single_female_count,
-            ],
-            'cohabiting' => [
-                'male' => $civilStatus->cohabiting_male_count,
-                'female' => $civilStatus->cohabiting_female_count,
-            ],
-            'married' => [
-                'male' => $civilStatus->married_male_count,
-                'female' => $civilStatus->married_female_count,
-            ],
-            'separated' => [
-                'male' => $civilStatus->separated_male_count,
-                'female' => $civilStatus->separated_female_count,
-            ],
-            'widowed' => [
-                'male' => $civilStatus->widowed_male_count,
-                'female' => $civilStatus->widowed_female_count,
-            ],
-        ];
+        foreach ($civilStatuses as $civilStatus) {
+            $results[$civilStatus->civil_status] = [
+                'single' => [
+                    'male' => $civilStatus->single_male_count,
+                    'female' => $civilStatus->single_female_count,
+                ],
+                'cohabiting' => [
+                    'male' => $civilStatus->cohabiting_male_count,
+                    'female' => $civilStatus->cohabiting_female_count,
+                ],
+                'married' => [
+                    'male' => $civilStatus->married_male_count,
+                    'female' => $civilStatus->married_female_count,
+                ],
+                'separated' => [
+                    'male' => $civilStatus->separated_male_count,
+                    'female' => $civilStatus->separated_female_count,
+                ],
+                'widowed' => [
+                    'male' => $civilStatus->widowed_male_count,
+                    'female' => $civilStatus->widowed_female_count,
+                ],
+            ];
+        }
+
+        return $results;
     }
 
-    return $results;
-}
 
+
+    
 
     public function household()
     {

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Population report')
+@section('title', 'Demographic report')
 @section('content')
 <div class="page-header d-print-none text-black">
     <div class="container-xl">
@@ -34,8 +34,10 @@
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
                     @include('pages.report.demographic.chart-age-distribution')
                 </div>
+                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.demographic.chart-gender-age-distribution')
+                </div>
             </div>
-        @json($DemographicReportAge[0]['count'])
     </div>
 </div>
 

@@ -35,6 +35,14 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
+                title: {
+                    display: true,
+                    text: 'Gender Distribution Chart ({{$selectedYear}})',
+                    font: {
+                        size: 17,
+                        family: 'Arial'
+                    }
+                },
                 legend: {
                     display: true,
                     position: 'bottom'
