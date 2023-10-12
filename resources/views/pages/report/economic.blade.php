@@ -10,7 +10,7 @@
                 </h2>
             </div>
             <div class="col-auto ms-auto d-print-none">
-                <form method="get" action="{{ route('demographic-report') }}" class="mb-3">
+                <form method="get" action="{{ route('economic-report') }}" class="mb-3">
                     @csrf
                     <select name="year" id="year" class="form-select" onchange="this.form.submit()">
                         @foreach ($availableYears as $yearOption)
@@ -26,15 +26,16 @@
 
         <div class="row row-deck row-cards" id="printable-content">
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.economic.chart-employment')
                 </div>
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.economic.chart-job-location')
                 </div>
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
                 </div>
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
                 </div>
             </div>
-            @json($EconomicReportEmploymentStatus)
     </div>
 </div>
 

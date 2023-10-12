@@ -319,7 +319,21 @@ class FamilyMembers extends Model
 
     public static function EconomicReportWhere($year)
     {
+        $total = Household::select(
+            DB::raw("SUM(CASE WHEN `where` = '1' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS tirahan_count"),
+            DB::raw("SUM(CASE WHEN `where` = '2' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS kapitbahay_count"),
+            DB::raw("SUM(CASE WHEN `where` = '3' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS sa_loob_ng_sto_tomas_count"),
+            DB::raw("SUM(CASE WHEN `where` = '4' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS sa_labas_ng_sto_tomas_count"),
+            DB::raw("SUM(CASE WHEN `where` = '5' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS sa_labas_ng_batangas_count"),
+            DB::raw("SUM(CASE WHEN `where` = '6' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS hindi_tiyak_count"),
+            DB::raw("SUM(CASE WHEN `where` = '7' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS iba_pa_count")
+        )
+        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+        ->where('family_members.has_job', '1')
+        ->where('household.year', $year)
+        ->get();
 
+        return $total;
     }
     public static function EconomicReportSector($year)
     {

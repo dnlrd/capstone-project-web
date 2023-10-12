@@ -53,12 +53,14 @@ class Report extends Controller
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
 
         $EconomicReportEmploymentStatus = FamilyMembers::EconomicReportEmploymentStatus($selectedYear);
+        $EconomicReportWhere = FamilyMembers::EconomicReportWhere($selectedYear);
         return view('pages.report.economic', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
 
-            'EconomicReportEmploymentStatus'
+            'EconomicReportEmploymentStatus',
+            'EconomicReportWhere'
         ));
     }
 
