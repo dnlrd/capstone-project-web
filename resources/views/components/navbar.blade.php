@@ -27,7 +27,7 @@
                 </div>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <a href="" class="dropdown-item">Account settings</a>
+            <a href="{{ route('account-settings') }}" class="dropdown-item">Account settings</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="dropdown-item">Logout</button>

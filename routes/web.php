@@ -22,7 +22,18 @@ Route::middleware(['web'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
+Route::middleware(['auth', 'role:0,1'])->group(function () {
+    // Route::get('/records', [RecordsController::class, 'index'])->middleware('auth')->name('records');
+    // Route::get('/records/create', [RecordsController::class, 'create'])->middleware('auth')->name('create-records');
+    // Route::post('/records', [RecordsController::class, 'store'])->name('store-records');
+    // Route::get('/records/edit', [RecordsController::class, 'edit'])->middleware('auth')->name('edit-records');
+    // Route::delete('/records/delete/{id}', [RecordsController::class, 'delete'])->name('delete-records');
 
+    Route::get('/account-settings', [AccountSettingsController::class, 'index'])->middleware('auth')->name('account-settings');
+    Route::get('/account-settings/edit', [AccountSettingsController::class, 'edit'])->middleware('auth')->name('edit-account-settings');
+    Route::post('/account-settings/update', [AccountSettingsController::class, 'update'])->middleware('auth')->name('update-account-settings');
+
+});
 
 Route::middleware(['auth', 'role:0'])->group(function () {
     Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');

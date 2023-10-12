@@ -51,7 +51,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">
-                                <a href="" class="text-black">Migration</a>
+                                <a href="{{ route('migration-report') }}" class="text-black">Migration</a>
                             </div>
                         </div>
                     </li>
