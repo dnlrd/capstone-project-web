@@ -32,9 +32,12 @@
                     @include('pages.report.economic.chart-job-location')
                 </div>
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.economic.chart-job-position')
                 </div>
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.economic.chart-sector')
                 </div>
+                
             </div>
     </div>
 </div>

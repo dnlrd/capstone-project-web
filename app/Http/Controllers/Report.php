@@ -54,19 +54,34 @@ class Report extends Controller
 
         $EconomicReportEmploymentStatus = FamilyMembers::EconomicReportEmploymentStatus($selectedYear);
         $EconomicReportWhere = FamilyMembers::EconomicReportWhere($selectedYear);
+        $EconomicReportSector = FamilyMembers::EconomicReportSector($selectedYear);
+        $EconomicReportPosition = FamilyMembers::EconomicReportPosition($selectedYear);
         return view('pages.report.economic', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
 
             'EconomicReportEmploymentStatus',
-            'EconomicReportWhere'
+            'EconomicReportWhere',
+            'EconomicReportSector',
+            'EconomicReportPosition',
         ));
     }
 
-    public function educational()
+    public function educational(Request $request)
     {
-        //
+        $currentYear = Carbon::now()->year;
+        $selectedYear = $request->input('year', $currentYear);
+        $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
+
+        $EducationalReport = FamilyMembers::EducationalReport($selectedYear);
+        return view('pages.report.educational', compact(
+            'currentYear',
+            'selectedYear',
+            'availableYears',
+            'EducationalReport'
+
+        ));
     }
 
     public function health()

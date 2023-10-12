@@ -2,7 +2,7 @@
     <div class="card-body p-3">
         <div class="row d-flex justify-content-center">
             <div class="col-md-12">
-                <canvas id="EconomicReportWhere" class="img-fluid"></canvas>
+                <canvas id="EducationalReport" class="img-fluid"></canvas>
             </div>
         </div>
     </div>
@@ -13,17 +13,19 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{asset('js/printThis.js')}}" defer></script>
 <script>
-    var data = @json($EconomicReportWhere);
-    var EconomicReportWhere = document.getElementById('EconomicReportWhere').getContext('2d');
+    var data = @json($EducationalReport);
+    var EducationalReport = document.getElementById('EducationalReport').getContext('2d');
 
     var labels = [
-        'Tirahan ({{ $EconomicReportWhere[0]->tirahan_count }})', 
-        'Kapitbahay ({{ $EconomicReportWhere[0]->kapitbahay_count }})', 
-        'Sa Loob ng Sto. Tomas ({{ $EconomicReportWhere[0]->sa_loob_ng_sto_tomas_count }})',
-        'Sa Labas ng Sto. Tomas ({{ $EconomicReportWhere[0]->sa_labas_ng_sto_tomas_count }})', 
-        'Sa Labas ng Batangas ({{ $EconomicReportWhere[0]->sa_labas_ng_batangas_count }})', 
-        'Hindi Tiyak ({{ $EconomicReportWhere[0]->hindi_tiyak_count }})', 
-        'Iba Pa ({{ $EconomicReportWhere[0]->iba_pa_count }})'
+        'not in school age 5 ({{ $EducationalReport->not_in_school_age_count }})', 
+        'no education ({{ $EducationalReport->no_education_count }})', 
+        'elementary ({{ $EducationalReport->elementary_count }})',
+        'high school ({{ $EducationalReport->high_school_count }})', 
+        'junior high({{ $EducationalReport->junior_high_count }})', 
+        'senior high ({{ $EducationalReport->senior_high_count }})', 
+        'post baccalaureate ({{ $EducationalReport->post_baccalaureate_count }})',
+        'osy ({{ $EducationalReport->osy_count }})', 
+        'hindi nag-aaral ({{ $EducationalReport->hindi_nag_aaral_count }})', 
     ];
     var backgroundColors = [
         'rgba(75, 192, 192, 0.2)',
@@ -32,7 +34,9 @@
         'rgba(255, 206, 86, 0.2)',
         'rgba(153, 102, 255, 0.2)',
         'rgba(255, 159, 64, 0.2)',
-        'rgba(106, 74, 60, 0.2)'
+        'rgba(106, 74, 60, 0.2)',
+        'rgba(255, 0, 0, 0.2)', 
+        'rgba(0, 255, 0, 0.2)' 
     ];
 
     var borderColors = [
@@ -42,23 +46,27 @@
         'rgba(255, 206, 86, 1)',
         'rgba(153, 102, 255, 1)',
         'rgba(255, 159, 64, 1)',
-        'rgba(106, 74, 60, 1)'
+        'rgba(106, 74, 60, 1)',
+        'rgba(255, 0, 0, 1)',
+        'rgba(0, 255, 0, 1)'  
     ];
     
-    var chart = new Chart(EconomicReportWhere, {
+    var chart = new Chart(EducationalReport, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [{
                 label: 'Total',
                 data: [
-                    data[0].tirahan_count, 
-                    data[0].kapitbahay_count, 
-                    data[0].sa_loob_ng_sto_tomas_count, 
-                    data[0].sa_labas_ng_sto_tomas_count, 
-                    data[0].sa_labas_ng_batangas_count, 
-                    data[0].hindi_tiyak_count, 
-                    data[0].iba_pa_count,
+                    data.not_in_school_age_count, 
+                    data.no_education_count, 
+                    data.elementary_count, 
+                    data.high_school_count, 
+                    data.junior_high_count, 
+                    data.senior_high_count, 
+                    data.post_baccalaureate_count,
+                    data.osy_count, 
+                    data.hindi_nag_aaral_count,
                 ],
                 backgroundColor: backgroundColors,
                 borderColor: borderColors,
@@ -68,10 +76,11 @@
         options: {
             responsive: true,
             maintainAspectRatio: true,
+            indexAxis: 'y',
             plugins: {
                 title: {
                     display: true,
-                    text: 'Job Location Distribution Chart ({{$selectedYear}})',
+                    text: 'Education Level Distribution Chart ({{$selectedYear}})',
                     font: {
                         size: 17,
                         family: 'Arial'

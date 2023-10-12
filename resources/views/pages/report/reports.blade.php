@@ -23,14 +23,14 @@
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">
-                                <a href="" class="text-black">Economic</a>
+                                <a href="{{ route('economic-report')}}" class="text-black">Economic</a>
                             </div>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">
-                                <a href="" class="text-black">Educational</a>
+                                <a href="{{ route('educational-report')}}" class="text-black">Educational</a>
                             </div>
                         </div>
                     </li>

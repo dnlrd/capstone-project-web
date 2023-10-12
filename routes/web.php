@@ -25,6 +25,7 @@ Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
 
 Route::get('/demographic-report', [Report::class, 'demographic'])->name('demographic-report');
 Route::get('/economic-report', [Report::class, 'economic'])->name('economic-report');
+Route::get('/educational-report', [Report::class, 'educational'])->name('educational-report');
 Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management');
 
 Route::post('/user-management/create-new-user', [UserManagementController::class, 'store'])->name('store-new-user');

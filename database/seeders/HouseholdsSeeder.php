@@ -235,7 +235,7 @@ class HouseholdsSeeder extends Seeder
                     'religion' => $faker->numberBetween(1, 6),
                     'ibang_relihiyon' => $faker->word,
 
-                    'studying' => $faker->numberBetween(1, 8),
+                    'studying' => $faker->numberBetween(1, 9),
 
                     
                     'has_job' => $faker->numberBetween(1, 2),

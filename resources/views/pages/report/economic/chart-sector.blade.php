@@ -2,7 +2,7 @@
     <div class="card-body p-3">
         <div class="row d-flex justify-content-center">
             <div class="col-md-12">
-                <canvas id="EconomicReportWhere" class="img-fluid"></canvas>
+                <canvas id="EconomicReportSector" class="img-fluid"></canvas>
             </div>
         </div>
     </div>
@@ -13,17 +13,15 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{asset('js/printThis.js')}}" defer></script>
 <script>
-    var data = @json($EconomicReportWhere);
-    var EconomicReportWhere = document.getElementById('EconomicReportWhere').getContext('2d');
+    var data = @json($EconomicReportSector);
 
+    var EconomicReportSector = document.getElementById('EconomicReportSector').getContext('2d');
     var labels = [
-        'Tirahan ({{ $EconomicReportWhere[0]->tirahan_count }})', 
-        'Kapitbahay ({{ $EconomicReportWhere[0]->kapitbahay_count }})', 
-        'Sa Loob ng Sto. Tomas ({{ $EconomicReportWhere[0]->sa_loob_ng_sto_tomas_count }})',
-        'Sa Labas ng Sto. Tomas ({{ $EconomicReportWhere[0]->sa_labas_ng_sto_tomas_count }})', 
-        'Sa Labas ng Batangas ({{ $EconomicReportWhere[0]->sa_labas_ng_batangas_count }})', 
-        'Hindi Tiyak ({{ $EconomicReportWhere[0]->hindi_tiyak_count }})', 
-        'Iba Pa ({{ $EconomicReportWhere[0]->iba_pa_count }})'
+        'Pagmamanupaktyur ({{ $EconomicReportSector->pagmamanupaktyur_count }})', 
+        'Konstruksyon ({{ $EconomicReportSector->konstruksyon_count }})', 
+        'Pagbubukid ({{ $EconomicReportSector->pagbubukid_count }})',
+        'Serbisyo ({{ $EconomicReportSector->serbisyo_count }})', 
+        'Iba pa ({{ $EconomicReportSector->iba_pa_count }})', 
     ];
     var backgroundColors = [
         'rgba(75, 192, 192, 0.2)',
@@ -31,8 +29,6 @@
         'rgba(54, 162, 235, 0.2)',
         'rgba(255, 206, 86, 0.2)',
         'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(106, 74, 60, 0.2)'
     ];
 
     var borderColors = [
@@ -41,24 +37,18 @@
         'rgba(54, 162, 235, 1)',
         'rgba(255, 206, 86, 1)',
         'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(106, 74, 60, 1)'
     ];
-    
-    var chart = new Chart(EconomicReportWhere, {
-        type: 'bar',
+    var chart = new Chart(EconomicReportSector, {
+        type: 'doughnut',
         data: {
             labels: labels,
             datasets: [{
-                label: 'Total',
                 data: [
-                    data[0].tirahan_count, 
-                    data[0].kapitbahay_count, 
-                    data[0].sa_loob_ng_sto_tomas_count, 
-                    data[0].sa_labas_ng_sto_tomas_count, 
-                    data[0].sa_labas_ng_batangas_count, 
-                    data[0].hindi_tiyak_count, 
-                    data[0].iba_pa_count,
+                    data.pagmamanupaktyur_count,
+                    data.konstruksyon_count,
+                    data.pagbubukid_count,
+                    data.serbisyo_count,
+                    data.iba_pa_count,
                 ],
                 backgroundColor: backgroundColors,
                 borderColor: borderColors,
@@ -67,18 +57,18 @@
         },
         options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
-                    text: 'Job Location Distribution Chart ({{$selectedYear}})',
+                    text: 'Job Sector Distribution Chart ({{$selectedYear}})',
                     font: {
                         size: 17,
                         family: 'Arial'
                     }
                 },
                 legend: {
-                    display: false,
+                    display: true,
                     position: 'bottom'
                 }
             },
