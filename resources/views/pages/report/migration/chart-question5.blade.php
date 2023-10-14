@@ -24,15 +24,15 @@
         'rgba(54, 162, 235, 1)',
     ];
 
-        var data = @json($MigrationReportQuestion5);
+        var data = @json($Migration);
 
         var MigrationReportQuestion5 = document.getElementById('MigrationReportQuestion5').getContext('2d');
         var chart = new Chart(MigrationReportQuestion5, {
             type: 'doughnut',
             data: {
-                labels: ['Magtratrabaho ({{ $MigrationReportQuestion5[0]->answer1 }})', 
-                'Tumira sa kamag-anak ({{ $MigrationReportQuestion5[0]->answer2 }})', 
-                'Iba pa ({{ $MigrationReportQuestion5[0]->answer3 }})'],
+                labels: ['Magtratrabaho ({{ $Migration[0]->answer1 }})', 
+                'Tumira sa kamag-anak ({{ $Migration[0]->answer2 }})', 
+                'Iba pa ({{ $Migration[0]->answer3 }})'],
                 datasets: [{
                     label: 'Migration Report',
                     data: [data[0].answer1, data[0].answer2, data[0].answer3],
@@ -47,7 +47,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Dahilan ng Pag-lipat Distribution Chart ({{$selectedYear}})',
+                    text: '{{$chartTitle}}',
                     font: {
                         size: 17,
                         family: 'Arial'

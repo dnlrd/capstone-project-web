@@ -142,24 +142,34 @@ class Report extends Controller
         //
         $currentYear = Carbon::now()->year;
         $selectedYear = $request->input('year', $currentYear);
+        $selectedBarangay = $request->input('barangay');
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
 
+        $availableBarangays = Household::distinct()->orderBy('barangay', 'desc')->pluck('barangay');
+
+
+        $selectedBarangay = $request->input('barangay');
         $MigrationReportQuestion5 = Question5::MigrationReportQuestion5($selectedYear);
         $MigrationReportQuestion5ByBarangay = Question5::MigrationReportQuestion5ByBarangay($selectedYear);
+        $chartTitle = Question5::getChartTitleQuestion5($selectedYear, $selectedBarangay);
 
         $MigrationReportQuestion6 = Question6::MigrationReportQuestion6($selectedYear);
         $MigrationReportQuestion6ByBarangay = Question6::MigrationReportQuestion6ByBarangay($selectedYear);
         
+        $Migration = Question5::Migration($selectedYear, $selectedBarangay);
+
         return view('pages.report.migration', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
-
+            'chartTitle',
             'MigrationReportQuestion5',
             'MigrationReportQuestion5ByBarangay',
             'MigrationReportQuestion6',
             'MigrationReportQuestion6ByBarangay',
-
+            'Migration',
+            'selectedBarangay',
+            'availableBarangays'
         ));
     }
 }

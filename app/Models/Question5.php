@@ -67,7 +67,38 @@ class Question5 extends Model
 
         return $total;
     }
+    public static function Migration($selectedYear, $selectedBarangay)
+    {
+        $query = Household::select(
+            DB::raw('SUM(CASE WHEN question_5.answer1_q5 = 1 THEN 1 ELSE 0 END) AS answer1'),
+            DB::raw('SUM(CASE WHEN question_5.answer1_q5 = 2 THEN 1 ELSE 0 END) AS answer2'),
+            DB::raw('SUM(CASE WHEN question_5.answer1_q5 = 3 THEN 1 ELSE 0 END) AS answer3')
+        )
+            ->join('question_5', 'household.id', '=', 'question_5.household_id')
+            ->where('household.year', $selectedYear);
     
+        if ($selectedBarangay) {
+            $query->addSelect('household.barangay')
+                ->where('household.barangay', $selectedBarangay)
+                ->groupBy('household.barangay');
+        }
+
+        $total = $query->get();
+    
+        return $total;
+    }
+    public static function getChartTitleQuestion5($selectedYear, $selectedBarangay)
+    {
+        if ($selectedBarangay) {
+            return 'Dahilan ng Pag-lipat Distribution Chart ' . $selectedYear . ' and barangay ' . $selectedBarangay;
+        } else {
+            return 'Dahilan ng Pag-lipat Distribution Chart ' . $selectedYear;
+        }
+    }
+
+
+
+
     public function household()
     {
         return $this->belongsTo(Household::class);
