@@ -73,7 +73,7 @@
                     </button>
                 </div>
                 <div class="col-sm-12 col-lg-12 col-md-12 d-flex justify-content-center">
-                @json($Migration)
+                @json($MigrationReportQuestion5Chart)
                 </div>
             </div>
     </div>

@@ -151,25 +151,33 @@ class Report extends Controller
         $selectedBarangay = $request->input('barangay');
         $MigrationReportQuestion5 = Question5::MigrationReportQuestion5($selectedYear);
         $MigrationReportQuestion5ByBarangay = Question5::MigrationReportQuestion5ByBarangay($selectedYear);
-        $chartTitle = Question5::getChartTitleQuestion5($selectedYear, $selectedBarangay);
+
+        $getChartTitleQuestion5 = Question5::getChartTitleQuestion5($selectedYear, $selectedBarangay);
+        $getChartTitleQuestion6 = Question6::getChartTitleQuestion6($selectedYear, $selectedBarangay);
 
         $MigrationReportQuestion6 = Question6::MigrationReportQuestion6($selectedYear);
         $MigrationReportQuestion6ByBarangay = Question6::MigrationReportQuestion6ByBarangay($selectedYear);
         
-        $Migration = Question5::Migration($selectedYear, $selectedBarangay);
-
+        $MigrationReportQuestion5Chart = Question5::MigrationReportQuestion5Chart($selectedYear, $selectedBarangay);
+        $MigrationReportQuestion6Chart = Question6::MigrationReportQuestion6Chart($selectedYear, $selectedBarangay);
         return view('pages.report.migration', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
-            'chartTitle',
+            'selectedBarangay',
+            'availableBarangays',
+
+            'getChartTitleQuestion5',
+            'getChartTitleQuestion6',
+
             'MigrationReportQuestion5',
             'MigrationReportQuestion5ByBarangay',
             'MigrationReportQuestion6',
             'MigrationReportQuestion6ByBarangay',
-            'Migration',
-            'selectedBarangay',
-            'availableBarangays'
+            
+            'MigrationReportQuestion5Chart',
+            'MigrationReportQuestion6Chart'
+            
         ));
     }
 }

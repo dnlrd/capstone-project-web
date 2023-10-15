@@ -24,15 +24,15 @@
         'rgba(54, 162, 235, 1)',
     ];
 
-        var data = @json($MigrationReportQuestion6);
+        var data = @json($MigrationReportQuestion6Chart);
 
         var MigrationReportQuestion6 = document.getElementById('MigrationReportQuestion6').getContext('2d');
         var chart = new Chart(MigrationReportQuestion6, {
             type: 'pie',
             data: {
-                labels: ['Kasama lahat ng pamilya ({{ $MigrationReportQuestion6[0]->answer1 }})', 
-                'Kasama ang ibang myembro ng pamilya ({{ $MigrationReportQuestion6[0]->answer2 }})', 
-                'Nag-iisang lumipat ({{ $MigrationReportQuestion6[0]->answer3 }})'],
+                labels: ['Kasama lahat ng pamilya ({{ $MigrationReportQuestion6Chart[0]->answer1 }})', 
+                'Kasama ang ibang myembro ng pamilya ({{ $MigrationReportQuestion6Chart[0]->answer2 }})', 
+                'Nag-iisang lumipat ({{ $MigrationReportQuestion6Chart[0]->answer3 }})'],
                 datasets: [{
                     label: 'Migration Report',
                     data: [data[0].answer1, data[0].answer2, data[0].answer3],
@@ -47,7 +47,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Uri ng Pag-lipat Distribution Chart ({{$selectedYear}})',
+                    text: '{{ $getChartTitleQuestion6 }}',
                     font: {
                         size: 17,
                         family: 'Arial'

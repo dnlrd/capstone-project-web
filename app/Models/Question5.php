@@ -98,7 +98,7 @@ class Question5 extends Model
 
         return $total;
     }
-    public static function Migration($selectedYear, $selectedBarangay)
+    public static function MigrationReportQuestion5Chart($selectedYear, $selectedBarangay)
     {
         $query = Household::select(
             DB::raw('SUM(CASE WHEN question_5.answer1_q5 = 1 THEN 1 ELSE 0 END) AS answer1'),

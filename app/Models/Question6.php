@@ -14,7 +14,38 @@ class Question6 extends Model
         'answer1_q6',
         'household_id',
     ];
-
+    const BARANGAY_NAMES = [
+        1 => "Barangay I (Poblacion)",
+        2 => "Barangay II (Poblacion)",
+        3 => "Barangay III (Poblacion)",
+        4 => "Barangay IV (Poblacion)",
+        5 => "San Agustin",
+        6 => "San Antonio",
+        7 => "San Bartolome",
+        8 => "San Felix",
+        9 => "San Fernando",
+        10 => "San Francisco",
+        11 => "San Isidro Norte",
+        12 => "San Isidro Sur",
+        13 => "San Joaquin",
+        14 => "San Jose",
+        15 => "San Juan",
+        16 => "San Luis",
+        17 => "San Miguel",
+        18 => "San Pablo",
+        19 => "San Pedro",
+        20 => "San Rafael",
+        21 => "San Roque",
+        22 => "San Vicente",
+        23 => "Santa Ana",
+        24 => "Santa Anastacia",
+        25 => "Santa Clara",
+        26 => "Santa Cruz",
+        27 => "Santa Elena",
+        28 => "Santa Maria",
+        29 => "Santiago",
+        30 => "Santa Teresita",
+    ];
     public static function Question6($selectedYear)
     {
         $total = Household::select(
@@ -65,6 +96,47 @@ class Question6 extends Model
         ->get();
 
         return $total;
+    }
+
+    public static function MigrationReportQuestion6Chart($selectedYear, $selectedBarangay)
+    {
+        $query = Household::select(
+            DB::raw('SUM(CASE WHEN question_6.answer1_q6 = 1 THEN 1 ELSE 0 END) AS answer1'),
+            DB::raw('SUM(CASE WHEN question_6.answer1_q6 = 2 THEN 1 ELSE 0 END) AS answer2'),
+            DB::raw('SUM(CASE WHEN question_6.answer1_q6 = 3 THEN 1 ELSE 0 END) AS answer3')
+        )
+            ->join('question_6', 'household.id', '=', 'question_6.household_id')
+            ->where('household.year', $selectedYear);
+    
+        if ($selectedBarangay) {
+            $query->addSelect('household.barangay')
+                ->where('household.barangay', $selectedBarangay)
+                ->groupBy('household.barangay');
+        }
+
+        $total = $query->get();
+    
+        return $total;
+    }
+    public static function getChartTitleQuestion6($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
+
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown Barangay'; 
+        }
+
+        $chartTitle = 'Uri ng Pag-lipat Distribution Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
     }
     public function household()
     {
