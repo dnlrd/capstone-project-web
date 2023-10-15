@@ -231,9 +231,9 @@ class FamilyMembers extends Model
         return $total;
     }
 
-    public static function DemographicReportCivilStatus($selectedYear)
+    public static function DemographicReportCivilStatus($selectedYear, $selectedBarangay)
     {
-        $total = Household::select(
+        $query = Household::select(
             DB::raw("SUM(CASE WHEN family_members.civil_status = '1' THEN 1 ELSE 0 END) AS total_single"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '2' THEN 1 ELSE 0 END) AS total_cohabiting"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '3' THEN 1 ELSE 0 END) AS total_married"),
@@ -241,11 +241,35 @@ class FamilyMembers extends Model
             DB::raw("SUM(CASE WHEN family_members.civil_status = '5' THEN 1 ELSE 0 END) AS total_widowed")
         )
             ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
-            ->where('household.year', $selectedYear)
-            ->first();
+            ->where('household.year', $selectedYear);
 
+        if ($selectedBarangay) {
+            $query->where('household.barangay', $selectedBarangay);
+        }
+
+        $total = $query->first();
 
         return $total;
+    }
+    public static function getChartTitleCivilStatus($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
+
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown Civil Status'; 
+        }
+
+        $chartTitle = 'Civil Status Distribution Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
     }
 
     public static function DemographicReportAge($year)

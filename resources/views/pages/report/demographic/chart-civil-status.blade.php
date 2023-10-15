@@ -51,7 +51,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Civil Status Distribution Chart ({{$selectedYear}})',
+                    text: '{{$getChartTitleCivilStatus}}',
                     font: {
                         size: 17,
                         family: 'Arial'

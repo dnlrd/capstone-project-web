@@ -61,13 +61,17 @@ class Report extends Controller
 
     public function demographic(Request $request)
     {
+        $BARANGAY_NAMES = self::BARANGAY_NAMES;
         $currentYear = Carbon::now()->year;
         $selectedYear = $request->input('year', $currentYear);
+        $selectedBarangay = $request->input('barangay');
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
-        
 
+        $availableBarangays = Household::distinct()->orderBy('barangay', 'asc')->pluck('barangay');
+        
+        $getChartTitleCivilStatus = FamilyMembers::getChartTitleCivilStatus($selectedYear, $selectedBarangay);
         $DemographicReportGender = FamilyMembers::DemographicReportGender($selectedYear);
-        $DemographicReportCivilStatus = FamilyMembers::DemographicReportCivilStatus($selectedYear);
+        $DemographicReportCivilStatus = FamilyMembers::DemographicReportCivilStatus($selectedYear, $selectedBarangay);
         $DemographicReportAge = FamilyMembers::DemographicReportAge($selectedYear);
         $DemographicGenderAgeDistribution = FamilyMembers::GenderAgeDistribution($selectedYear);
 
@@ -75,11 +79,17 @@ class Report extends Controller
             'currentYear',
             'selectedYear',
             'availableYears',
+            'selectedBarangay',
+            'availableBarangays',
+            'BARANGAY_NAMES',
 
             'DemographicReportGender',
             'DemographicReportCivilStatus',
             'DemographicReportAge',
             'DemographicGenderAgeDistribution',
+
+            'getChartTitleCivilStatus',
+
         ));
     }
 
@@ -202,6 +212,7 @@ class Report extends Controller
             'selectedBarangay',
             'availableBarangays',
             'BARANGAY_NAMES',
+
             'getChartTitleQuestion5',
             'getChartTitleQuestion6',
 
