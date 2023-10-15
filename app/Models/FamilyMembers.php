@@ -222,19 +222,29 @@ class FamilyMembers extends Model
     {
         $total = Household::select(
             DB::raw("SUM(CASE WHEN family_members.gender = '1' THEN 1 ELSE 0 END) AS male_count"),
-            DB::raw("SUM(CASE WHEN family_members.gender = '2' THEN 1 ELSE 0 END) AS female_count")
+            DB::raw("SUM(CASE WHEN family_members.gender = '2' THEN 1 ELSE 0 END) AS female_count"),
+            DB::raw("SUM(CASE WHEN family_members.gender IN ('1', '2') THEN 1 ELSE 0 END) AS total_count")
         )
             ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
             ->where('household.year', $selectedYear);
-
+    
         if ($selectedBarangay) {
             $total->where('household.barangay', $selectedBarangay);
         }
-
+    
         $total = $total->first();
-
+    
+        if ($total->total_count > 0) {
+            $total->male_percentage = ($total->male_count / $total->total_count) * 100;
+            $total->female_percentage = ($total->female_count / $total->total_count) * 100;
+        } else {
+            $total->male_percentage = 0;
+            $total->female_percentage = 0;
+        }
+    
         return $total;
     }
+    
     public static function getChartTitleGender($selectedYear, $selectedBarangay)
     {
         $barangayName = '';
@@ -257,25 +267,32 @@ class FamilyMembers extends Model
     }
 
     public static function DemographicReportCivilStatus($selectedYear, $selectedBarangay)
-    {
-        $query = Household::select(
-            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' THEN 1 ELSE 0 END) AS total_single"),
-            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' THEN 1 ELSE 0 END) AS total_cohabiting"),
-            DB::raw("SUM(CASE WHEN family_members.civil_status = '3' THEN 1 ELSE 0 END) AS total_married"),
-            DB::raw("SUM(CASE WHEN family_members.civil_status = '4' THEN 1 ELSE 0 END) AS total_separated"),
-            DB::raw("SUM(CASE WHEN family_members.civil_status = '5' THEN 1 ELSE 0 END) AS total_widowed")
-        )
-            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
-            ->where('household.year', $selectedYear);
+{
+    $query = Household::select(
+        DB::raw("SUM(CASE WHEN family_members.civil_status = '1' THEN 1 ELSE 0 END) AS total_single"),
+        DB::raw("SUM(CASE WHEN family_members.civil_status = '2' THEN 1 ELSE 0 END) AS total_cohabiting"),
+        DB::raw("SUM(CASE WHEN family_members.civil_status = '3' THEN 1 ELSE 0 END) AS total_married"),
+        DB::raw("SUM(CASE WHEN family_members.civil_status = '4' THEN 1 ELSE 0 END) AS total_separated"),
+        DB::raw("SUM(CASE WHEN family_members.civil_status = '5' THEN 1 ELSE 0 END) AS total_widowed")
+    )
+        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+        ->where('household.year', $selectedYear);
 
-        if ($selectedBarangay) {
-            $query->where('household.barangay', $selectedBarangay);
-        }
-
-        $total = $query->first();
-
-        return $total;
+    if ($selectedBarangay) {
+        $query->where('household.barangay', $selectedBarangay);
     }
+
+    $total = $query->first();
+
+    // Calculate percentages
+    $total['total_single_percentage'] = intval($total['total_single'] / ($total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed']) * 100);
+    $total['total_cohabiting_percentage'] = intval($total['total_cohabiting'] / ($total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed']) * 100);
+    $total['total_married_percentage'] = intval($total['total_married'] / ($total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed']) * 100);
+    $total['total_separated_percentage'] = intval($total['total_separated'] / ($total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed']) * 100);
+    $total['total_widowed_percentage'] = intval($total['total_widowed'] / ($total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed']) * 100);
+    return $total;
+}
+
     public static function getChartTitleCivilStatus($selectedYear, $selectedBarangay)
     {
         $barangayName = '';

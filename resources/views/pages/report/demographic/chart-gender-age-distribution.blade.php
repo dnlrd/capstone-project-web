@@ -9,8 +9,10 @@
 </div>
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <script src="{{asset('js/printThis.js')}}" defer></script>
 <script>
+    Chart.register(ChartDataLabels);
     const genderage = document.getElementById('GenderAgeDistribution').getContext('2d');
     
     const ageData = {!! json_encode($DemographicGenderAgeDistribution) !!};
@@ -68,6 +70,7 @@
             },
             
             plugins: {
+                
                 title: {
                     display: true,
                     text: '{{$getChartTitleGenderAge}}',
@@ -76,7 +79,8 @@
                         family: 'Arial'
                     }
                 },
-                tooltip
+                tooltip,
+                
             }
         }
     });

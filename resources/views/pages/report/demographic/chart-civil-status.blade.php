@@ -12,58 +12,78 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{asset('js/printThis.js')}}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <script>
+    Chart.register(ChartDataLabels);
+    
+    Chart.defaults.set('plugins.datalabels', {
+        color: 'white'
+    });
     var data = @json($DemographicReportCivilStatus);
 
     var DemographicReportCivilStatus = document.getElementById('DemographicReportCivilStatus').getContext('2d');
-    var backgroundColors = [
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(153, 102, 255, 0.2)', 
-    ];
+
     var chart = new Chart(DemographicReportCivilStatus, {
-        type: 'bar',
+        type: 'doughnut',
         data: {
             labels: [
-                'Single - {{$DemographicReportCivilStatus->total_single}}',
-                'Cohabiting - {{$DemographicReportCivilStatus->total_cohabiting}}',
-                'Married - {{$DemographicReportCivilStatus->total_married}}',
-                'Separated - {{$DemographicReportCivilStatus->total_separated}}',
-                'Widowed - {{$DemographicReportCivilStatus->total_widowed}}'],
+                'Single ({{ $DemographicReportCivilStatus->total_single }})',
+                'Cohabiting ({{ $DemographicReportCivilStatus->total_cohabiting }})',
+                'Married ({{ $DemographicReportCivilStatus->total_married }})',
+                'Separated ({{ $DemographicReportCivilStatus->total_separated }})',
+                'Widowed ({{ $DemographicReportCivilStatus->total_widowed }})'
+            ],
             datasets: [{
                 data: [
-                    data.total_single,
-                    data.total_cohabiting,
-                    data.total_married,
-                    data.total_separated,
-                    data.total_widowed,
+                    data.total_single_percentage,
+                    data.total_cohabiting_percentage,
+                    data.total_married_percentage,
+                    data.total_separated_percentage,
+                    data.total_widowed_percentage
                 ],
-                backgroundColor: backgroundColors,
-                borderColor: backgroundColors.map(color => color.replace('0.2', '1')),
+                backgroundColor: [
+                    'rgba(75, 192, 192)',
+                    'rgba(255, 99, 132)',
+                    'rgba(255, 206, 86)',
+                    'rgba(75, 75, 75)',
+                    'rgba(153, 102, 255)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 75, 75, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
                 borderWidth: 1
             }]
         },
         options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             plugins: {
+                datalabels: {
+                    formatter: function(value, context) {
+                        return Math.round(value) + '%';
+                    }
+                },
                 title: {
                     display: true,
-                    text: '{{$getChartTitleCivilStatus}}',
+                    text: '{{ $getChartTitleCivilStatus }}',
                     font: {
                         size: 17,
                         family: 'Arial'
                     }
                 },
                 legend: {
-                    display: false,
+                    display: true,
+                    position: 'left'
                 }
             },
         }
     });
 </script>
+
 <script>
     $( ".printDemo" ).click(function() {
         $('#printable-content').printThis({
