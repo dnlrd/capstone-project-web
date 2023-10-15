@@ -285,12 +285,23 @@ class FamilyMembers extends Model
     $total = $query->first();
 
     // Calculate percentages
-    $total['total_single_percentage'] = intval($total['total_single'] / ($total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed']) * 100);
-    $total['total_cohabiting_percentage'] = intval($total['total_cohabiting'] / ($total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed']) * 100);
-    $total['total_married_percentage'] = intval($total['total_married'] / ($total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed']) * 100);
-    $total['total_separated_percentage'] = intval($total['total_separated'] / ($total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed']) * 100);
-    $total['total_widowed_percentage'] = intval($total['total_widowed'] / ($total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed']) * 100);
-    return $total;
+    $totalCount = $total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed'];
+
+// Check if the total count is not zero to avoid division by zero
+if ($totalCount > 0) {
+    $total['total_single_percentage'] = intval($total['total_single'] / $totalCount * 100);
+    $total['total_cohabiting_percentage'] = intval($total['total_cohabiting'] / $totalCount * 100);
+    $total['total_married_percentage'] = intval($total['total_married'] / $totalCount * 100);
+    $total['total_separated_percentage'] = intval($total['total_separated'] / $totalCount * 100);
+    $total['total_widowed_percentage'] = intval($total['total_widowed'] / $totalCount * 100);
+} else {
+    // Handle the case where the total count is zero (e.g., set percentages to 0 or handle it as needed)
+    $total['total_single_percentage'] = 0;
+    $total['total_cohabiting_percentage'] = 0;
+    $total['total_married_percentage'] = 0;
+    $total['total_separated_percentage'] = 0;
+    $total['total_widowed_percentage'] = 0;
+}return $total;
 }
 
     public static function getChartTitleCivilStatus($selectedYear, $selectedBarangay)

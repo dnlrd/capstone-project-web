@@ -15,7 +15,7 @@
     Chart.register(ChartDataLabels);
     const genderage = document.getElementById('GenderAgeDistribution').getContext('2d');
     
-    const ageData = {!! json_encode($DemographicGenderAgeDistribution) !!};
+    const ageData = @json($DemographicGenderAgeDistribution);
     const tooltip = {
         yAlign: 'bottom',
         titleAlign: 'center',

@@ -16,9 +16,9 @@
 <script>
     Chart.register(ChartDataLabels);
     
-    Chart.defaults.set('plugins.datalabels', {
-        color: 'white'
-    });
+    // Chart.defaults.set('plugins.datalabels', {
+    //     color: 'white'
+    // });
     var data = @json($DemographicReportCivilStatus);
 
     var DemographicReportCivilStatus = document.getElementById('DemographicReportCivilStatus').getContext('2d');
@@ -35,11 +35,11 @@
             ],
             datasets: [{
                 data: [
-                    data.total_single_percentage,
-                    data.total_cohabiting_percentage,
-                    data.total_married_percentage,
-                    data.total_separated_percentage,
-                    data.total_widowed_percentage
+                    {{ $DemographicReportCivilStatus->total_single_percentage }},
+                    {{ $DemographicReportCivilStatus->total_cohabiting_percentage }},
+                    {{ $DemographicReportCivilStatus->total_married_percentage }},
+                    {{ $DemographicReportCivilStatus->total_separated_percentage }},
+                    {{ $DemographicReportCivilStatus->total_widowed_percentage }}
                 ],
                 backgroundColor: [
                     'rgba(75, 192, 192)',
@@ -64,7 +64,18 @@
             plugins: {
                 datalabels: {
                     formatter: function(value, context) {
+                        if (value === 0) {
+                            return '';
+                        }
                         return Math.round(value) + '%';
+                    },
+                    color: 'white',
+                        labels: {
+                        title: {
+                            font: {
+                            weight: 'bold'
+                            }
+                        },
                     }
                 },
                 title: {
