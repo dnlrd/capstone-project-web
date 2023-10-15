@@ -69,11 +69,14 @@ class Report extends Controller
 
         $availableBarangays = Household::distinct()->orderBy('barangay', 'asc')->pluck('barangay');
         
+        $getChartTitleGender = FamilyMembers::getChartTitleGender($selectedYear, $selectedBarangay);
         $getChartTitleCivilStatus = FamilyMembers::getChartTitleCivilStatus($selectedYear, $selectedBarangay);
-        $DemographicReportGender = FamilyMembers::DemographicReportGender($selectedYear);
+        $getChartTitleGenderAge = FamilyMembers::getChartTitleGenderAge($selectedYear, $selectedBarangay);
+
+        $DemographicReportGender = FamilyMembers::DemographicReportGender($selectedYear,$selectedBarangay);
         $DemographicReportCivilStatus = FamilyMembers::DemographicReportCivilStatus($selectedYear, $selectedBarangay);
         $DemographicReportAge = FamilyMembers::DemographicReportAge($selectedYear);
-        $DemographicGenderAgeDistribution = FamilyMembers::GenderAgeDistribution($selectedYear);
+        $DemographicGenderAgeDistribution = FamilyMembers::GenderAgeDistribution($selectedYear, $selectedBarangay);
 
         return view('pages.report.demographic', compact(
             'currentYear',
@@ -89,6 +92,8 @@ class Report extends Controller
             'DemographicGenderAgeDistribution',
 
             'getChartTitleCivilStatus',
+            'getChartTitleGender',
+            'getChartTitleGenderAge',
 
         ));
     }

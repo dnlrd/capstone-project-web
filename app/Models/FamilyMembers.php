@@ -218,17 +218,42 @@ class FamilyMembers extends Model
     {
 
     }
-    public static function DemographicReportGender($selectedYear)
+    public static function DemographicReportGender($selectedYear, $selectedBarangay)
     {
         $total = Household::select(
             DB::raw("SUM(CASE WHEN family_members.gender = '1' THEN 1 ELSE 0 END) AS male_count"),
             DB::raw("SUM(CASE WHEN family_members.gender = '2' THEN 1 ELSE 0 END) AS female_count")
         )
-        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
-        ->where('household.year', $selectedYear)
-        ->first();
+            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+            ->where('household.year', $selectedYear);
+
+        if ($selectedBarangay) {
+            $total->where('household.barangay', $selectedBarangay);
+        }
+
+        $total = $total->first();
 
         return $total;
+    }
+    public static function getChartTitleGender($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
+
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown'; 
+        }
+
+        $chartTitle = 'Gender Distribution Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
     }
 
     public static function DemographicReportCivilStatus($selectedYear, $selectedBarangay)
@@ -320,9 +345,9 @@ class FamilyMembers extends Model
     {
 
     }
-    public static function GenderAgeDistribution($year)
+    public static function GenderAgeDistribution($year, $selectedBarangay)
     {
-        return DB::table('household')
+        $query = DB::table('household')
             ->select(
                 DB::raw("CASE 
                     WHEN family_members.age BETWEEN 0 AND 4 THEN '0-4'
@@ -339,7 +364,13 @@ class FamilyMembers extends Model
                 DB::raw("SUM(CASE WHEN family_members.gender = '2' THEN 1 ELSE 0 END) AS female_count")
             )
             ->join('family_members', 'household.id', '=', 'family_members.household_id')
-            ->where('household.year', $year)
+            ->where('household.year', $year);
+
+        if ($selectedBarangay) {
+            $query->where('household.barangay', $selectedBarangay);
+        }
+
+        return $query
             ->groupBy('age_range')
             ->orderByRaw("CASE 
                 WHEN age_range = '0-4' THEN 1
@@ -353,6 +384,26 @@ class FamilyMembers extends Model
                 WHEN age_range = '70-79' THEN 9
                 ELSE 10 END")
             ->get();
+    }
+    public static function getChartTitleGenderAge($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
+
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown'; 
+        }
+
+        $chartTitle = 'Age and Gender Distribution Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
     }
 
     //ECONOMIC

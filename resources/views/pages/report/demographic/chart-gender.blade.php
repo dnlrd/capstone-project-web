@@ -37,7 +37,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Gender Distribution Chart ({{$selectedYear}})',
+                    text: '{{ $getChartTitleGender }}',
                     font: {
                         size: 17,
                         family: 'Arial'

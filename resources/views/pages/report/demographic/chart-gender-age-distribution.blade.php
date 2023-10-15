@@ -70,7 +70,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Age and Gender Distribution Chart ({{$selectedYear}})',
+                    text: '{{$getChartTitleGenderAge}}',
                     font: {
                         size: 17,
                         family: 'Arial'
