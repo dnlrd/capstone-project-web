@@ -12,24 +12,27 @@
             <div class="col-auto ms-auto d-print-none">
                 <form method="get" action="{{ route('migration-report') }}" class="mb-3">
                     @csrf
-                    
-                    <div class="form-group">
-                    <select name="year" id="year" class="form-select" onchange="this.form.submit()">
-                        @foreach ($availableYears as $yearOption)
-                            <option value="{{ $yearOption }}" {{ $yearOption == $selectedYear ? 'selected' : '' }}>
-                                {{ $yearOption }}
-                            </option>
-                        @endforeach
-                    </select>
-                        <select name="barangay" class="form-select" onchange="this.form.submit()">
-                            <option value="" {{ $selectedBarangay === null ? 'selected' : '' }}>All Barangays</option>
-                            @foreach ($availableBarangays as $barangay)
-                                <option value="{{ $barangay }}" {{ $selectedBarangay == $barangay ? 'selected' : '' }}>
-                                    {{ $barangay }}
-                                </option>
-                            @endforeach
-                        </select>
-
+                    <div class="form-selectgroup">
+                        <label class="form-selectgroup-item">
+                            <select name="barangay" class="form-select" onchange="this.form.submit()">
+                                <option value="" {{ $selectedBarangay === null ? 'selected' : '' }}>All Barangays</option>
+                                @foreach (collect($BARANGAY_NAMES)->sort() as $key => $barangayName)
+                                    <option value="{{ $key }}" {{ $selectedBarangay == $key ? 'selected' : '' }}>
+                                        {{ $barangayName }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </label>
+                        <label class="form-selectgroup-item">
+                            <select name="year" id="year" class="form-select" onchange="this.form.submit()">
+                                @foreach ($availableYears as $yearOption)
+                                    <option value="{{ $yearOption }}" {{ $yearOption == $selectedYear ? 'selected' : '' }}>
+                                        {{ $yearOption }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </label>
+                       
                     </div>
                 </form>
             </div>
@@ -73,7 +76,7 @@
                     </button>
                 </div>
                 <div class="col-sm-12 col-lg-12 col-md-12 d-flex justify-content-center">
-                @json($MigrationReportQuestion5Chart)
+               
                 </div>
             </div>
     </div>

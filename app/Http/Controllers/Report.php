@@ -21,6 +21,39 @@ class Report extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     const BARANGAY_NAMES = [
+        1 => "Barangay I (Poblacion)",
+        2 => "Barangay II (Poblacion)",
+        3 => "Barangay III (Poblacion)",
+        4 => "Barangay IV (Poblacion)",
+        5 => "San Agustin",
+        6 => "San Antonio",
+        7 => "San Bartolome",
+        8 => "San Felix",
+        9 => "San Fernando",
+        10 => "San Francisco",
+        11 => "San Isidro Norte",
+        12 => "San Isidro Sur",
+        13 => "San Joaquin",
+        14 => "San Jose",
+        15 => "San Juan",
+        16 => "San Luis",
+        17 => "San Miguel",
+        18 => "San Pablo",
+        19 => "San Pedro",
+        20 => "San Rafael",
+        21 => "San Roque",
+        22 => "San Vicente",
+        23 => "Santa Ana",
+        24 => "Santa Anastacia",
+        25 => "Santa Clara",
+        26 => "Santa Cruz",
+        27 => "Santa Elena",
+        28 => "Santa Maria",
+        29 => "Santiago",
+        30 => "Santa Teresita",
+    ];
     public function index()
     {
         return view('pages.report.reports');
@@ -140,13 +173,14 @@ class Report extends Controller
     public function migration(Request $request)
     {
         //
+        $BARANGAY_NAMES = self::BARANGAY_NAMES;
         $currentYear = Carbon::now()->year;
         $selectedYear = $request->input('year', $currentYear);
         $selectedBarangay = $request->input('barangay');
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
 
-        $availableBarangays = Household::distinct()->orderBy('barangay', 'desc')->pluck('barangay');
-
+        $availableBarangays = Household::distinct()->orderBy('barangay', 'asc')->pluck('barangay');
+       
 
         $selectedBarangay = $request->input('barangay');
         $MigrationReportQuestion5 = Question5::MigrationReportQuestion5($selectedYear);
@@ -160,13 +194,14 @@ class Report extends Controller
         
         $MigrationReportQuestion5Chart = Question5::MigrationReportQuestion5Chart($selectedYear, $selectedBarangay);
         $MigrationReportQuestion6Chart = Question6::MigrationReportQuestion6Chart($selectedYear, $selectedBarangay);
+        
         return view('pages.report.migration', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
             'selectedBarangay',
             'availableBarangays',
-
+            'BARANGAY_NAMES',
             'getChartTitleQuestion5',
             'getChartTitleQuestion6',
 
@@ -174,7 +209,7 @@ class Report extends Controller
             'MigrationReportQuestion5ByBarangay',
             'MigrationReportQuestion6',
             'MigrationReportQuestion6ByBarangay',
-            
+
             'MigrationReportQuestion5Chart',
             'MigrationReportQuestion6Chart'
             

@@ -102,6 +102,10 @@
                         family: 'Arial'
                     }
                 },
+                legend: {
+                    display: true,
+                    position: 'right'
+                }
             },
             scales: {
                 x: {
