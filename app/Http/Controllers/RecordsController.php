@@ -273,6 +273,14 @@ class RecordsController extends Controller
 
         return redirect()->route('records')->with('success', 'Household added successfully.');
     }
+    
+    public function show($id)
+    {
+        $household = Household::findOrFail($id);
+        $familyMembers = FamilyMembers::where('household_id', $household->id)->get();
+    
+        return view('pages.records.household-detail', compact('household', 'familyMembers'));
+    }
 
     public function edit()
     {

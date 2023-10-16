@@ -29,6 +29,7 @@ Route::middleware(['auth', 'role:0,1'])->group(function () {
     Route::post('/records', [RecordsController::class, 'store'])->name('store-records');
     Route::get('/records/edit', [RecordsController::class, 'edit'])->middleware('auth')->name('edit-records');
     Route::delete('/records/delete/{id}', [RecordsController::class, 'delete'])->name('delete-records');
+    Route::get('/records/household-detail/{id}', [RecordsController::class, 'show'])->name('detail-records');
 
     Route::get('/account-settings', [AccountSettingsController::class, 'index'])->middleware('auth')->name('account-settings');
     Route::get('/account-settings/edit', [AccountSettingsController::class, 'edit'])->middleware('auth')->name('edit-account-settings');
@@ -45,7 +46,7 @@ Route::middleware(['auth', 'role:0'])->group(function () {
     Route::get('/migration-report', [Report::class, 'migration'])->name('migration-report');
 
     Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management');
-
+    
     Route::post('/user-management/create-new-user', [UserManagementController::class, 'store'])->name('store-new-user');
     Route::put('/user-management/update-user/{id}', [UserManagementController::class, 'update'])->name('user.update');
     Route::delete('/user-management/delete-user/{id}', [UserManagementController::class, 'delete'])->name('user.delete');
