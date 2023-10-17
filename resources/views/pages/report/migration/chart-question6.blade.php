@@ -30,16 +30,17 @@
             type: 'pie',
             data: {
                 labels: [
-                    'Kasama lahat ng pamilya', 
-                    'Kasama ang ibang myembro ng pamilya', 
-                    'Nag-iisang lumipat '
+                    `Kasama lahat ng pamilya (${data[0].answer1})`, 
+                    `Kasama ang ibang myembro ng pamilya (${data[0].answer2})`, 
+                    `Nag-iisang lumipat (${data[0].answer3})`
                 ],
                 datasets: [{
                     label: 'Migration Report',
                     data: [
-                        data[0].answer1, 
-                        data[0].answer2, 
-                        data[0].answer3],
+                        data[0].answer1_percentage, 
+                        data[0].answer2_percentage, 
+                        data[0].answer3_percentage
+                    ],
                     backgroundColor: backgroundColors,
                     borderColor: borderColors,
                     borderWidth: 1
