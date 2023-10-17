@@ -13,6 +13,7 @@ use App\Models\Household;
 use App\Models\Question5;
 use App\Models\Question6;
 use App\Models\Question14;
+use App\Models\Question11;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -75,7 +76,7 @@ class Report extends Controller
 
         $DemographicReportGender = FamilyMembers::DemographicReportGender($selectedYear,$selectedBarangay);
         $DemographicReportCivilStatus = FamilyMembers::DemographicReportCivilStatus($selectedYear, $selectedBarangay);
-        $DemographicReportAge = FamilyMembers::DemographicReportAge($selectedYear);
+        $DemographicReportAge = FamilyMembers::DemographicReportAge($selectedYear,$selectedBarangay);
         $DemographicGenderAgeDistribution = FamilyMembers::GenderAgeDistribution($selectedYear, $selectedBarangay);
 
         return view('pages.report.demographic', compact(
@@ -180,9 +181,32 @@ class Report extends Controller
         ));
     }
 
-    public function housing()
+    public function housing(Request $request)
     {
-        //
+        $BARANGAY_NAMES = self::BARANGAY_NAMES;
+        $currentYear = Carbon::now()->year;
+        $selectedYear = $request->input('year', $currentYear);
+        $selectedBarangay = $request->input('barangay');
+        $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
+
+        $availableBarangays = Household::distinct()->orderBy('barangay', 'asc')->pluck('barangay');
+
+
+        $Question11a = Question11::HousingReportQuestion11a($selectedYear, $selectedBarangay );
+        $Question11b = Question11::HousingReportQuestion11b($selectedYear, $selectedBarangay );
+        $Question11c = Question11::HousingReportQuestion11c($selectedYear, $selectedBarangay );
+        return view('pages.report.housing', compact(
+            'currentYear',
+            'selectedYear',
+            'availableYears',
+            'selectedBarangay',
+            'availableBarangays',
+            'BARANGAY_NAMES',
+
+            'Question11a',
+            'Question11b',
+            'Question11c',
+        ));
     }
 
     public function migration(Request $request)

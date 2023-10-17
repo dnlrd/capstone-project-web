@@ -8,11 +8,11 @@
     </div>
 </div>
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-<script src="{{asset('js/printThis.js')}}" defer></script>
+
 <script>
     Chart.register(ChartDataLabels);
+    
+    
     const genderage = document.getElementById('GenderAgeDistribution').getContext('2d');
     
     const ageData = @json($DemographicGenderAgeDistribution);
@@ -33,7 +33,7 @@
                 {
                     label: 'Male',
                     data: ageData.map(item => -item.male_count),
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    backgroundColor: 'rgba(54, 162, 235)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 0.1,
                     barThickness: 15
@@ -41,7 +41,7 @@
                 {
                     label: 'Female',
                     data: ageData.map(item => item.female_count),
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    backgroundColor: 'rgba(255, 99, 132)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 0.1,
                     barThickness: 15
@@ -70,7 +70,19 @@
             },
             
             plugins: {
-                
+                datalabels: {
+                    formatter: function(value, context) {
+                        return value !== 0 ? Math.abs(value) : '';
+                    },
+                    color: 'white',
+                        labels: {
+                        title: {
+                            font: {
+                                weight: 'bold'
+                            }
+                        },
+                    }
+                },
                 title: {
                     display: true,
                     text: '{{$getChartTitleGenderAge}}',

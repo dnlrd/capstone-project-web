@@ -55,5 +55,9 @@
             </div>
     </div>
 </div>
-
+@push('plugins')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{asset('js/printThis.js')}}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+@endpush
 @endsection

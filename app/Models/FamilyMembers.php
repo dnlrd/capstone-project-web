@@ -284,10 +284,8 @@ class FamilyMembers extends Model
 
     $total = $query->first();
 
-    // Calculate percentages
     $totalCount = $total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed'];
 
-// Check if the total count is not zero to avoid division by zero
 if ($totalCount > 0) {
     $total['total_single_percentage'] = intval($total['total_single'] / $totalCount * 100);
     $total['total_cohabiting_percentage'] = intval($total['total_cohabiting'] / $totalCount * 100);
@@ -295,7 +293,6 @@ if ($totalCount > 0) {
     $total['total_separated_percentage'] = intval($total['total_separated'] / $totalCount * 100);
     $total['total_widowed_percentage'] = intval($total['total_widowed'] / $totalCount * 100);
 } else {
-    // Handle the case where the total count is zero (e.g., set percentages to 0 or handle it as needed)
     $total['total_single_percentage'] = 0;
     $total['total_cohabiting_percentage'] = 0;
     $total['total_married_percentage'] = 0;
@@ -325,49 +322,56 @@ if ($totalCount > 0) {
         return $chartTitle;
     }
 
-    public static function DemographicReportAge($year)
-    {
-        $ageRangeDistribution = Household::select(
-            DB::raw("CASE 
-                WHEN age BETWEEN 0 AND 4 THEN '0-4'
-                WHEN age BETWEEN 5 AND 9 THEN '5-9'
-                WHEN age BETWEEN 10 AND 19 THEN '10-19'
-                WHEN age BETWEEN 20 AND 29 THEN '20-29'
-                WHEN age BETWEEN 30 AND 39 THEN '30-39'
-                WHEN age BETWEEN 40 AND 49 THEN '40-49'
-                WHEN age BETWEEN 50 AND 59 THEN '50-59'
-                WHEN age BETWEEN 60 AND 69 THEN '60-69'
-                WHEN age BETWEEN 70 AND 79 THEN '70-79'
-                ELSE '80+' END AS age_range"),
-            DB::raw('COUNT(*) as count')
-        )
+    public static function DemographicReportAge($year, $selectedBarangay)
+{
+    $query = Household::select(
+        DB::raw("CASE 
+            WHEN age BETWEEN 0 AND 4 THEN '0-4'
+            WHEN age BETWEEN 5 AND 9 THEN '5-9'
+            WHEN age BETWEEN 10 AND 19 THEN '10-19'
+            WHEN age BETWEEN 20 AND 29 THEN '20-29'
+            WHEN age BETWEEN 30 AND 39 THEN '30-39'
+            WHEN age BETWEEN 40 AND 49 THEN '40-49'
+            WHEN age BETWEEN 50 AND 59 THEN '50-59'
+            WHEN age BETWEEN 60 AND 69 THEN '60-69'
+            WHEN age BETWEEN 70 AND 79 THEN '70-79'
+            ELSE '80+' END AS `age_range`"), // Escape `age_range` with backticks
+        DB::raw('COUNT(*) as `count`') // Escape `count` with backticks
+    )
         ->join('family_members', 'household.id', '=', 'family_members.household_id')
-        ->where('household.year', $year)
+        ->where('household.year', $year);
+
+    if ($selectedBarangay) {
+        $query->where('household.barangay', $selectedBarangay);
+    }
+
+    $ageRangeDistribution = $query
         ->groupBy('age_range')
         ->orderByRaw("CASE 
-            WHEN age_range = '0-4' THEN 1
-            WHEN age_range = '5-9' THEN 2
-            WHEN age_range = '10-19' THEN 3
-            WHEN age_range = '20-29' THEN 4
-            WHEN age_range = '30-39' THEN 5
-            WHEN age_range = '40-49' THEN 6
-            WHEN age_range = '50-59' THEN 7
-            WHEN age_range = '60-69' THEN 8
-            WHEN age_range = '70-79' THEN 9
+            WHEN `age_range` = '0-4' THEN 1
+            WHEN `age_range` = '5-9' THEN 2
+            WHEN `age_range` = '10-19' THEN 3
+            WHEN `age_range` = '20-29' THEN 4
+            WHEN `age_range` = '30-39' THEN 5
+            WHEN `age_range` = '40-49' THEN 6
+            WHEN `age_range` = '50-59' THEN 7
+            WHEN `age_range` = '60-69' THEN 8
+            WHEN `age_range` = '70-79' THEN 9
             ELSE 10 END")
         ->get();
 
-        $result = [];
+    $result = [];
 
-        foreach ($ageRangeDistribution as $data) {
-            $result[] = [
-                'age_range' => $data->age_range,
-                'count' => $data->count,
-            ];
-        }
-
-        return $result;
+    foreach ($ageRangeDistribution as $data) {
+        $result[] = [
+            'age_range' => $data->age_range,
+            'count' => $data->count,
+        ];
     }
+
+    return $result;
+}
+
     
     public static function DemographicReportSoloParent($year)
     {

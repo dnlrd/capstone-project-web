@@ -10,15 +10,9 @@
 
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{asset('js/printThis.js')}}" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <script>
     Chart.register(ChartDataLabels);
     
-    // Chart.defaults.set('plugins.datalabels', {
-    //     color: 'white'
-    // });
     var data = @json($DemographicReportCivilStatus);
 
     var DemographicReportCivilStatus = document.getElementById('DemographicReportCivilStatus').getContext('2d');

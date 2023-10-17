@@ -44,6 +44,7 @@ Route::middleware(['auth', 'role:0'])->group(function () {
     Route::get('/educational-report', [Report::class, 'educational'])->name('educational-report');
     Route::get('/health-report', [Report::class, 'health'])->name('health-report');
     Route::get('/migration-report', [Report::class, 'migration'])->name('migration-report');
+    Route::get('/housing-report', [Report::class, 'housing'])->name('housing-report');
 
     Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management');
     

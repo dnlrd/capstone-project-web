@@ -10,9 +10,8 @@
 
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{asset('js/printThis.js')}}" defer></script>
 <script>
+    Chart.register(ChartDataLabels);
     var data = @json($EconomicReportEmploymentStatus);
 
     var EconomicReportEmploymentStatus = document.getElementById('EconomicEmploymentStatus').getContext('2d');

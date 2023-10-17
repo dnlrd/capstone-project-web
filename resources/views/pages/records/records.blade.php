@@ -119,8 +119,141 @@
                                             {{ $household->year }}
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal-{{ $household->id }}">
-                                                Delete
+                                            <button type="button" class="btn-action text-blue" data-bs-toggle="modal" data-bs-target="#viewDetailsModal-{{ $household->id }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                                    <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
+                                                </svg>
+                                            </button>
+                                            <!-- View User Modal -->
+                                            <div class="modal" id="viewDetailsModal-{{ $household->id }}" tabindex="-1">
+                                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="viewDetailsModalLabel">{{ $household->household_code }}</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Head of the Family: <b>{{ $household->lastname }}, {{ $household->firstname }} {{ $household->middlename }}</b></p>
+                                                            <p>Total Family Members: <b>{{ $familyMemberCounts[$household->id] }}</b></p>
+                                                            <p>Barangay: <b>{{ $household->barangay }}</b></p>
+                                                            <p>Year: <b>{{ $household->year }}</b></p>
+                                                            <p>Added By: <b>{{ $household->user->name }}</b></p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="button" class="btn-action text-blue" data-bs-toggle="modal" data-bs-target="#editUserModal-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1">
+                                                    </path>
+                                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z">
+                                                    </path>
+                                                    <path d="M16 5l3 3"></path>
+                                                </svg>
+                                            </button>
+                                            <!-- Edit User Modal -->
+                                            <div class="modal" id="editUserModal-3" tabindex="-1">
+                                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <form method="POST" action="http://127.0.0.1:8000/user-management/update-user/3">
+                                                            <input type="hidden" name="_token" value="uzxZiWZla4Y7zHH3nvLS9h8MV3RzTFCrWlIjeO2J" autocomplete="off">                                                                        <input type="hidden" name="_method" value="PUT">                                                                        <div class="modal-header">
+                                                                <h5 class="modal-title" id="editUserModalLabel3">Edit User</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                            <div class="form-group row mb-3">
+                                                                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+
+                                                                <div class="col-md-8">
+                                                                    <input id="name" type="text" class="form-control " name="name" value="Sub Admin Barangay II (Poblacion)" required="" autocomplete="name" autofocus="">
+
+                                                                                                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row mb-3">
+                                                                <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+
+                                                                <div class="col-md-8">
+                                                                    <input id="email" type="email" class="form-control " name="email" value="subadmin2@example.com" required="" autocomplete="email">
+
+                                                                                                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row mb-3">
+                                                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+
+                                                                <div class="col-md-8">
+                                                                    <input id="password" type="password" class="form-control " name="password" autocomplete="new-password" value="">
+
+                                                                                                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group row mb-3">
+                                                                <label for="role" class="col-md-4 col-form-label text-md-right">Role</label>
+
+                                                                <div class="col-md-8">
+                                                                    <select id="role" name="role" class="form-control ">
+                                                                        <option value="0">Admin</option>
+                                                                        <option value="1" selected="">Sub-Admin</option>
+                                                                    </select>
+
+                                                                                                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row mb-3">
+                                                                <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
+
+                                                                <div class="col-md-8">
+                                                                    <textarea id="description" name="description" rows="5" class="form-control "></textarea>
+
+                                                                                                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row mb-3">
+                                                                <label for="phone_number" class="col-md-4 col-form-label text-md-right">Phone Number</label>
+
+                                                                <div class="col-md-8">
+                                                                    <input id="phone_number" type="text" class="form-control " name="phone_number" value="">
+
+                                                                                                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row mb-3">
+                                                                <label for="barangay" class="col-md-4 col-form-label text-md-right">Barangay</label>
+
+                                                                <div class="col-md-8">
+                                                                    <input id="barangay" type="text" class="form-control " name="barangay" value="Barangay II (Poblacion)">
+
+                                                                                                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <button type="button" class="btn-action text-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal-{{ $household->id }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none">
+                                                    </path>
+                                                    <path d="M4 7l16 0"></path>
+                                                    <path d="M10 11l0 6"></path>
+                                                    <path d="M14 11l0 6"></path>
+                                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12">
+                                                    </path>
+                                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                </svg>
                                             </button>
                                             <div class="modal" id="confirmDeleteModal-{{ $household->id }}" tabindex="-1">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
