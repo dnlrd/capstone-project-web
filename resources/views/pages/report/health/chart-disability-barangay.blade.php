@@ -221,13 +221,4 @@ var others = sortedData.map(function (item) {
         }
     });
 </script>
-<script>
-    $( ".printDemo" ).click(function() {
-        $('#printable-content').printThis({
-            pageTitle: "jQuery printThis Demo",
-            loadCSS: "",
-            header: "<h1>jQueryScript.Net</h1>",
-        });
-    });
-</script>
 @endpush

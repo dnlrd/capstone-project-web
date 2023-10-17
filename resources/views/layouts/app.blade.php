@@ -104,7 +104,6 @@
     </script>
     @stack('plugins')
     @stack('scripts')
-    
     <script src="{{asset('@tabler/core/dist/js/tabler.min.js')}}" defer></script>
     <script src="{{asset('@tabler/core/dist/js/demo.min.js')}}" defer></script>
     

@@ -8,6 +8,7 @@
                 <h2 class="page-title">
                     Demographic Reports
                 </h2>
+                
             </div>
             <div class="col-auto ms-auto d-print-none">
                 <form method="get" action="{{ route('demographic-report') }}" class="mb-3">
@@ -37,27 +38,35 @@
                 </form>
             </div>
         </div>
-        <button class="btn btn-primary printDemo">Print</button>
+        <button class="btn btn-primary printDemo mb-3">Print</button>
 
         <div class="row row-deck row-cards" id="printable-content">
-                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
-                    @include('pages.report.demographic.chart-gender')
-                </div>
-                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
-                    @include('pages.report.demographic.chart-civil-status')
-                </div>
-                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
-                    @include('pages.report.demographic.chart-age-distribution')
-                </div>
-                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
-                    @include('pages.report.demographic.chart-gender-age-distribution')
-                </div>
+            <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                @include('pages.report.demographic.chart-gender')
             </div>
+            <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                @include('pages.report.demographic.chart-civil-status')
+            </div>
+            <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                @include('pages.report.demographic.chart-age-distribution')
+            </div>
+            <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                @include('pages.report.demographic.chart-gender-age-distribution')
+            </div>
+        </div>
     </div>
 </div>
 @push('plugins')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{asset('js/printThis.js')}}" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+<script>
+    $( ".printDemo" ).click(function() {
+        $('#printable-content').printThis({
+            pageTitle: "jQuery printThis Demo",
+        });
+    });
+</script>
 @endpush
 @endsection

@@ -13,9 +13,7 @@
                 <form method="get" action="{{ route('migration-report') }}" class="mb-3">
                     @csrf
                     <div class="form-selectgroup">
-                        <label class="form-selectgroup-item">
-                            <button class="btn btn-primary printDemo">Print</button>
-                        </label>
+                        
                         <label class="form-selectgroup-item">
                             <select name="barangay" class="form-select" onchange="this.form.submit()">
                                 <option value="" {{ $selectedBarangay === null ? 'selected' : '' }}>All Barangays</option>
@@ -40,8 +38,8 @@
                 </form>
             </div>
         </div>
-        
-
+        <button class="btn btn-primary printDemo">Print</button>
+                      
         <div class="row row-deck row-cards" id="printable-content">
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
                     @include('pages.report.migration.chart-question5')
@@ -88,5 +86,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{asset('js/printThis.js')}}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script>
+    $( ".printDemo" ).click(function() {
+        $('#printable-content').printThis({
+            pageTitle: "jQuery printThis Demo",
+            loadCSS: "",
+        });
+    });
+</script>
 @endpush
 @endsection

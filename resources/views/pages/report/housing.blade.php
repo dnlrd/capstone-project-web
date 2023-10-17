@@ -14,6 +14,9 @@
                     @csrf
                     <div class="form-selectgroup">
                         <label class="form-selectgroup-item">
+                            <button class="btn btn-primary printDemo">Print</button>
+                        </label>
+                        <label class="form-selectgroup-item">
                             <select name="barangay" class="form-select" onchange="this.form.submit()">
                                 <option value="" {{ $selectedBarangay === null ? 'selected' : '' }}>All Barangays</option>
                                 @foreach (collect($BARANGAY_NAMES)->sort() as $key => $barangayName)
@@ -37,7 +40,6 @@
                 </form>
             </div>
         </div>
-        <button class="btn btn-primary printDemo">Print</button>
 
         <div class="row row-deck row-cards" id="printable-content">
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">

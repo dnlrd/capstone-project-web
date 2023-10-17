@@ -3,8 +3,8 @@
 @section('content')
 <style>
         .multi-column {
-            column-count: 4; /* Set the number of columns you desire */
-            column-gap: 10px; /* Adjust the gap between columns as needed */
+            column-count: 4;
+            column-gap: 10px; 
         }
     </style>
 <div class="page-header d-print-none text-black">
@@ -28,7 +28,7 @@
                 </form>
             </div>
         </div>
-        <button class="btn btn-primary printDemo">Print</button>
+        <button class="btn btn-primary printDemo mb-3">Print</button>
 
         <div class="row row-deck row-cards" id="printable-content">
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
