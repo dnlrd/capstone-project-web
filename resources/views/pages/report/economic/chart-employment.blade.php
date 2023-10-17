@@ -19,11 +19,14 @@
     var chart = new Chart(EconomicReportEmploymentStatus, {
         type: 'pie',
         data: {
-            labels: ['Employed {{$EconomicReportEmploymentStatus[0]->employed_count}}', 'Unemployed {{$EconomicReportEmploymentStatus[0]->unemployed_count}}'],
+            labels: [
+                `Employed (${data.employed_count})`, 
+                `Unemployed (${data.unemployed_count})`
+            ],
             datasets: [{
                 data: [
-                    data[0].employed_count,
-                    data[0].unemployed_count,
+                    data.employed_percentage,
+                    data.unemployed_percentage,
                 ],
                 backgroundColor: ['rgba(75, 192, 192)', 'rgba(255, 99, 132)'],
                 borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
@@ -34,20 +37,37 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
+                datalabels: {
+                    formatter: function (value, context) {
+                        if (value === 0) {
+                            return '';
+                        }
+                        return Math.round(value) + '%';
+                    },
+                    color: 'white',
+                    labels: {
+                        title: {
+                            font: {
+                                weight: 'bold'
+                            }
+                        },
+                    },
+                },
                 title: {
                     display: true,
-                    text: 'Employment Status Distribution Chart ({{$selectedYear}})',
+                    text: 'Employment Status',
                     font: {
                         size: 17,
-                        family: 'Arial'
-                    }
+                        family: 'Arial',
+                    },
                 },
                 legend: {
                     display: true,
-                    position: 'bottom'
-                }
+                    position: 'bottom',
+                },
             },
-        }
+           
+        },
     });
 </script>
 <script>

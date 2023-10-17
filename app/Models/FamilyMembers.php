@@ -335,8 +335,8 @@ if ($totalCount > 0) {
             WHEN age BETWEEN 50 AND 59 THEN '50-59'
             WHEN age BETWEEN 60 AND 69 THEN '60-69'
             WHEN age BETWEEN 70 AND 79 THEN '70-79'
-            ELSE '80+' END AS `age_range`"), // Escape `age_range` with backticks
-        DB::raw('COUNT(*) as `count`') // Escape `count` with backticks
+            ELSE '80+' END AS `age_range`"),
+        DB::raw('COUNT(*) as `count`') 
     )
         ->join('family_members', 'household.id', '=', 'family_members.household_id')
         ->where('household.year', $year);
@@ -439,18 +439,39 @@ if ($totalCount > 0) {
     }
 
     //ECONOMIC
-    public static function EconomicReportEmploymentStatus($year)
+    public static function EconomicReportEmploymentStatus($year, $selectedBarangay)
     {
-        $total = Household::select(
+        $query = Household::select(
             DB::raw("SUM(CASE WHEN family_members.has_job = '1' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS employed_count"),
             DB::raw("SUM(CASE WHEN family_members.has_job = '2' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS unemployed_count")
         )
-            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
-            ->where('household.year', $year)
-            ->get();
+        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+        ->where('household.year', $year);
 
-        return $total;
+        if ($selectedBarangay) {
+            $query->where('household.barangay', $selectedBarangay);
+        }
+
+        $total = $query->get();
+
+        $result = [
+            'employed_count' => $total->sum('employed_count'),
+            'unemployed_count' => $total->sum('unemployed_count'),
+        ];
+
+        $totalResponses = $result['employed_count'] + $result['unemployed_count'];
+
+        if ($totalResponses !== 0) {
+            $result['employed_percentage'] = intval(($result['employed_count'] / $totalResponses) * 100);
+            $result['unemployed_percentage'] = intval(($result['unemployed_count'] / $totalResponses) * 100);
+        } else {
+            $result['employed_percentage'] = 0;
+            $result['unemployed_percentage'] = 0;
+        }
+
+        return $result;
     }
+
     public static function EconomicReportEmploymentStatusByBarangay($year)
     {
         $total = Household::select(
@@ -471,9 +492,9 @@ if ($totalCount > 0) {
 
     }
 
-    public static function EconomicReportWhere($year)
+    public static function EconomicReportWhere($year, $selectedBarangay)
     {
-        $total = Household::select(
+        $query = Household::select(
             DB::raw("SUM(CASE WHEN `where` = '1' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS tirahan_count"),
             DB::raw("SUM(CASE WHEN `where` = '2' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS kapitbahay_count"),
             DB::raw("SUM(CASE WHEN `where` = '3' AND family_members.age >= 15 THEN 1 ELSE 0 END) AS sa_loob_ng_sto_tomas_count"),
@@ -484,11 +505,54 @@ if ($totalCount > 0) {
         )
         ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
         ->where('family_members.has_job', '1')
-        ->where('household.year', $year)
-        ->get();
+        ->where('household.year', $year);
 
-        return $total;
+        if ($selectedBarangay) {
+            $query->where('household.barangay', $selectedBarangay);
+        }
+
+        $total = $query->get();
+
+        $result = [
+            'tirahan_count' => $total->sum('tirahan_count'),
+            'kapitbahay_count' => $total->sum('kapitbahay_count'),
+            'sa_loob_ng_sto_tomas_count' => $total->sum('sa_loob_ng_sto_tomas_count'),
+            'sa_labas_ng_sto_tomas_count' => $total->sum('sa_labas_ng_sto_tomas_count'),
+            'sa_labas_ng_batangas_count' => $total->sum('sa_labas_ng_batangas_count'),
+            'hindi_tiyak_count' => $total->sum('hindi_tiyak_count'),
+            'iba_pa_count' => $total->sum('iba_pa_count'),
+        ];
+
+        $totalResponses = $total->sum('tirahan_count') +
+                        $total->sum('kapitbahay_count') +
+                        $total->sum('sa_loob_ng_sto_tomas_count') +
+                        $total->sum('sa_labas_ng_sto_tomas_count') +
+                        $total->sum('sa_labas_ng_batangas_count') +
+                        $total->sum('hindi_tiyak_count') +
+                        $total->sum('iba_pa_count');
+
+        if ($totalResponses !== 0) {
+            $result['tirahan_percentage'] = intval(($result['tirahan_count'] / $totalResponses) * 100);
+            $result['kapitbahay_percentage'] = intval(($result['kapitbahay_count'] / $totalResponses) * 100);
+            $result['sa_loob_ng_sto_tomas_percentage'] = intval(($result['sa_loob_ng_sto_tomas_count'] / $totalResponses) * 100);
+            $result['sa_labas_ng_sto_tomas_percentage'] = intval(($result['sa_labas_ng_sto_tomas_count'] / $totalResponses) * 100);
+            $result['sa_labas_ng_batangas_percentage'] = intval(($result['sa_labas_ng_batangas_count'] / $totalResponses) * 100);
+            $result['hindi_tiyak_percentage'] = intval(($result['hindi_tiyak_count'] / $totalResponses) * 100);
+            $result['iba_pa_percentage'] = intval(($result['iba_pa_count'] / $totalResponses) * 100);
+        } else {
+            $result['tirahan_percentage'] = 0;
+            $result['kapitbahay_percentage'] = 0;
+            $result['sa_loob_ng_sto_tomas_percentage'] = 0;
+            $result['sa_labas_ng_sto_tomas_percentage'] = 0;
+            $result['sa_labas_ng_batangas_percentage'] = 0;
+            $result['hindi_tiyak_percentage'] = 0;
+            $result['iba_pa_percentage'] = 0;
+        }
+
+        return $result;
     }
+
+
     public static function EconomicReportSector($year)
     {
         $total = Household::select(

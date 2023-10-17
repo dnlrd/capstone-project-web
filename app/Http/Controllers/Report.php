@@ -12,9 +12,11 @@ use App\Models\Household;
 
 use App\Models\Question5;
 use App\Models\Question6;
-use App\Models\Question14;
+
 use App\Models\Question11;
 use App\Models\Question12;
+use App\Models\Question13;
+use App\Models\Question14;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 class Report extends Controller
@@ -101,19 +103,29 @@ class Report extends Controller
 
     public function economic(Request $request)
     {
+        $BARANGAY_NAMES = self::BARANGAY_NAMES;
         $currentYear = Carbon::now()->year;
         $selectedYear = $request->input('year', $currentYear);
+        $selectedBarangay = $request->input('barangay');
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
 
-        $EconomicReportEmploymentStatus = FamilyMembers::EconomicReportEmploymentStatus($selectedYear);
-        $EconomicReportWhere = FamilyMembers::EconomicReportWhere($selectedYear);
+        $availableBarangays = Household::distinct()->orderBy('barangay', 'asc')->pluck('barangay');
+
+        $EconomicReportEmploymentStatus = FamilyMembers::EconomicReportEmploymentStatus($selectedYear, $selectedBarangay);
+        $EconomicReportWhere = FamilyMembers::EconomicReportWhere($selectedYear, $selectedBarangay);
         $EconomicReportSector = FamilyMembers::EconomicReportSector($selectedYear);
         $EconomicReportPosition = FamilyMembers::EconomicReportPosition($selectedYear);
         $EconomicReportEmploymentStatusByBarangay = FamilyMembers::EconomicReportEmploymentStatusByBarangay($selectedYear);
+
+        $Question13a = Question13::EconomicQuestion13a($selectedYear, $selectedBarangay );
+        $Question13b = Question13::EconomicQuestion13b($selectedYear, $selectedBarangay );
         return view('pages.report.economic', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
+            'selectedBarangay',
+            'availableBarangays',
+            'BARANGAY_NAMES',
 
             'EconomicReportEmploymentStatus',
             'EconomicReportEmploymentStatusByBarangay',
@@ -121,6 +133,9 @@ class Report extends Controller
             'EconomicReportWhere',
             'EconomicReportSector',
             'EconomicReportPosition',
+
+            'Question13a',
+            'Question13b',
         ));
     }
 

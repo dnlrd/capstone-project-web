@@ -10,29 +10,28 @@
 
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{asset('js/printThis.js')}}" defer></script>
 <script>
+    Chart.register(ChartDataLabels);
     var data = @json($EconomicReportWhere);
     var EconomicReportWhere = document.getElementById('EconomicReportWhere').getContext('2d');
 
     var labels = [
-        'Tirahan ({{ $EconomicReportWhere[0]->tirahan_count }})', 
-        'Kapitbahay ({{ $EconomicReportWhere[0]->kapitbahay_count }})', 
-        'Sa Loob ng Sto. Tomas ({{ $EconomicReportWhere[0]->sa_loob_ng_sto_tomas_count }})',
-        'Sa Labas ng Sto. Tomas ({{ $EconomicReportWhere[0]->sa_labas_ng_sto_tomas_count }})', 
-        'Sa Labas ng Batangas ({{ $EconomicReportWhere[0]->sa_labas_ng_batangas_count }})', 
-        'Hindi Tiyak ({{ $EconomicReportWhere[0]->hindi_tiyak_count }})', 
-        'Iba Pa ({{ $EconomicReportWhere[0]->iba_pa_count }})'
+        `Tirahan (${data.tirahan_count})`, 
+        `Kapitbahay (${data.kapitbahay_count})`, 
+        `Sa Loob ng Sto. Tomas (${data.sa_loob_ng_sto_tomas_count})`,
+        `Sa Labas ng Sto. Tomas (${data.sa_labas_ng_sto_tomas_count})`, 
+        `Sa Labas ng Batangas (${data.sa_labas_ng_batangas_count})`, 
+        `Hindi Tiyak (${data.hindi_tiyak_count})`, 
+        `Iba Pa (${data.iba_pa_count})`
     ];
     var backgroundColors = [
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(106, 74, 60, 0.2)'
+        'rgba(75, 192, 192)',
+        'rgba(255, 99, 132)',
+        'rgba(54, 162, 235)',
+        'rgba(255, 206, 86)',
+        'rgba(153, 102, 255)',
+        'rgba(255, 159, 64)',
+        'rgba(106, 74, 60)'
     ];
 
     var borderColors = [
@@ -52,13 +51,13 @@
             datasets: [{
                 label: 'Total',
                 data: [
-                    data[0].tirahan_count, 
-                    data[0].kapitbahay_count, 
-                    data[0].sa_loob_ng_sto_tomas_count, 
-                    data[0].sa_labas_ng_sto_tomas_count, 
-                    data[0].sa_labas_ng_batangas_count, 
-                    data[0].hindi_tiyak_count, 
-                    data[0].iba_pa_count,
+                    data.tirahan_percentage, 
+                    data.kapitbahay_percentage, 
+                    data.sa_loob_ng_sto_tomas_percentage, 
+                    data.sa_labas_ng_sto_tomas_percentage, 
+                    data.sa_labas_ng_batangas_percentage, 
+                    data.hindi_tiyak_percentage, 
+                    data.iba_pa_percentage,
                 ],
                 backgroundColor: backgroundColors,
                 borderColor: borderColors,
@@ -69,6 +68,22 @@
             responsive: true,
             maintainAspectRatio: true,
             plugins: {
+                datalabels: {
+                    formatter: function (value, context) {
+                        if (value === 0) {
+                            return '';
+                        }
+                        return Math.round(value) + '%';
+                    },
+                    color: 'white',
+                    labels: {
+                        title: {
+                            font: {
+                                weight: 'bold'
+                            }
+                        },
+                    },
+                },
                 title: {
                     display: true,
                     text: 'Job Location Distribution Chart ({{$selectedYear}})',
