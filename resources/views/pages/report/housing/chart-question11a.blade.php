@@ -77,7 +77,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Uri ng tirahan/bahay Chart',
+                    text: '{{$getChartTitleQuestion11a}}',
                     font: {
                         size: 17,
                         family: 'Arial'

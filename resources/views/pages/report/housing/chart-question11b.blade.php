@@ -69,7 +69,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Uri ng lupang kinatatayuan ng bahay',
+                    text: '{{$getChartTitleQuestion11b}}',
                     font: {
                         size: 17,
                         family: 'Arial'

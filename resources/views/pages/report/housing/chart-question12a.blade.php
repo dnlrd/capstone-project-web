@@ -67,7 +67,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Saan kumukuha ng tubig?',
+                    text: '{{$getChartTitleQuestion12a}}',
                     font: {
                         size: 17,
                         family: 'Arial'

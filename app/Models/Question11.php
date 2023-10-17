@@ -18,7 +18,38 @@ class Question11 extends Model
         'answer5_q11',
         'household_id',
     ];
-
+    const BARANGAY_NAMES = [
+        1 => "Barangay I (Poblacion)",
+        2 => "Barangay II (Poblacion)",
+        3 => "Barangay III (Poblacion)",
+        4 => "Barangay IV (Poblacion)",
+        5 => "San Agustin",
+        6 => "San Antonio",
+        7 => "San Bartolome",
+        8 => "San Felix",
+        9 => "San Fernando",
+        10 => "San Francisco",
+        11 => "San Isidro Norte",
+        12 => "San Isidro Sur",
+        13 => "San Joaquin",
+        14 => "San Jose",
+        15 => "San Juan",
+        16 => "San Luis",
+        17 => "San Miguel",
+        18 => "San Pablo",
+        19 => "San Pedro",
+        20 => "San Rafael",
+        21 => "San Roque",
+        22 => "San Vicente",
+        23 => "Santa Ana",
+        24 => "Santa Anastacia",
+        25 => "Santa Clara",
+        26 => "Santa Cruz",
+        27 => "Santa Elena",
+        28 => "Santa Maria",
+        29 => "Santiago",
+        30 => "Santa Teresita",
+    ];
     public static function Question11a($selectedYear)
     {
         $total = Household::select(
@@ -130,7 +161,26 @@ class Question11 extends Model
 
         return $result;
     }
+    public static function getChartTitleQuestion11a($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
 
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown';
+        }
+
+        $chartTitle = 'Uri ng tirahan/bahay Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
+    }
 
     public static function HousingReportQuestion11b($selectedYear, $selectedBarangay)
     {
@@ -165,7 +215,26 @@ class Question11 extends Model
     
         return $result;
     }
+    public static function getChartTitleQuestion11b($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
 
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown';
+        }
+
+        $chartTitle = 'Uri ng lupang kinatatayuan ng bahay Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
+    }
     public static function HousingReportQuestion11c($selectedYear, $selectedBarangay)
     {
         $query = Household::select(
@@ -219,7 +288,26 @@ class Question11 extends Model
 
         return $result;
     }
+    public static function getChartTitleQuestion11c($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
 
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown';
+        }
+
+        $chartTitle = 'Katayuan sa lupa at bahay Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
+    }
     public function household()
     {
         return $this->belongsTo(Household::class);

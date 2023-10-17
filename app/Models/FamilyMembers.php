@@ -737,7 +737,7 @@ if ($totalCount > 0) {
 
 
     //EDUCATIONAL
-    public static function EducationalReport($year)
+    public static function EducationalReport($year, $selectedBarangay)
     {
         $total = Household::select(
             DB::raw("SUM(CASE WHEN family_members.studying = '1' THEN 1 ELSE 0 END) AS not_in_school_age_count"),
@@ -751,11 +751,62 @@ if ($totalCount > 0) {
             DB::raw("SUM(CASE WHEN family_members.studying = '9' THEN 1 ELSE 0 END) AS hindi_nag_aaral_count")
         )
             ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
-            ->where('household.year', $year)
-            ->first();
+            ->where('household.year', $year);
 
-        return $total;
+        if ($selectedBarangay) {
+            $total->where('household.barangay', $selectedBarangay);
+        }
+
+        $total = $total->first();
+
+        $result = [
+            'not_in_school_age_count' => $total->not_in_school_age_count,
+            'no_education_count' => $total->no_education_count,
+            'elementary_count' => $total->elementary_count,
+            'high_school_count' => $total->high_school_count,
+            'junior_high_count' => $total->junior_high_count,
+            'senior_high_count' => $total->senior_high_count,
+            'post_baccalaureate_count' => $total->post_baccalaureate_count,
+            'osy_count' => $total->osy_count,
+            'hindi_nag_aaral_count' => $total->hindi_nag_aaral_count,
+        ];
+
+        $totalResponses = array_sum($result);
+
+        $result['not_in_school_age_percentage'] = intval(($total->not_in_school_age_count / $totalResponses) * 100);
+        $result['no_education_percentage'] = intval(($total->no_education_count / $totalResponses) * 100);
+        $result['elementary_percentage'] = intval(($total->elementary_count / $totalResponses) * 100);
+        $result['high_school_percentage'] = intval(($total->high_school_count / $totalResponses) * 100);
+        $result['junior_high_percentage'] = intval(($total->junior_high_count / $totalResponses) * 100);
+        $result['senior_high_percentage'] = intval(($total->senior_high_count / $totalResponses) * 100);
+        $result['post_baccalaureate_percentage'] = intval(($total->post_baccalaureate_count / $totalResponses) * 100);
+        $result['osy_percentage'] = intval(($total->osy_count / $totalResponses) * 100);
+        $result['hindi_nag_aaral_percentage'] = intval(($total->hindi_nag_aaral_count / $totalResponses) * 100);
+
+        return $result;
     }
+
+    public static function getChartTitleEducationalReport($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
+
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown';
+        }
+
+        $chartTitle = 'Educational Report (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
+    }
+
     public static function  EducationalReportByBarangay($year)
     {
         $educationLevelCountsByBarangay = Household::select(
@@ -778,6 +829,7 @@ if ($totalCount > 0) {
 
         return $educationLevelCountsByBarangay;
     }
+    
     //HEALTH
     public static function HealthReportDisability($year)
     {
@@ -915,31 +967,26 @@ if ($totalCount > 0) {
     {
         $results = Household::select(
             'household.year',
-            // Age range breakdown for single males
             DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '1' AND family_members.age BETWEEN 0 AND 4 THEN 1 ELSE 0 END) AS total_single_male_age_0_4"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '1' AND family_members.age BETWEEN 5 AND 9 THEN 1 ELSE 0 END) AS total_single_male_age_5_9"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '1' AND family_members.age BETWEEN 10 AND 19 THEN 1 ELSE 0 END) AS total_single_male_age_10_19"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '1' AND family_members.age BETWEEN 20 AND 29 THEN 1 ELSE 0 END) AS total_single_male_age_20_29"),
-            // Add more age ranges for single males as needed
-            // Age range breakdown for single females
+         
             DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '2' AND family_members.age BETWEEN 0 AND 4 THEN 1 ELSE 0 END) AS total_single_female_age_0_4"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '2' AND family_members.age BETWEEN 5 AND 9 THEN 1 ELSE 0 END) AS total_single_female_age_5_9"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '2' AND family_members.age BETWEEN 10 AND 19 THEN 1 ELSE 0 END) AS total_single_female_age_10_19"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '1' AND family_members.gender = '2' AND family_members.age BETWEEN 20 AND 29 THEN 1 ELSE 0 END) AS total_single_female_age_20_29"),
-            // Add more age ranges for single females as needed
-            // Age range breakdown for cohabiting males
+       
             DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '1' AND family_members.age BETWEEN 0 AND 4 THEN 1 ELSE 0 END) AS total_cohabiting_male_age_0_4"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '1' AND family_members.age BETWEEN 5 AND 9 THEN 1 ELSE 0 END) AS total_cohabiting_male_age_5_9"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '1' AND family_members.age BETWEEN 10 AND 19 THEN 1 ELSE 0 END) AS total_cohabiting_male_age_10_19"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '1' AND family_members.age BETWEEN 20 AND 29 THEN 1 ELSE 0 END) AS total_cohabiting_male_age_20_29"),
-            // Add more age ranges for cohabiting males as needed
-            // Age range breakdown for cohabiting females
+          
             DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '2' AND family_members.age BETWEEN 0 AND 4 THEN 1 ELSE 0 END) AS total_cohabiting_female_age_0_4"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '2' AND family_members.age BETWEEN 5 AND 9 THEN 1 ELSE 0 END) AS total_cohabiting_female_age_5_9"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '2' AND family_members.age BETWEEN 10 AND 19 THEN 1 ELSE 0 END) AS total_cohabiting_female_age_10_19"),
             DB::raw("SUM(CASE WHEN family_members.civil_status = '2' AND family_members.gender = '2' AND family_members.age BETWEEN 20 AND 29 THEN 1 ELSE 0 END) AS total_cohabiting_female_age_20_29"),
-            // Add more age ranges for cohabiting females as needed
-            // Repeat similar blocks for other civil statuses (married, separated, widowed) and genders
+        
         )
             ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
             ->groupBy('household.year')
@@ -1014,6 +1061,7 @@ if ($totalCount > 0) {
     
             return $soloParentCounts;
     }
+
     //Religion
     public static function totalReligion($year)
     {

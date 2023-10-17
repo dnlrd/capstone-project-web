@@ -152,7 +152,7 @@
                     borderWidth: 1,
                 },
                 {
-                    label: 'Hindi Nag-aaral',
+                    label: 'Not studying',
                     data: hindiNagAaralData,
                     backgroundColor: 'rgba(0, 255, 0, 0.6)',
                     borderWidth: 1,

@@ -153,21 +153,30 @@ class Report extends Controller
 
     public function educational(Request $request)
     {
+        $BARANGAY_NAMES = self::BARANGAY_NAMES;
         $currentYear = Carbon::now()->year;
         $selectedYear = $request->input('year', $currentYear);
+        $selectedBarangay = $request->input('barangay');
         $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
 
-        $EducationalReport = FamilyMembers::EducationalReport($selectedYear);
+        $availableBarangays = Household::distinct()->orderBy('barangay', 'asc')->pluck('barangay');
+
+        $EducationalReport = FamilyMembers::EducationalReport($selectedYear, $selectedBarangay);
         $EducationalReportByBarangay = FamilyMembers::EducationalReportByBarangay($selectedYear);
+        $getChartTitleEducationalReport = FamilyMembers::getChartTitleEducationalReport($selectedYear, $selectedBarangay);
         
         return view('pages.report.educational', compact(
             'currentYear',
             'selectedYear',
             'availableYears',
+            'selectedBarangay',
+            'availableBarangays',
+            'BARANGAY_NAMES',
 
             'EducationalReport',
             'EducationalReportByBarangay',
             
+            'getChartTitleEducationalReport',
 
         ));
     }
@@ -225,6 +234,13 @@ class Report extends Controller
 
         $Question12a = Question12::HousingReportQuestion12a($selectedYear, $selectedBarangay );
         $Question12b = Question12::HousingReportQuestion12b($selectedYear, $selectedBarangay );
+
+        $getChartTitleQuestion11a = Question11::getChartTitleQuestion11a($selectedYear, $selectedBarangay );
+        $getChartTitleQuestion11b = Question11::getChartTitleQuestion11b($selectedYear, $selectedBarangay );
+        $getChartTitleQuestion11c = Question11::getChartTitleQuestion11c($selectedYear, $selectedBarangay );
+
+        $getChartTitleQuestion12a = Question12::getChartTitleQuestion12a($selectedYear, $selectedBarangay );
+        $getChartTitleQuestion12b = Question12::getChartTitleQuestion12b($selectedYear, $selectedBarangay );
         return view('pages.report.housing', compact(
             'currentYear',
             'selectedYear',
@@ -239,6 +255,13 @@ class Report extends Controller
 
             'Question12a',
             'Question12b',
+
+            'getChartTitleQuestion11a',
+            'getChartTitleQuestion11b',
+            'getChartTitleQuestion11c',
+
+            'getChartTitleQuestion12a',
+            'getChartTitleQuestion12b',
         ));
     }
 

@@ -72,7 +72,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Uri ng palikuran',
+                    text: '{{$getChartTitleQuestion12b}}',
                     font: {
                         size: 17,
                         family: 'Arial'

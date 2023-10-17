@@ -88,7 +88,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Katayuan sa lupa at bahay',
+                    text: '{{$getChartTitleQuestion11c}}',
                     font: {
                         size: 17,
                         family: 'Arial'
