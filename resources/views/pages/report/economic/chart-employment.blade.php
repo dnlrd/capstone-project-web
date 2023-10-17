@@ -55,7 +55,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Employment Status',
+                    text: '{{$getChartTitleEmploymentStatus}}',
                     font: {
                         size: 17,
                         family: 'Arial',

@@ -86,7 +86,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Job Location Distribution Chart ({{$selectedYear}})',
+                    text: '{{$getChartTitleWhere}}',
                     font: {
                         size: 17,
                         family: 'Arial'

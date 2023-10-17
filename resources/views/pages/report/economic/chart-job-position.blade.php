@@ -10,27 +10,26 @@
 
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{asset('js/printThis.js')}}" defer></script>
 <script>
+    Chart.register(ChartDataLabels);
     var data = @json($EconomicReportPosition);
 
     var EconomicReportPosition = document.getElementById('EconomicReportPosition').getContext('2d');
     var labels = [
-        'Permanente ({{ $EconomicReportPosition->permanente_count }})', 
-        'Kaswal ({{ $EconomicReportPosition->kaswal_count }})', 
-        'May kontrata ({{ $EconomicReportPosition->may_kontrata_count }})',
-        'Pana-panahon ({{ $EconomicReportPosition->pana_panahon_count }})', 
-        'Self Employed ({{ $EconomicReportPosition->self_employed_count }})', 
-        'Job Order ({{ $EconomicReportPosition->job_order_count }})', 
+        `Permanente (${data.permanente_count})`, 
+        `Kaswal (${data.kaswal_count})`, 
+        `May kontrata (${data.may_kontrata_count})`,
+        `Pana-panahon (${data.pana_panahon_count})`, 
+        `Self Employed (${data.self_employed_count})`, 
+        `Job Order (${data.job_order_count})`, 
     ];
     var backgroundColors = [
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(106, 74, 60, 0.2)'
+        'rgba(75, 192, 192)',
+        'rgba(255, 99, 132)',
+        'rgba(54, 162, 235)',
+        'rgba(255, 206, 86)',
+        'rgba(153, 102, 255)',
+        'rgba(106, 74, 60)'
     ];
 
     var borderColors = [
@@ -47,12 +46,12 @@
             labels: labels,
             datasets: [{
                 data: [
-                    data.permanente_count,
-                    data.kaswal_count,
-                    data.may_kontrata_count,
-                    data.pana_panahon_count,
-                    data.self_employed_count,
-                    data.job_order_count,
+                    data.permanente_percentage,
+                    data.kaswal_percentage,
+                    data.may_kontrata_percentage,
+                    data.pana_panahon_percentage,
+                    data.self_employed_percentage,
+                    data.job_order_percentage,
                 ],
                 backgroundColor: backgroundColors,
                 borderColor: borderColors,
@@ -63,9 +62,26 @@
             responsive: true,
             maintainAspectRatio: true,
             plugins: {
+                datalabels: {
+                    formatter: function (value, context) {
+                        if (value === 0) {
+                            return '';
+                        }
+                        return Math.round(value) + '%';
+                    },
+                    color: 'white',
+                    labels: {
+                        title: {
+                            font: {
+                                weight: 'bold'
+                            }
+                        },
+                    },
+                   
+                },
                 title: {
                     display: true,
-                    text: 'Job Position Distribution Chart ({{$selectedYear}})',
+                    text: '{{$getChartTitlePosition}}',
                     font: {
                         size: 17,
                         family: 'Arial'

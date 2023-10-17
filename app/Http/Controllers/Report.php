@@ -113,12 +113,19 @@ class Report extends Controller
 
         $EconomicReportEmploymentStatus = FamilyMembers::EconomicReportEmploymentStatus($selectedYear, $selectedBarangay);
         $EconomicReportWhere = FamilyMembers::EconomicReportWhere($selectedYear, $selectedBarangay);
-        $EconomicReportSector = FamilyMembers::EconomicReportSector($selectedYear);
-        $EconomicReportPosition = FamilyMembers::EconomicReportPosition($selectedYear);
+        $EconomicReportSector = FamilyMembers::EconomicReportSector($selectedYear, $selectedBarangay);
+        $EconomicReportPosition = FamilyMembers::EconomicReportPosition($selectedYear, $selectedBarangay);
+
         $EconomicReportEmploymentStatusByBarangay = FamilyMembers::EconomicReportEmploymentStatusByBarangay($selectedYear);
 
         $Question13a = Question13::EconomicQuestion13a($selectedYear, $selectedBarangay );
         $Question13b = Question13::EconomicQuestion13b($selectedYear, $selectedBarangay );
+
+
+        $getChartTitleEmploymentStatus = FamilyMembers::getChartTitleEmploymentStatus($selectedYear, $selectedBarangay );
+        $getChartTitleWhere = FamilyMembers::getChartTitleWhere($selectedYear, $selectedBarangay );
+        $getChartTitlePosition = FamilyMembers::getChartTitlePosition($selectedYear, $selectedBarangay );
+        $getChartTitleSector = FamilyMembers::getChartTitleSector($selectedYear, $selectedBarangay );
         return view('pages.report.economic', compact(
             'currentYear',
             'selectedYear',
@@ -136,6 +143,11 @@ class Report extends Controller
 
             'Question13a',
             'Question13b',
+
+            'getChartTitleEmploymentStatus',
+            'getChartTitleWhere',
+            'getChartTitlePosition',
+            'getChartTitleSector',
         ));
     }
 

@@ -10,25 +10,24 @@
 
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{asset('js/printThis.js')}}" defer></script>
 <script>
+    Chart.register(ChartDataLabels);
     var data = @json($EconomicReportSector);
 
     var EconomicReportSector = document.getElementById('EconomicReportSector').getContext('2d');
     var labels = [
-        'Pagmamanupaktyur ({{ $EconomicReportSector->pagmamanupaktyur_count }})', 
-        'Konstruksyon ({{ $EconomicReportSector->konstruksyon_count }})', 
-        'Pagbubukid ({{ $EconomicReportSector->pagbubukid_count }})',
-        'Serbisyo ({{ $EconomicReportSector->serbisyo_count }})', 
-        'Iba pa ({{ $EconomicReportSector->iba_pa_count }})', 
+        `Pagmamanupaktyur (${data.pagmamanupaktyur_count})`, 
+        `Konstruksyon (${data.konstruksyon_count})`, 
+        `Pagbubukid (${data.pagbubukid_count})`,
+        `Serbisyo (${data.serbisyo_count})`, 
+        `Iba pa (${data.iba_pa_count})`, 
     ];
     var backgroundColors = [
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
+        'rgba(75, 192, 192)',
+        'rgba(255, 99, 132)',
+        'rgba(54, 162, 235)',
+        'rgba(255, 206, 86)',
+        'rgba(153, 102, 255)',
     ];
 
     var borderColors = [
@@ -39,16 +38,16 @@
         'rgba(153, 102, 255, 1)',
     ];
     var chart = new Chart(EconomicReportSector, {
-        type: 'doughnut',
+        type: 'bar',
         data: {
             labels: labels,
             datasets: [{
                 data: [
-                    data.pagmamanupaktyur_count,
-                    data.konstruksyon_count,
-                    data.pagbubukid_count,
-                    data.serbisyo_count,
-                    data.iba_pa_count,
+                    data.pagmamanupaktyur_percentage,
+                    data.konstruksyon_percentage,
+                    data.pagbubukid_percentage,
+                    data.serbisyo_percentage,
+                    data.iba_pa_percentage,
                 ],
                 backgroundColor: backgroundColors,
                 borderColor: borderColors,
@@ -56,25 +55,40 @@
             }]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: false,
             plugins: {
+                datalabels: {
+                    formatter: function (value, context) {
+                        if (value === 0) {
+                            return '';
+                        }
+                        return Math.round(value) + '%';
+                    },
+                    color: 'white',
+                    labels: {
+                        title: {
+                            font: {
+                                weight: 'bold'
+                            }
+                        },
+                    },
+                   
+                },
                 title: {
                     display: true,
-                    text: 'Job Sector Distribution Chart ({{$selectedYear}})',
+                    text: '{{$getChartTitleSector}}',
                     font: {
                         size: 17,
                         family: 'Arial'
                     }
                 },
                 legend: {
-                    display: true,
-                    position: 'right'
+                    display: false,
                 }
-            },
+            }
         }
     });
 </script>
+
 <script>
     $( ".printDemo" ).click(function() {
         $('#printable-content').printThis({

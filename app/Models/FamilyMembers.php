@@ -471,7 +471,26 @@ if ($totalCount > 0) {
 
         return $result;
     }
+    public static function getChartTitleEmploymentStatus($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
 
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown';
+        }
+
+        $chartTitle = 'Employment Status Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
+    }
     public static function EconomicReportEmploymentStatusByBarangay($year)
     {
         $total = Household::select(
@@ -551,11 +570,30 @@ if ($totalCount > 0) {
 
         return $result;
     }
-
-
-    public static function EconomicReportSector($year)
+    public static function getChartTitleWhere($selectedYear, $selectedBarangay)
     {
-        $total = Household::select(
+        $barangayName = '';
+
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown';
+        }
+
+        $chartTitle = 'Job Location Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
+    }
+
+    public static function EconomicReportSector($year, $selectedBarangay)
+    {
+        $query = Household::select(
             DB::raw("SUM(CASE WHEN family_members.sector = '1' THEN 1 ELSE 0 END) AS pagmamanupaktyur_count"),
             DB::raw("SUM(CASE WHEN family_members.sector = '2' THEN 1 ELSE 0 END) AS konstruksyon_count"),
             DB::raw("SUM(CASE WHEN family_members.sector = '3' THEN 1 ELSE 0 END) AS pagbubukid_count"),
@@ -563,14 +601,68 @@ if ($totalCount > 0) {
             DB::raw("SUM(CASE WHEN family_members.sector = '5' THEN 1 ELSE 0 END) AS iba_pa_count")
         )
         ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
-        ->where('household.year', $year)
-        ->first();
+        ->where('household.year', $year);
 
-        return $total;
+        if ($selectedBarangay) {
+            $query->where('household.barangay', $selectedBarangay);
+        }
+
+        $total = $query->first();
+
+        $result = [
+            'pagmamanupaktyur_count' => $total->pagmamanupaktyur_count,
+            'konstruksyon_count' => $total->konstruksyon_count,
+            'pagbubukid_count' => $total->pagbubukid_count,
+            'serbisyo_count' => $total->serbisyo_count,
+            'iba_pa_count' => $total->iba_pa_count,
+        ];
+
+        $totalResponses = $total->pagmamanupaktyur_count +
+                        $total->konstruksyon_count +
+                        $total->pagbubukid_count +
+                        $total->serbisyo_count +
+                        $total->iba_pa_count;
+
+        if ($totalResponses !== 0) {
+            $result['pagmamanupaktyur_percentage'] = intval(($result['pagmamanupaktyur_count'] / $totalResponses) * 100);
+            $result['konstruksyon_percentage'] = intval(($result['konstruksyon_count'] / $totalResponses) * 100);
+            $result['pagbubukid_percentage'] = intval(($result['pagbubukid_count'] / $totalResponses) * 100);
+            $result['serbisyo_percentage'] = intval(($result['serbisyo_count'] / $totalResponses) * 100);
+            $result['iba_pa_percentage'] = intval(($result['iba_pa_count'] / $totalResponses) * 100);
+        } else {
+            $result['pagmamanupaktyur_percentage'] = 0;
+            $result['konstruksyon_percentage'] = 0;
+            $result['pagbubukid_percentage'] = 0;
+            $result['serbisyo_percentage'] = 0;
+            $result['iba_pa_percentage'] = 0;
+        }
+
+        return $result;
     }
-    public static function EconomicReportPosition($year)
+    public static function getChartTitleSector($selectedYear, $selectedBarangay)
     {
-        $total = Household::select(
+        $barangayName = '';
+
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown';
+        }
+
+        $chartTitle = 'Job Sector Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
+    }
+
+    public static function EconomicReportPosition($year, $selectedBarangay)
+    {
+        $query = Household::select(
             DB::raw("SUM(CASE WHEN family_members.position = '1' THEN 1 ELSE 0 END) AS permanente_count"),
             DB::raw("SUM(CASE WHEN family_members.position = '2' THEN 1 ELSE 0 END) AS kaswal_count"),
             DB::raw("SUM(CASE WHEN family_members.position = '3' THEN 1 ELSE 0 END) AS may_kontrata_count"),
@@ -578,12 +670,71 @@ if ($totalCount > 0) {
             DB::raw("SUM(CASE WHEN family_members.position = '5' THEN 1 ELSE 0 END) AS self_employed_count"),
             DB::raw("SUM(CASE WHEN family_members.position = '6' THEN 1 ELSE 0 END) AS job_order_count")
         )
-        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
-        ->where('household.year', $year)
-        ->first();
+            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+            ->where('household.year', $year);
 
-        return $total;
+        if ($selectedBarangay) {
+            $query->where('household.barangay', $selectedBarangay);
+        }
+
+        $total = $query->first();
+
+        $result = [
+            'permanente_count' => $total->permanente_count,
+            'kaswal_count' => $total->kaswal_count,
+            'may_kontrata_count' => $total->may_kontrata_count,
+            'pana_panahon_count' => $total->pana_panahon_count,
+            'self_employed_count' => $total->self_employed_count,
+            'job_order_count' => $total->job_order_count,
+            'selected_barangay' => $selectedBarangay,
+        ];
+
+        $totalResponses = $total->permanente_count +
+                        $total->kaswal_count +
+                        $total->may_kontrata_count +
+                        $total->pana_panahon_count +
+                        $total->self_employed_count +
+                        $total->job_order_count;
+
+        if ($totalResponses !== 0) {
+            $result['permanente_percentage'] = intval(($total->permanente_count / $totalResponses) * 100);
+            $result['kaswal_percentage'] = intval(($total->kaswal_count / $totalResponses) * 100);
+            $result['may_kontrata_percentage'] = intval(($total->may_kontrata_count / $totalResponses) * 100);
+            $result['pana_panahon_percentage'] = intval(($total->pana_panahon_count / $totalResponses) * 100);
+            $result['self_employed_percentage'] = intval(($total->self_employed_count / $totalResponses) * 100);
+            $result['job_order_percentage'] = intval(($total->job_order_count / $totalResponses) * 100);
+        } else {
+            $result['permanente_percentage'] = 0;
+            $result['kaswal_percentage'] = 0;
+            $result['may_kontrata_percentage'] = 0;
+            $result['pana_panahon_percentage'] = 0;
+            $result['self_employed_percentage'] = 0;
+            $result['job_order_percentage'] = 0;
+        }
+
+        return $result;
     }
+    public static function getChartTitlePosition($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
+
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown';
+        }
+
+        $chartTitle = 'Job Position Chart (' . $selectedYear;
+
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
+    }
+
 
     //EDUCATIONAL
     public static function EducationalReport($year)
