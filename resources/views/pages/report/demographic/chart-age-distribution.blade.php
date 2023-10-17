@@ -37,16 +37,16 @@
         type: 'bar',
         data: {
             labels: [
-                '0-4: ({{ $DemographicReportAge[0]['count'] ?? 0 }})',
-                '5-9: ({{ $DemographicReportAge[1]['count'] ?? 0 }})',
-                '10-19: ({{ $DemographicReportAge[2]['count'] ?? 0 }})',
-                '20-29: ({{ $DemographicReportAge[3]['count'] ?? 0 }})',
-                '30-39: ({{ $DemographicReportAge[4]['count'] ?? 0 }})',
-                '40-49: ({{ $DemographicReportAge[5]['count'] ?? 0 }})',
-                '50-59: ({{ $DemographicReportAge[6]['count'] ?? 0 }})',
-                '60-69: ({{ $DemographicReportAge[7]['count'] ?? 0 }})',
-                '70-79: ({{ $DemographicReportAge[8]['count'] ?? 0 }})',
-                '80+: ({{ $DemographicReportAge[9]['count'] ?? 0 }})',
+                '0-4:',
+                '5-9:',
+                '10-19:',
+                '20-29:',
+                '30-39:',
+                '40-49:',
+                '50-59:',
+                '60-69:',
+                '70-79:',
+                '80+:',
             ],
             datasets: [{
                 data: ageCounts,
@@ -68,9 +68,17 @@
                         },
                     }
                 },
-                    legend: {
-                        display: false
+                title: {
+                    display: true,
+                    text: '{{ $getChartTitleAge }}',
+                    font: {
+                        size: 17,
+                        family: 'Arial'
                     }
+                },
+                legend: {
+                    display: false
+                }
             },
             scales: {
                 y: {

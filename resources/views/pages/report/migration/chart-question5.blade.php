@@ -9,13 +9,12 @@
 </div>
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{asset('js/printThis.js')}}" defer></script>
 <script>
+    Chart.register(ChartDataLabels);
     var backgroundColors = [
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
+        'rgba(75, 192, 192)',
+        'rgba(255, 99, 132)',
+        'rgba(54, 162, 235)',
     ];
 
     var borderColors = [
@@ -30,12 +29,17 @@
         var chart = new Chart(MigrationReportQuestion5, {
             type: 'doughnut',
             data: {
-                labels: ['Magtratrabaho ({{ $MigrationReportQuestion5Chart[0]->answer1 }})', 
-                'Tumira sa kamag-anak ({{ $MigrationReportQuestion5Chart[0]->answer2 }})', 
-                'Iba pa ({{ $MigrationReportQuestion5Chart[0]->answer3 }})'],
+                labels: [
+                    `Magtratrabaho (${data[0].answer1})`, 
+                    `Tumira sa kamag-anak (${data[0].answer2})`, 
+                    `Iba pa (${data[0].answer3})`
+                ],
                 datasets: [{
                     label: 'Migration Report',
-                    data: [data[0].answer1, data[0].answer2, data[0].answer3],
+                    data: [
+                        data[0].answer1_percentage,
+                        data[0].answer2_percentage, 
+                        data[0].answer3_percentage],
                     backgroundColor: backgroundColors,
                     borderColor: borderColors,
                     borderWidth: 1
@@ -45,6 +49,25 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
+                datalabels: {
+                    formatter: (value) => {
+                        if (value === 0) {
+                            return '';
+                        }
+                        return Math.round(value) + '%';
+                    },
+                    color: 'white',
+                    labels: {
+                        title: {
+                            font: {
+                                weight: 'bold'
+                            }
+                        },
+                        value: {
+                            color: 'white'
+                        }
+                    }
+                },
                 title: {
                     display: true,
                     text: '{{$getChartTitleQuestion5}}',

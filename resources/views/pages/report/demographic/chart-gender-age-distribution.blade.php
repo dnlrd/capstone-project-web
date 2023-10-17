@@ -28,7 +28,18 @@
     const ageDistributionChart = new Chart(genderage , {
         type: 'bar',
         data: {
-            labels: ageData.map(item => item.age_range),
+            labels: [
+                '0-4:',
+                '5-9:',
+                '10-19:',
+                '20-29:',
+                '30-39:',
+                '40-49:',
+                '50-59:',
+                '60-69:',
+                '70-79:',
+                '80+:',
+            ],
             datasets: [
                 {
                     label: 'Male',

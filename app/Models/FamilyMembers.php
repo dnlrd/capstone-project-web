@@ -267,39 +267,40 @@ class FamilyMembers extends Model
     }
 
     public static function DemographicReportCivilStatus($selectedYear, $selectedBarangay)
-{
-    $query = Household::select(
-        DB::raw("SUM(CASE WHEN family_members.civil_status = '1' THEN 1 ELSE 0 END) AS total_single"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = '2' THEN 1 ELSE 0 END) AS total_cohabiting"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = '3' THEN 1 ELSE 0 END) AS total_married"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = '4' THEN 1 ELSE 0 END) AS total_separated"),
-        DB::raw("SUM(CASE WHEN family_members.civil_status = '5' THEN 1 ELSE 0 END) AS total_widowed")
-    )
-        ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
-        ->where('household.year', $selectedYear);
+    {
+        $query = Household::select(
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '1' THEN 1 ELSE 0 END) AS total_single"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '2' THEN 1 ELSE 0 END) AS total_cohabiting"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '3' THEN 1 ELSE 0 END) AS total_married"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '4' THEN 1 ELSE 0 END) AS total_separated"),
+            DB::raw("SUM(CASE WHEN family_members.civil_status = '5' THEN 1 ELSE 0 END) AS total_widowed")
+        )
+            ->leftJoin('family_members', 'household.id', '=', 'family_members.household_id')
+            ->where('household.year', $selectedYear);
 
-    if ($selectedBarangay) {
-        $query->where('household.barangay', $selectedBarangay);
+        if ($selectedBarangay) {
+            $query->where('household.barangay', $selectedBarangay);
+        }
+
+        $total = $query->first();
+
+        $totalCount = $total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed'];
+
+        if ($totalCount > 0) {
+            $total['total_single_percentage'] = intval($total['total_single'] / $totalCount * 100);
+            $total['total_cohabiting_percentage'] = intval($total['total_cohabiting'] / $totalCount * 100);
+            $total['total_married_percentage'] = intval($total['total_married'] / $totalCount * 100);
+            $total['total_separated_percentage'] = intval($total['total_separated'] / $totalCount * 100);
+            $total['total_widowed_percentage'] = intval($total['total_widowed'] / $totalCount * 100);
+        } else {
+            $total['total_single_percentage'] = 0;
+            $total['total_cohabiting_percentage'] = 0;
+            $total['total_married_percentage'] = 0;
+            $total['total_separated_percentage'] = 0;
+            $total['total_widowed_percentage'] = 0;
+            }
+        return $total;
     }
-
-    $total = $query->first();
-
-    $totalCount = $total['total_single'] + $total['total_cohabiting'] + $total['total_married'] + $total['total_separated'] + $total['total_widowed'];
-
-if ($totalCount > 0) {
-    $total['total_single_percentage'] = intval($total['total_single'] / $totalCount * 100);
-    $total['total_cohabiting_percentage'] = intval($total['total_cohabiting'] / $totalCount * 100);
-    $total['total_married_percentage'] = intval($total['total_married'] / $totalCount * 100);
-    $total['total_separated_percentage'] = intval($total['total_separated'] / $totalCount * 100);
-    $total['total_widowed_percentage'] = intval($total['total_widowed'] / $totalCount * 100);
-} else {
-    $total['total_single_percentage'] = 0;
-    $total['total_cohabiting_percentage'] = 0;
-    $total['total_married_percentage'] = 0;
-    $total['total_separated_percentage'] = 0;
-    $total['total_widowed_percentage'] = 0;
-}return $total;
-}
 
     public static function getChartTitleCivilStatus($selectedYear, $selectedBarangay)
     {
@@ -323,55 +324,74 @@ if ($totalCount > 0) {
     }
 
     public static function DemographicReportAge($year, $selectedBarangay)
-{
-    $query = Household::select(
-        DB::raw("CASE 
-            WHEN age BETWEEN 0 AND 4 THEN '0-4'
-            WHEN age BETWEEN 5 AND 9 THEN '5-9'
-            WHEN age BETWEEN 10 AND 19 THEN '10-19'
-            WHEN age BETWEEN 20 AND 29 THEN '20-29'
-            WHEN age BETWEEN 30 AND 39 THEN '30-39'
-            WHEN age BETWEEN 40 AND 49 THEN '40-49'
-            WHEN age BETWEEN 50 AND 59 THEN '50-59'
-            WHEN age BETWEEN 60 AND 69 THEN '60-69'
-            WHEN age BETWEEN 70 AND 79 THEN '70-79'
-            ELSE '80+' END AS `age_range`"),
-        DB::raw('COUNT(*) as `count`') 
-    )
-        ->join('family_members', 'household.id', '=', 'family_members.household_id')
-        ->where('household.year', $year);
+    {
+        $query = Household::select(
+            DB::raw("CASE 
+                WHEN age BETWEEN 0 AND 4 THEN '0-4'
+                WHEN age BETWEEN 5 AND 9 THEN '5-9'
+                WHEN age BETWEEN 10 AND 19 THEN '10-19'
+                WHEN age BETWEEN 20 AND 29 THEN '20-29'
+                WHEN age BETWEEN 30 AND 39 THEN '30-39'
+                WHEN age BETWEEN 40 AND 49 THEN '40-49'
+                WHEN age BETWEEN 50 AND 59 THEN '50-59'
+                WHEN age BETWEEN 60 AND 69 THEN '60-69'
+                WHEN age BETWEEN 70 AND 79 THEN '70-79'
+                ELSE '80+' END AS `age_range`"),
+            DB::raw('COUNT(*) as `count`') 
+        )
+            ->join('family_members', 'household.id', '=', 'family_members.household_id')
+            ->where('household.year', $year);
 
-    if ($selectedBarangay) {
-        $query->where('household.barangay', $selectedBarangay);
+        if ($selectedBarangay) {
+            $query->where('household.barangay', $selectedBarangay);
+        }
+
+        $ageRangeDistribution = $query
+            ->groupBy('age_range')
+            ->orderByRaw("CASE 
+                WHEN `age_range` = '0-4' THEN 1
+                WHEN `age_range` = '5-9' THEN 2
+                WHEN `age_range` = '10-19' THEN 3
+                WHEN `age_range` = '20-29' THEN 4
+                WHEN `age_range` = '30-39' THEN 5
+                WHEN `age_range` = '40-49' THEN 6
+                WHEN `age_range` = '50-59' THEN 7
+                WHEN `age_range` = '60-69' THEN 8
+                WHEN `age_range` = '70-79' THEN 9
+                ELSE 10 END")
+            ->get();
+
+        $result = [];
+
+        foreach ($ageRangeDistribution as $data) {
+            $result[] = [
+                'age_range' => $data->age_range,
+                'count' => $data->count,
+            ];
+        }
+
+        return $result;
     }
+    public static function getChartTitleAge($selectedYear, $selectedBarangay)
+    {
+        $barangayName = '';
 
-    $ageRangeDistribution = $query
-        ->groupBy('age_range')
-        ->orderByRaw("CASE 
-            WHEN `age_range` = '0-4' THEN 1
-            WHEN `age_range` = '5-9' THEN 2
-            WHEN `age_range` = '10-19' THEN 3
-            WHEN `age_range` = '20-29' THEN 4
-            WHEN `age_range` = '30-39' THEN 5
-            WHEN `age_range` = '40-49' THEN 6
-            WHEN `age_range` = '50-59' THEN 7
-            WHEN `age_range` = '60-69' THEN 8
-            WHEN `age_range` = '70-79' THEN 9
-            ELSE 10 END")
-        ->get();
+        if ($selectedBarangay) {
+            $barangayName = isset(self::BARANGAY_NAMES[$selectedBarangay])
+                ? self::BARANGAY_NAMES[$selectedBarangay]
+                : 'Unknown Age'; 
+        }
 
-    $result = [];
+        $chartTitle = 'Age Distribution Chart (' . $selectedYear;
 
-    foreach ($ageRangeDistribution as $data) {
-        $result[] = [
-            'age_range' => $data->age_range,
-            'count' => $data->count,
-        ];
+        if ($barangayName) {
+            $chartTitle .= ' - ' . $barangayName;
+        }
+
+        $chartTitle .= ')';
+
+        return $chartTitle;
     }
-
-    return $result;
-}
-
     
     public static function DemographicReportSoloParent($year)
     {
@@ -829,7 +849,7 @@ if ($totalCount > 0) {
 
         return $educationLevelCountsByBarangay;
     }
-    
+
     //HEALTH
     public static function HealthReportDisability($year)
     {

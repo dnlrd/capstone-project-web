@@ -105,19 +105,36 @@ class Question5 extends Model
             DB::raw('SUM(CASE WHEN question_5.answer1_q5 = 2 THEN 1 ELSE 0 END) AS answer2'),
             DB::raw('SUM(CASE WHEN question_5.answer1_q5 = 3 THEN 1 ELSE 0 END) AS answer3')
         )
-            ->join('question_5', 'household.id', '=', 'question_5.household_id')
-            ->where('household.year', $selectedYear);
+        ->join('question_5', 'household.id', '=', 'question_5.household_id')
+        ->where('household.year', $selectedYear);
     
         if ($selectedBarangay) {
             $query->addSelect('household.barangay')
                 ->where('household.barangay', $selectedBarangay)
                 ->groupBy('household.barangay');
         }
-
+    
         $total = $query->get();
     
-        return $total;
+        $result = [];
+    
+        foreach ($total as $item) {
+            $totalResponses = $item->answer1 + $item->answer2 + $item->answer3;
+    
+            $result[] = [
+                'barangay' => $item->barangay ?? null,
+                'answer1' => $item->answer1,
+                'answer2' => $item->answer2,
+                'answer3' => $item->answer3,
+                'answer1_percentage' => ($totalResponses !== 0) ? intval(($item->answer1 / $totalResponses) * 100) : 0,
+                'answer2_percentage' => ($totalResponses !== 0) ? intval(($item->answer2 / $totalResponses) * 100) : 0,
+                'answer3_percentage' => ($totalResponses !== 0) ? intval(($item->answer3 / $totalResponses) * 100) : 0,
+            ];
+        }
+    
+        return $result;
     }
+    
     public static function getChartTitleQuestion5($selectedYear, $selectedBarangay)
     {
         $barangayName = '';

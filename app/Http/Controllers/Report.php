@@ -75,11 +75,13 @@ class Report extends Controller
         $getChartTitleGender = FamilyMembers::getChartTitleGender($selectedYear, $selectedBarangay);
         $getChartTitleCivilStatus = FamilyMembers::getChartTitleCivilStatus($selectedYear, $selectedBarangay);
         $getChartTitleGenderAge = FamilyMembers::getChartTitleGenderAge($selectedYear, $selectedBarangay);
+        $getChartTitleAge = FamilyMembers::getChartTitleAge($selectedYear, $selectedBarangay);
 
         $DemographicReportGender = FamilyMembers::DemographicReportGender($selectedYear,$selectedBarangay);
         $DemographicReportCivilStatus = FamilyMembers::DemographicReportCivilStatus($selectedYear, $selectedBarangay);
         $DemographicReportAge = FamilyMembers::DemographicReportAge($selectedYear,$selectedBarangay);
         $DemographicGenderAgeDistribution = FamilyMembers::GenderAgeDistribution($selectedYear, $selectedBarangay);
+        
 
         return view('pages.report.demographic', compact(
             'currentYear',
@@ -97,6 +99,7 @@ class Report extends Controller
             'getChartTitleCivilStatus',
             'getChartTitleGender',
             'getChartTitleGenderAge',
+            'getChartTitleAge',
 
         ));
     }

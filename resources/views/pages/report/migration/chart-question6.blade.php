@@ -9,13 +9,12 @@
 </div>
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{asset('js/printThis.js')}}" defer></script>
 <script>
+    Chart.register(ChartDataLabels);
     var backgroundColors = [
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
+        'rgba(75, 192, 192)',
+        'rgba(255, 99, 132)',
+        'rgba(54, 162, 235)',
     ];
 
     var borderColors = [
@@ -30,12 +29,17 @@
         var chart = new Chart(MigrationReportQuestion6, {
             type: 'pie',
             data: {
-                labels: ['Kasama lahat ng pamilya ({{ $MigrationReportQuestion6Chart[0]->answer1 }})', 
-                'Kasama ang ibang myembro ng pamilya ({{ $MigrationReportQuestion6Chart[0]->answer2 }})', 
-                'Nag-iisang lumipat ({{ $MigrationReportQuestion6Chart[0]->answer3 }})'],
+                labels: [
+                    'Kasama lahat ng pamilya', 
+                    'Kasama ang ibang myembro ng pamilya', 
+                    'Nag-iisang lumipat '
+                ],
                 datasets: [{
                     label: 'Migration Report',
-                    data: [data[0].answer1, data[0].answer2, data[0].answer3],
+                    data: [
+                        data[0].answer1, 
+                        data[0].answer2, 
+                        data[0].answer3],
                     backgroundColor: backgroundColors,
                     borderColor: borderColors,
                     borderWidth: 1
@@ -45,6 +49,25 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
+                datalabels: {
+                    formatter: (value) => {
+                        if (value === 0) {
+                            return '';
+                        }
+                        return Math.round(value) + '%';
+                    },
+                    color: 'white',
+                    labels: {
+                        title: {
+                            font: {
+                                weight: 'bold'
+                            }
+                        },
+                        value: {
+                            color: 'white'
+                        }
+                    }
+                },
                 title: {
                     display: true,
                     text: '{{ $getChartTitleQuestion6 }}',
