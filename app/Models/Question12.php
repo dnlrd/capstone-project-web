@@ -97,39 +97,39 @@ class Question12 extends Model
         return $result;
     }
     public static function HousingReportQuestion12b($selectedYear, $selectedBarangay)
-{
-    $query = Household::select(
-        DB::raw('SUM(CASE WHEN question_12.answer3_q12 = 1 THEN 1 ELSE 0 END) AS answer1'),
-        DB::raw('SUM(CASE WHEN question_12.answer3_q12 = 2 THEN 1 ELSE 0 END) AS answer2'),
-        DB::raw('SUM(CASE WHEN question_12.answer3_q12 = 3 THEN 1 ELSE 0 END) AS answer3'),
-        DB::raw('SUM(CASE WHEN question_12.answer3_q12 = 4 THEN 1 ELSE 0 END) AS answer4')
-    )
-    ->join('question_12', 'household.id', '=', 'question_12.household_id')
-    ->where('household.year', $selectedYear);
+    {
+        $query = Household::select(
+            DB::raw('SUM(CASE WHEN question_12.answer3_q12 = 1 THEN 1 ELSE 0 END) AS answer1'),
+            DB::raw('SUM(CASE WHEN question_12.answer3_q12 = 2 THEN 1 ELSE 0 END) AS answer2'),
+            DB::raw('SUM(CASE WHEN question_12.answer3_q12 = 3 THEN 1 ELSE 0 END) AS answer3'),
+            DB::raw('SUM(CASE WHEN question_12.answer3_q12 = 4 THEN 1 ELSE 0 END) AS answer4')
+        )
+        ->join('question_12', 'household.id', '=', 'question_12.household_id')
+        ->where('household.year', $selectedYear);
 
-    if ($selectedBarangay) {
-        $query->where('household.barangay', $selectedBarangay);
+        if ($selectedBarangay) {
+            $query->where('household.barangay', $selectedBarangay);
+        }
+
+        $total = $query->groupBy('question_12.answer3_q12')->get();
+
+        $result = [
+            'answer3_q12' => [
+                'answer1' => $total->sum('answer1'),
+                'answer2' => $total->sum('answer2'),
+                'answer3' => $total->sum('answer3'),
+                'answer4' => $total->sum('answer4'),
+            ]
+        ];
+
+        $totalResponses = $total->sum('answer1') + $total->sum('answer2') + $total->sum('answer3') + $total->sum('answer4');
+        $result['answer3_q12']['answer1_percentage'] = intval(($result['answer3_q12']['answer1'] / $totalResponses) * 100);
+        $result['answer3_q12']['answer2_percentage'] = intval(($result['answer3_q12']['answer2'] / $totalResponses) * 100);
+        $result['answer3_q12']['answer3_percentage'] = intval(($result['answer3_q12']['answer3'] / $totalResponses) * 100);
+        $result['answer3_q12']['answer4_percentage'] = intval(($result['answer3_q12']['answer4'] / $totalResponses) * 100);
+
+        return $result;
     }
-
-    $total = $query->groupBy('question_12.answer3_q12')->get();
-
-    $result = [
-        'answer3_q12' => [
-            'answer1' => $total->sum('answer1'),
-            'answer2' => $total->sum('answer2'),
-            'answer3' => $total->sum('answer3'),
-            'answer4' => $total->sum('answer4'),
-        ]
-    ];
-
-    $totalResponses = $total->sum('answer1') + $total->sum('answer2') + $total->sum('answer3') + $total->sum('answer4');
-    $result['answer3_q12']['answer1_percentage'] = intval(($result['answer3_q12']['answer1'] / $totalResponses) * 100);
-    $result['answer3_q12']['answer2_percentage'] = intval(($result['answer3_q12']['answer2'] / $totalResponses) * 100);
-    $result['answer3_q12']['answer3_percentage'] = intval(($result['answer3_q12']['answer3'] / $totalResponses) * 100);
-    $result['answer3_q12']['answer4_percentage'] = intval(($result['answer3_q12']['answer4'] / $totalResponses) * 100);
-
-    return $result;
-}
 
     public function household()
     {

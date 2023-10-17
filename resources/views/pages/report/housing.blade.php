@@ -50,6 +50,10 @@
                     @include('pages.report.housing.chart-question11c')
                 </div>
                 <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.housing.chart-question12a')
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6 d-flex justify-content-center">
+                    @include('pages.report.housing.chart-question12b')
                 </div>
             </div>
     </div>

@@ -14,7 +14,7 @@ use App\Models\Question5;
 use App\Models\Question6;
 use App\Models\Question14;
 use App\Models\Question11;
-
+use App\Models\Question12;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 class Report extends Controller
@@ -195,6 +195,9 @@ class Report extends Controller
         $Question11a = Question11::HousingReportQuestion11a($selectedYear, $selectedBarangay );
         $Question11b = Question11::HousingReportQuestion11b($selectedYear, $selectedBarangay );
         $Question11c = Question11::HousingReportQuestion11c($selectedYear, $selectedBarangay );
+
+        $Question12a = Question12::HousingReportQuestion12a($selectedYear, $selectedBarangay );
+        $Question12b = Question12::HousingReportQuestion12b($selectedYear, $selectedBarangay );
         return view('pages.report.housing', compact(
             'currentYear',
             'selectedYear',
@@ -206,6 +209,9 @@ class Report extends Controller
             'Question11a',
             'Question11b',
             'Question11c',
+
+            'Question12a',
+            'Question12b',
         ));
     }
 
