@@ -237,6 +237,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="card col-md-12">
                         <div class="card-body">
                             <h3 class="card-title">10. Saan pumapasok ang mga miyembro ng pamilya na nagaaral?</h3>
@@ -246,26 +247,99 @@
                                         <table class="table card-table table-vcenter text-nowrap datatable">
                                             <thead>
                                                 <tr>
-                                                    <!-- <th>Kung oo,</th> -->
-                                                    <th>Sino?</th>
-                                                    <th>Saan?</th>
-                                                    <th>Buwanang Kita/Naipapadala?</th>
-                                                    <th>Uri ng Paninirahan sa ibang bansa (immigrant / contract worker)</th>
+                                                    <th>1</th>
+                                                    <th>Ilan?</th>
+                                                    <th>3</th>
+                                                    <th>Pangalan ng Paaralan</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($question10 as $data)
                                                     <tr>
-                                                        <!-- <td>{{ $data->if_yes }}</td> -->
-                                                        <td>{{ $data->answer1_q10 }}</td>
+                                                        <td>
+                                                        @if ($data['answer1_q10'] == 1)
+                                                            Pampublikong Paaralan
+                                                        @elseif ($data['answer1_q10'] == 2)
+                                                            Pampribadong Paaralan
+                                                        @endif
+                                                        </td>
                                                         <td>{{ $data->answer2_q10 }}</td>
-                                                        <td>{{ $data->answer3_q10 }}</td>
+                                                        <td>
+                                                        @if ($data['answer3_q10'] == 1)
+                                                            Elementary
+                                                        @elseif ($data['answer3_q10'] == 2)
+                                                            Senior High
+                                                        @elseif ($data['answer3_q10'] == 3)
+                                                            Kolehiyo
+                                                        @endif
+                                                        </td>
                                                         <td>{{ $data->answer4_q10 }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card col-md-12">
+                        <div class="card-header">
+                            Question 11
+                        </div>
+                        
+                        <div class="card-body">
+                            <h3 class="card-title">11a. Uri ng tirahan/bahay</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-12">
+                                    <select class="form-select" name="answer1_q11">
+                                        <option value="0">Select...</option>
+                                        <option value="1">Konkreto</option>
+                                        <option value="2">Konkreto at Kahoy</option>
+                                        <option value="3">Kahoy</option>
+                                        <option value="4">Barong-barong</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <h3 class="card-title">11b. Uri ng lupang kinatatayuan ng bahay</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-12">
+                                    <select class="form-select" name="answer2_q11">
+                                        <option value="0">Select...</option>
+                                        <option value="1">Pribadong Lupa</option>
+                                        <option value="2">Lupa ng Gobyerno</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <h3 class="card-title">11c. Katayuan sa lupa at bahay</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-12">
+                                    <select class="form-select mb-3" name="answer3_q11" id="answer3_q11c">
+                                        <option value="0">Select...</option>
+                                        <option value="1">May-ari ng Lupa at Bahay</option>
+                                        <option value="2">Nangungupahan sa lupa at may-ari ng bahay</option>
+                                        <option value="3">Nagtayo ng bahay nang walang pahintulot</option>
+                                        <option value="4">Nangungupahan sa bahay</option>
+                                        <option value="5">Nakikitira sa bahay</option>
+                                        <option value="6">Katiwala sa bahay</option>
+                                        <option value="7">Iba pa</option>
+                                    </select>
+                                    <div class="input-group mb-2" style="display:none;" id="question_11c">
+                                        <span class="input-group-text">
+                                            &nbsp;Iba pa
+                                        </span>
+                                        <input type="text" class="form-control" name="answer4_q11">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="card-title">11d. Kung ikaw ay umuupa ng tirahan/bahay, magkano ang inyong buwanang upa</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-12">
+                                    <input type="text" name="answer5_q11" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -325,14 +399,7 @@
             </tbody>
         </table>
 
-@foreach ($question10 as $data)
-    <p>answer1_q10: {{ $data->answer1_q10 }}</p>
-    <p>answer2_q10: {{ $data->answer2_q10 }}</p>
-    <p>answer3_q10: {{ $data->answer3_q10 }}</p>
-    <p>answer4_q10: {{ $data->answer4_q10 }}</p>
-@endforeach
 <br>
-{{$question11->answer1_q11}}<br>
 {{$question11->answer2_q11}}<br>
 {{$question11->answer3_q11}}<br>
 {{$question11->answer4_q11}}<br>
