@@ -276,14 +276,33 @@ class RecordsController extends Controller
     
 
     public function show($id)
-    {
-        $household = Household::findOrFail($id);
-        $familyMembers = FamilyMembers::where('household_id', $household->id)->get();
-    
-        return view('pages.records.household-detail', compact('household', 'familyMembers'));
-    }
+{
+    $household = Household::findOrFail($id);
+    $familyMembers = FamilyMembers::where('household_id', $household->id)->get();
 
-    
+    // Count the family members for this specific household
+    $familyMemberCount = $familyMembers->count();
+
+    $question2 = Question2::where('household_id', $household->id)->first();
+    $question3 = Question3::where('household_id', $household->id)->first();
+    $question4 = Question4::where('household_id', $household->id)->first();
+    $question5 = Question5::where('household_id', $household->id)->first();
+    $question6 = Question6::where('household_id', $household->id)->first();
+    $question9 = Question9::where('household_id', $household->id)->get();
+    $question10 = Question10::where('household_id', $household->id)->get();
+    $question11 = Question11::where('household_id', $household->id)->first();
+    $question12 = Question12::where('household_id', $household->id)->first();
+    $question13 = Question13::where('household_id', $household->id)->first();
+    $question14 = Question14::where('household_id', $household->id)->first();
+    $question15 = Question15::where('household_id', $household->id)->first();
+    $question16 = Question16::where('household_id', $household->id)->first();
+    $question17 = Question17::where('household_id', $household->id)->first();
+
+    return view('pages.records.household-detail', compact('familyMemberCount', 'household', 'familyMembers', 'question2', 'question3', 'question4', 'question5', 'question6', 'question9', 'question10', 'question11', 'question12', 'question13', 'question14', 'question15', 'question16', 'question17'));
+}
+
+
+
     public function edit()
     {
         $households = Household::all();
