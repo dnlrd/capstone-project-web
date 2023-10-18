@@ -276,20 +276,166 @@
                                                         </td>
                                                         <td>{{ $familyMember->age }}</td>
                                                         <td>
-                                                            
+                                                            @if ($familyMember->civil_status == 1)
+                                                                Walang Asawa
+                                                            @elseif ($familyMember->civil_status == 2)
+                                                                Nagsasama ng Hindi Kasal
+                                                            @elseif ($familyMember->civil_status == 3)
+                                                                Kasal
+                                                            @elseif ($familyMember->civil_status == 4)
+                                                                Hiwalay sa Asawa
+                                                            @elseif ($familyMember->civil_status == 5)
+                                                                Balo
+                                                            @endif
+
                                                         </td>
-                                                        <td>{{ $familyMember->solo_parent }}</td>
-                                                        <td>{{ $familyMember->religion }}</td>
-                                                        <td>{{ $familyMember->studying }}</td>
-                                                        <td>{{ $familyMember->has_job }}</td>
+                                                        <td>
+                                                            @if ($familyMember->solo_parent == 1)
+                                                                Oo
+                                                            @elseif ($familyMember->solo_parent == 2)
+                                                                Hindi
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($familyMember->religion == 1)
+                                                                Katoliko
+                                                            @elseif ($familyMember->religion == 2)
+                                                                Born-Again
+                                                            @elseif ($familyMember->religion == 3)
+                                                                Iglesia ni Cristo
+                                                            @elseif ($familyMember->religion == 4)
+                                                                Islam
+                                                            @elseif ($familyMember->religion == 5)
+                                                                Buddism
+                                                            @elseif ($familyMember->religion == 6)
+                                                                {{$familyMember->ibang_relihiyon}}
+                                                            @endif
+
+                                                        </td>
+                                                        <td>
+                                                            @if ($familyMember->studying == 1)
+                                                                Not in school age (0-5 y/o)
+                                                            @elseif ($familyMember->studying == 2)
+                                                                No Education
+                                                            @elseif ($familyMember->studying == 3)
+                                                                Elementarya (1-6)
+                                                            @elseif ($familyMember->studying == 4)
+                                                                High School (1-4)
+                                                            @elseif ($familyMember->studying == 5)
+                                                                Junior High (7-10)
+                                                            @elseif ($familyMember->studying == 6)
+                                                                Senior High School (11-12)
+                                                            @elseif ($familyMember->studying == 7)
+                                                                Post Baccalaureate
+                                                            @elseif ($familyMember->studying == 8)
+                                                                OSY
+                                                            @elseif ($familyMember->studying == 9)
+                                                                Not studying
+                                                            @endif
+
+                                                        </td>
+                                                        <td>
+                                                            @if ($familyMember->has_job == 1)
+                                                                Meron
+                                                            @elseif ($familyMember->has_job == 2)
+                                                                Wala
+                                                            @endif
+
+                                                        </td>
                                                         <td>{{ $familyMember->job }}</td>
+
                                                         <td>{{ $familyMember->known_work }}</td>
-                                                        <td>{{ $familyMember->where }}</td>
-                                                        <td>{{ $familyMember->sector }}</td>
-                                                        <td>{{ $familyMember->position }}</td>
+
+                                                        <td>
+                                                            @if ($familyMember->where == 1)
+                                                                Tirahan
+                                                            @elseif ($familyMember->where == 2)
+                                                                Kapitbahay
+                                                            @elseif ($familyMember->where == 3)
+                                                                Sa loob ng Sto. Tomas
+                                                            @elseif ($familyMember->where == 4)
+                                                                Sa labas ng Sto. Tomas ngunit sa loob ng Batangas
+                                                            @elseif ($familyMember->where == 5)
+                                                                Sa labas ng Batangas
+                                                            @elseif ($familyMember->where == 6)
+                                                                Hindi tiyak
+                                                            @elseif ($familyMember->where == 7)
+                                                                {{$familyMember->iba_pa_saan}}
+                                                            @endif
+
+                                                        </td>
+
+                                                        <td>
+                                                            @if ($familyMember->sector == 1)
+                                                                Pagmamanupaktyur
+                                                            @elseif ($familyMember->sector == 2)
+                                                                Konstruksyon
+                                                            @elseif ($familyMember->sector == 3)
+                                                                Pagbubukid
+                                                            @elseif ($familyMember->sector == 4)
+                                                                Serbisyo
+                                                            @elseif ($familyMember->sector == 5)
+                                                                {{$familyMember->iba_pa_sektor}}
+                                                            @endif
+                                                        </td>
+
+                                                        <td>
+                                                            @if ($familyMember->position == 1)
+                                                                Permanente
+                                                            @elseif ($familyMember->position == 2)
+                                                                Kaswal
+                                                            @elseif ($familyMember->position == 3)
+                                                                May Kontrata
+                                                            @elseif ($familyMember->position == 4)
+                                                                Pana-panahon
+                                                            @elseif ($familyMember->position == 5)
+                                                                Self-Employed
+                                                            @elseif ($familyMember->position == 6)
+                                                                Job Order
+                                                            @endif
+
+                                                        </td>
+
                                                         <td>{{ $familyMember->monthly_income }}</td>
-                                                        <td>{{ $familyMember->level_of_nutrition }}</td>
-                                                        <td>{{ $familyMember->type_of_disability }}</td>
+
+                                                        <td>
+                                                            @if ($familyMember->level_of_nutrition == 1)
+                                                                Wastong Nutrisyon
+                                                            @elseif ($familyMember->level_of_nutrition == 2)
+                                                                Undernutrition
+                                                            @elseif ($familyMember->level_of_nutrition == 3)
+                                                                Overnutrition
+                                                            @endif
+
+                                                        </td>
+
+                                                        <td>
+                                                            @if ($familyMember->type_of_disability == 1)
+                                                                Hearing Impairment
+                                                            @elseif ($familyMember->type_of_disability == 2)
+                                                                Visual Impairment
+                                                            @elseif ($familyMember->type_of_disability == 3)
+                                                                Mental Retardation
+                                                            @elseif ($familyMember->type_of_disability == 4)
+                                                                Autism
+                                                            @elseif ($familyMember->type_of_disability == 5)
+                                                                Cerebral Palsy
+                                                            @elseif ($familyMember->type_of_disability == 6)
+                                                                Epilepsy
+                                                            @elseif ($familyMember->type_of_disability == 7)
+                                                                Amputee
+                                                            @elseif ($familyMember->type_of_disability == 8)
+                                                                Polio
+                                                            @elseif ($familyMember->type_of_disability == 9)
+                                                                Clubfoot
+                                                            @elseif ($familyMember->type_of_disability == 10)
+                                                                Hunchback
+                                                            @elseif ($familyMember->type_of_disability == 11)
+                                                                Dwarfism
+                                                            @elseif ($familyMember->type_of_disability == 12)
+                                                                {{$familyMember->iba_pa_kapansanan}}
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

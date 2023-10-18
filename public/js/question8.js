@@ -137,6 +137,7 @@ $(document).ready(function() {
                                 <option value="6">Senior High School (11-12)</option>
                                 <option value="7">Post Baccalaureate</option>
                                 <option value="8">OSY</option>
+                                <option value="9">Not studying</option>
                             </select>
                         </div>
                     </div>
