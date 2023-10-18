@@ -239,10 +239,45 @@
                                                     <tr>
                                                         <td>{{ $familyMember->lastname }}, {{ $familyMember->firstname }} {{ $familyMember->middlename }}</td>
                                                         <td>{{ $familyMember->birthdate }}</td>
-                                                        <td>{{ $familyMember->relationship_to_head }}</td>
-                                                        <td>{{ $familyMember->gender }}</td>
+                                                        <td>
+                                                            @if ($familyMember->relationship_to_head == 1)
+                                                                Puno
+                                                            @elseif ($familyMember->relationship_to_head == 2)
+                                                                Asawa
+                                                            @elseif ($familyMember->relationship_to_head == 3)
+                                                                Anak na Lalaki
+                                                            @elseif ($familyMember->relationship_to_head == 4)
+                                                                Anak na Babae
+                                                            @elseif ($familyMember->relationship_to_head == 5)
+                                                                Magulang
+                                                            @elseif ($familyMember->relationship_to_head == 6)
+                                                                Kapatid na Lalaki
+                                                            @elseif ($familyMember->relationship_to_head == 7)
+                                                                Kapatid na Babae
+                                                            @elseif ($familyMember->relationship_to_head == 8)
+                                                                Apo
+                                                            @elseif ($familyMember->relationship_to_head == 9)
+                                                                Pamangkin
+                                                            @elseif ($familyMember->relationship_to_head == 10)
+                                                                Hindi kamag-anak
+                                                            @elseif ($familyMember->relationship_to_head == 11)
+                                                                Manugang
+                                                            @elseif ($familyMember->relationship_to_head == 12)
+                                                                Pinsan
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($familyMember->gender == 1)
+                                                                Male
+                                                            @elseif ($familyMember->gender == 2)
+                                                                Female
+                                                            @endif
+
+                                                        </td>
                                                         <td>{{ $familyMember->age }}</td>
-                                                        <td>{{ $familyMember->civil_status }}</td>
+                                                        <td>
+                                                            
+                                                        </td>
                                                         <td>{{ $familyMember->solo_parent }}</td>
                                                         <td>{{ $familyMember->religion }}</td>
                                                         <td>{{ $familyMember->studying }}</td>
