@@ -504,7 +504,43 @@
                                 </div>
                             </div>
                         </div>
-                    </div>  
+                    </div>
+
+                    <div class="row row-cards">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">16.a May ipinamumuwis ba na ari-arian?</h3>
+                                    
+                                    @if ($question16)
+                                        @if ($question16->answer1_q16 == 1)
+                                            Meron
+                                        @elseif ($question16->answer1_q16 == 2)
+                                            Wala
+                                        @endif
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">16.b Kung meron, saan?</h3>
+                                    @if ($question15)
+                                        {{$question16->answer2_q16}}
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    
+                    
                 </div>
             </div>
         </div>
