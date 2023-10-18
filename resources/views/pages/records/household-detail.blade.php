@@ -284,66 +284,227 @@
                         </div>
                     </div>
 
-                    <div class="card col-md-12">
-                        <div class="card-header">
-                            Question 11
+                    <div class="row row-cards">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">11a. Uri ng tirahan/bahay</h3>
+                                        @if ($question11->answer1_q11 == 1)
+                                            Konkreto
+                                        @elseif ($question11->answer1_q11 == 2)
+                                            Konkreto at Kahoy
+                                        @elseif ($question11->answer1_q11 == 3)
+                                            Kahoy
+                                        @elseif ($question11->answer1_q11 == 4)
+                                            Barong-barong
+                                        @endif
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="card-body">
-                            <h3 class="card-title">11a. Uri ng tirahan/bahay</h3>
-                            <div class="row row-cards">
-                                <div class="col-sm-12 col-md-12">
-                                    <select class="form-select" name="answer1_q11">
-                                        <option value="0">Select...</option>
-                                        <option value="1">Konkreto</option>
-                                        <option value="2">Konkreto at Kahoy</option>
-                                        <option value="3">Kahoy</option>
-                                        <option value="4">Barong-barong</option>
-                                    </select>
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">11b. Uri ng lupang kinatatayuan ng bahay</h3>
+                                    @if ($question11->answer2_q11 == 1)
+                                        Pribadong Lupa
+                                    @elseif ($question11->answer2_q11 == 2)
+                                        Lupa ng Gobyerno
+                                    @endif
                                 </div>
                             </div>
+                        </div>
 
-                            <h3 class="card-title">11b. Uri ng lupang kinatatayuan ng bahay</h3>
-                            <div class="row row-cards">
-                                <div class="col-sm-12 col-md-12">
-                                    <select class="form-select" name="answer2_q11">
-                                        <option value="0">Select...</option>
-                                        <option value="1">Pribadong Lupa</option>
-                                        <option value="2">Lupa ng Gobyerno</option>
-                                    </select>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">11c. Katayuan sa lupa at bahay<</h3>
+                                    @if ($question11->answer3_q11 == 1)
+                                        May-ari ng Lupa at Bahay
+                                    @elseif ($question11->answer3_q11 == 2)
+                                        Nangungupahan sa lupa at may-ari ng bahay
+                                    @elseif ($question11->answer3_q11 == 3)
+                                        Nagtayo ng bahay nang walang pahintulot
+                                    @elseif ($question11->answer3_q11 == 4)
+                                        Nangungupahan sa bahay
+                                    @elseif ($question11->answer3_q11 == 5)
+                                        Nakikitira sa bahay
+                                    @elseif ($question11->answer3_q11 == 6)
+                                        Katiwala sa bahay
+                                    @elseif ($question11->answer3_q11 == 7)
+                                        {{$question11->answer4_q11}}
+                                    @endif
                                 </div>
                             </div>
+                        </div>
 
-                            <h3 class="card-title">11c. Katayuan sa lupa at bahay</h3>
-                            <div class="row row-cards">
-                                <div class="col-sm-12 col-md-12">
-                                    <select class="form-select mb-3" name="answer3_q11" id="answer3_q11c">
-                                        <option value="0">Select...</option>
-                                        <option value="1">May-ari ng Lupa at Bahay</option>
-                                        <option value="2">Nangungupahan sa lupa at may-ari ng bahay</option>
-                                        <option value="3">Nagtayo ng bahay nang walang pahintulot</option>
-                                        <option value="4">Nangungupahan sa bahay</option>
-                                        <option value="5">Nakikitira sa bahay</option>
-                                        <option value="6">Katiwala sa bahay</option>
-                                        <option value="7">Iba pa</option>
-                                    </select>
-                                    <div class="input-group mb-2" style="display:none;" id="question_11c">
-                                        <span class="input-group-text">
-                                            &nbsp;Iba pa
-                                        </span>
-                                        <input type="text" class="form-control" name="answer4_q11">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h3 class="card-title">11d. Kung ikaw ay umuupa ng tirahan/bahay, magkano ang inyong buwanang upa</h3>
-                            <div class="row row-cards">
-                                <div class="col-sm-12 col-md-12">
-                                    <input type="text" name="answer5_q11" class="form-control">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">11d. Kung ikaw ay umuupa ng tirahan/bahay, magkano ang inyong buwanang upa</h3>
+                                    {{$question11->answer5_q11}}
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="row row-cards">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">12.a Saan kumukuha ng tubig?</h3>
+                                    @if ($question12->answer1_q12 == 1)
+                                        Poso
+                                    @elseif ($question12->answer1_q12 == 2)
+                                        Gripo
+                                    @elseif ($question12->answer1_q12 == 3)
+                                        {{$question12->answer2_q12}}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">12.b Uri ng palikuran</h3>
+                                    @if ($question12->answer3_q12 == 1)
+                                        Open pit/Privy
+                                    @elseif ($question12->answer3_q12 == 2)
+                                        Water-sealed
+                                    @elseif ($question12->answer3_q12 == 3)
+                                        Flush
+                                    @elseif ($question12->answer1_q12 == 4)
+                                        {{$question12->answer4_q12}}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-cards">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">13.a Gusto mo bang mag karoon ng kasanayan ("skills training")?</h3>
+                                    @if ($question13)
+                                        @if ($question13->answer1_q13 == 1)
+                                            Oo
+                                        @elseif ($question13->answer1_q13 == 2)
+                                            Hindi
+                                        @endif
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">13.b Kung oo, ano-anong kasanayang pangkabuhayan?</h3>
+                                    @if ($question13)
+                                        {{$question13->answer2_q13}}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">13.c Gusto mo bang makapag-aral ng kursong bokasyonal?</h3>
+                                    @if ($question13)
+                                        @if ($question13->answer3_q13 == 1)
+                                            Oo
+                                        @elseif ($question13->answer3_q13 == 2)
+                                            Hindi
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">13.d Kung oo, ano kurso o kasanayan?</h3>
+                                    @if ($question13)
+                                        {{$question13->answer4_q13}}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-cards">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">14. Saan kayo pumupunta kung nagpapagamot?</h3>
+                                    
+                                    @if ($question14)
+                                        @if ($question14->answer1_q14 == 1)
+                                            Pampublikong Ospital/"Health Center"
+                                        @elseif ($question14->answer1_q14 == 2)
+                                            Albularyo/Hilot
+                                        @elseif ($question14->answer1_q14 == 3)
+                                            Pampribadong Ospital/Klinika
+                                        @elseif ($question14->answer1_q14 == 4)
+                                            {{$question14->answer2_q14}}
+                                        @endif
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">15.a May miyembro ba ng pamilya na namatay?</h3>
+                                    @if ($question15)
+                                        @if ($question15->answer1_q15 == 1)
+                                            Meron
+                                        @elseif ($question15->answer1_q15 == 2)
+                                            Wala
+                                        @endif
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">15.b Taon kung kelan namatay?</h3>
+                                    @if ($question15)
+                                        {{$question15->answer2_q15}}
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">15.c Dahilan ng kamatayan?</h3>
+                                    @if ($question15)
+                                        @if ($question15->answer3_q15 == 1)
+                                            Natural na pagkamatay
+                                        @elseif ($question15->answer3_q15 == 2)
+                                            Aksidente
+                                        @elseif ($question15->answer3_q15 == 3)
+                                            {{$question15->answer4_q15}}
+                                        @endif
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
                 </div>
             </div>
         </div>
@@ -400,16 +561,6 @@
         </table>
 
 <br>
-{{$question11->answer2_q11}}<br>
-{{$question11->answer3_q11}}<br>
-{{$question11->answer4_q11}}<br>
-<br>
-{{$question12->answer1_q12}}<br>
-{{$question12->answer2_q12}}<br>
-{{$question12->answer3_q12}}<br>
-{{$question12->answer4_q12}}<br>
-<br>
-{{$question14->answer1_q14}}<br>
 <br>
 {{$question15->answer1_q15}}<br>
 {{$question15->answer2_q15}}<br>
