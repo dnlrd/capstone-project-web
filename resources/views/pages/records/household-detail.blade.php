@@ -61,26 +61,28 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="card col-md-6">
                         <div class="card-body">
                             <h3 class="card-title">2a. Kasalukuyang Tirahan</h3>
                             <div class="row row-cards">
-                                <div class="col-sm-12 col-md-9">
+                                <div class="col-sm-12 col-md-8">
                                     <div class="form-group">
                                         <label>(Bilang at Kalye)</label>
                                         <div class="fw-bold">{{$question2->answer1_q2}}</div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-3 mb-3">
+                                <div class="col-sm-12 col-md-4 mb-3">
                                     <div class="form-group">
                                         <label>(Barangay)</label>
                                         <div class="fw-bold">{{$question2->answer2_q2}}</div>
                                     </div>
                                 </div>
                             </div>
+
+                            <h3 class="card-title">2b. Taon ng Paglipat</h3>
                             <div class="row row-cards">
                                 <div class="col-sm-12 col-md-12">
-                                    <h3 class="card-title">2b. Taon ng Paglipat</h3>
                                     <div class="form-group">
                                         <label>Taon</label>
                                         <div class="fw-bold">{{$question2->answer3_q2}}</div>
@@ -88,11 +90,190 @@
                                 </div>
                             </div>      
                         </div>
-                        
+                    </div>
+
+                    <div class="card col-md-6">
+                        <div class="card-body">
+                            <h3 class="card-title">3a. Probinsyang Pinanggalingan ng Puno</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-8">
+                                    <div class="form-group">
+                                        <label>(Bilang at Kalye)</label>
+                                        <div class="fw-bold">{{$question3->answer1_q3}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label>(Barangay)</label>
+                                        <div class="fw-bold">{{$question3->answer2_q3}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="card-title">3b. Probinsyang Pinanggalingan ng Asawa</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-8">
+                                    <div class="form-group">
+                                        <label>(Bilang at Kalye)</label>
+                                        <div class="fw-bold">{{$question3->answer3_q3}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label>(Barangay)</label>
+                                        <div class="fw-bold">{{$question3->answer4_q3}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card col-md-6">
+                        <div class="card-body">
+                            <h3 class="card-title">4a. Huling Tirahan</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label>(Lungsod/Bayan)</label>
+                                        <div class="fw-bold">{{$question4->answer1_q4}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label>(Lalawigan)</label>
+                                        <div class="fw-bold">{{$question4->answer2_q4}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="card-title">4b. Taon ng Paglipat</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label>Taon</label>
+                                        <div class="fw-bold">{{$question4->answer3_q4}}</div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card col-md-6">
+                        <div class="card-body">
+                            <h3 class="card-title">5. Dahilan ng Paglipat</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-12">
+                                    @if ($question5->answer1_q5 == 1)
+                                        {{ "Magtratrabaho" }}
+                                    @elseif ($question5->answer1_q5 == 2)
+                                        {{ "Tumira sa kamag-anak" }}
+                                    @elseif ($question5->answer1_q5 == 3)
+                                        {{$question5->answer2_q5}}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card col-md-4">
+                        <div class="card-body">
+                            <h3 class="card-title">6.Uri ng Paglipat</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-12">
+                                @if ($question6->answer1_q6 == 1)
+                                    {{ "Kasama lahat ng pamilya" }}
+                                @elseif ($question6->answer1_q6 == 2)
+                                    {{ "Kasama ang ibang myembro ng pamilya" }}
+                                @elseif ($question6->answer1_q6 == 3)
+                                    {{ "Nag-iisang lumipat" }}
+                                @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card col-md-2">
+                        <div class="card-body">
+                            <h3 class="card-title">7. Ilang myembro ng pamilya ang naninirahan sa bahay</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-12">
+                                    {{$familyMemberCount}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card col-md-12">
+                        <div class="card-body">
+                            <h3 class="card-title">9. May miyembro ng pamilya ba kayong nag tratrabaho sa ibang bansa?</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table card-table table-vcenter text-nowrap datatable">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th>Kung oo,</th> -->
+                                                    <th>Sino?</th>
+                                                    <th>Saan?</th>
+                                                    <th>Buwanang Kita/Naipapadala?</th>
+                                                    <th>Uri ng Paninirahan sa ibang bansa (immigrant / contract worker)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($question9 as $data)
+                                                    <tr>
+                                                        <!-- <td>{{ $data->if_yes }}</td> -->
+                                                        <td>{{ $data->answer1_q9 }}</td>
+                                                        <td>{{ $data->answer2_q9 }}</td>
+                                                        <td>{{ $data->answer3_q9 }}</td>
+                                                        <td>{{ $data->answer4_q9 }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-md-12">
+                        <div class="card-body">
+                            <h3 class="card-title">10. Saan pumapasok ang mga miyembro ng pamilya na nagaaral?</h3>
+                            <div class="row row-cards">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table card-table table-vcenter text-nowrap datatable">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th>Kung oo,</th> -->
+                                                    <th>Sino?</th>
+                                                    <th>Saan?</th>
+                                                    <th>Buwanang Kita/Naipapadala?</th>
+                                                    <th>Uri ng Paninirahan sa ibang bansa (immigrant / contract worker)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($question10 as $data)
+                                                    <tr>
+                                                        <!-- <td>{{ $data->if_yes }}</td> -->
+                                                        <td>{{ $data->answer1_q10 }}</td>
+                                                        <td>{{ $data->answer2_q10 }}</td>
+                                                        <td>{{ $data->answer3_q10 }}</td>
+                                                        <td>{{ $data->answer4_q10 }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         
 
         <table>
@@ -144,34 +325,6 @@
             </tbody>
         </table>
 
-<br>
-{{$question2->answer2_q2}}<br>
-{{$question2->answer3_q2}}<br>
-<br>
-{{$question3->answer1_q3}}<br>
-{{$question3->answer2_q3}}<br>
-{{$question3->answer3_q3}}<br>
-{{$question3->answer4_q3}}<br>
-<br>
-{{$question4->answer1_q4}}<br>
-{{$question4->answer2_q4}}<br>
-{{$question4->answer3_q4}}<br>
-<br>
-{{$question5->answer1_q5}}<br>
-<br>
-{{$question6->answer1_q6}}<br>
-<br>
-{{$familyMemberCount}}
-<br>
-@foreach ($question9 as $data)
-    <p>if_yes: {{ $data->if_yes }}</p>
-    <p>answer1_q9: {{ $data->answer1_q9 }}</p>
-    <p>answer2_q9: {{ $data->answer2_q9 }}</p>
-    <p>answer3_q9: {{ $data->answer3_q9 }}</p>
-    <p>answer4_q9: {{ $data->answer4_q9 }}</p>
-    <p>answer5_q9: {{ $data->answer5_q9 }}</p>
-@endforeach
-<br>
 @foreach ($question10 as $data)
     <p>answer1_q10: {{ $data->answer1_q10 }}</p>
     <p>answer2_q10: {{ $data->answer2_q10 }}</p>
