@@ -119,6 +119,8 @@
                                             {{ $household->year }}
                                         </td>
                                         <td>
+                                            <a href="{{ route('detail-records', ['id' => $household->id]) }}" class="btn-action text-blue">View Household Details</a>
+
                                             <button type="button" class="btn-action text-blue" data-bs-toggle="modal" data-bs-target="#viewDetailsModal-{{ $household->id }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
