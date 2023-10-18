@@ -30,7 +30,70 @@
                                 <td>{{ $household->household_code }}</td>
                                 <td>{{ $household->year }}</td>
                                 <td>{{ $household->tag_no }}</td>
-                                <td>{{ $household->barangay }}</td>
+                                <td>
+                                    @if ($household->barangay == 1)
+                                        Barangay I (Poblacion)
+                                    @elseif ($household->barangay == 2)
+                                        Barangay II (Poblacion)
+                                    @elseif ($household->barangay == 3)
+                                        Barangay III (Poblacion)
+                                    @elseif ($household->barangay == 4)
+                                        Barangay IV (Poblacion)
+                                    @elseif ($household->barangay == 5)
+                                        San Agustin
+                                    @elseif ($household->barangay == 6)
+                                        San Antonio
+                                    @elseif ($household->barangay == 7)
+                                        San Bartolome
+                                    @elseif ($household->barangay == 8)
+                                        San Felix
+                                    @elseif ($household->barangay == 9)
+                                        San Fernando
+                                    @elseif ($household->barangay == 10)
+                                        San Francisco
+                                    @elseif ($household->barangay == 11)
+                                        San Isidro Norte
+                                    @elseif ($household->barangay == 12)
+                                        San Isidro Sur
+                                    @elseif ($household->barangay == 13)
+                                        San Joaquin
+                                    @elseif ($household->barangay == 14)
+                                        San Jose
+                                    @elseif ($household->barangay == 15)
+                                        San Juan
+                                    @elseif ($household->barangay == 16)
+                                        San Luis
+                                    @elseif ($household->barangay == 17)
+                                        San Miguel
+                                    @elseif ($household->barangay == 18)
+                                        San Pablo
+                                    @elseif ($household->barangay == 19)
+                                        San Pedro
+                                    @elseif ($household->barangay == 20)
+                                        San Rafael
+                                    @elseif ($household->barangay == 21)
+                                        San Roque
+                                    @elseif ($household->barangay == 22)
+                                        San Vicente
+                                    @elseif ($household->barangay == 23)
+                                        Santa Ana
+                                    @elseif ($household->barangay == 24)
+                                        Santa Anastacia
+                                    @elseif ($household->barangay == 25)
+                                        Santa Clara
+                                    @elseif ($household->barangay == 26)
+                                        Santa Cruz
+                                    @elseif ($household->barangay == 27)
+                                        Santa Elena
+                                    @elseif ($household->barangay == 28)
+                                        Santa Maria
+                                    @elseif ($household->barangay == 29)
+                                        Santiago
+                                    @elseif ($household->barangay == 30)
+                                        Santa Teresita
+                                    @endif
+
+                                </td>
                                 <td>{{ $household->purok }}</td>
                             </tr>
                     </tbody>
