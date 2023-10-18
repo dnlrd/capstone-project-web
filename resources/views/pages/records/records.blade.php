@@ -67,7 +67,7 @@
                         <form action="{{ route('records') }}" method="GET">
                             <div class="ms-2 d-inline-block">
                                 <div class="input-group">
-                                    <input type="text" name="query" id="search-input" class="form-control"  placeholder="Search users/barangay">
+                                    <input type="text" name="search" id="search-input" class="form-control"  placeholder="Search">
                                     <button type="submit" class="btn btn-primary">Search</button>
                                 </div>
                             </div>
@@ -300,6 +300,12 @@
                                 @endif
                             @endif
                         @endforeach
+                        @if (!empty(request('query')) && count($users) === 0)
+                            <td>
+                                <div>No users found for search query: "{{ request('query') }}"</div>
+                            </td>
+                            
+                        @endif
                     </tbody>
                 </table>
             </div>

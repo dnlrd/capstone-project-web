@@ -42,11 +42,10 @@ class RecordsController extends Controller
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->where('household_code', 'like', '%' . $search . '%')
-                  ->orWhere('barangay', 'like', '%' . $search . '%')
-                  ->orWhere('purok', 'like', '%' . $search . '%')
-                  ->orWhere('firstname', 'like', '%' . $search . '%')
-                  ->orWhere('middlename', 'like', '%' . $search . '%')
-                  ->orWhere('lastname', 'like', '%' . $search . '%');
+                    ->orWhere('purok', 'like', '%' . $search . '%')
+                    ->orWhere('firstname', 'like', '%' . $search . '%')
+                    ->orWhere('middlename', 'like', '%' . $search . '%')
+                    ->orWhere('lastname', 'like', '%' . $search . '%');
             });
         }
 
@@ -64,7 +63,7 @@ class RecordsController extends Controller
             $familyMemberCounts[$household->id] = $familyMemberCount;
         }
 
-        return view('pages.records.records', compact('households', 'familyMemberCounts', 'availableYears', 'selectedYear', 'perPage', 'query'));
+        return view('pages.records.records', compact('households', 'familyMemberCounts', 'availableYears', 'selectedYear', 'perPage', 'query', 'search'));
     }
 
     public function create()
