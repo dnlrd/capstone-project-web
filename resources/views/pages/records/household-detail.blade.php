@@ -165,9 +165,9 @@
                             <div class="row row-cards">
                                 <div class="col-sm-12 col-md-12">
                                     @if ($question5->answer1_q5 == 1)
-                                        {{ "Magtratrabaho" }}
+                                        Magtratrabaho
                                     @elseif ($question5->answer1_q5 == 2)
-                                        {{ "Tumira sa kamag-anak" }}
+                                        Tumira sa kamag-anak
                                     @elseif ($question5->answer1_q5 == 3)
                                         {{$question5->answer2_q5}}
                                     @endif
@@ -202,6 +202,69 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row row-cards">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">8. Impormasyon tungkol sa mga kasapi ng pamilya</h3>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table card-table table-vcenter text-nowrap datatable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Birthdate</th>
+                                                    <th>Relationship to Head</th>
+                                                    <th>Gender</th>
+                                                    <th>Age</th>
+                                                    <th>Civil Status</th>
+                                                    <th>Solo Parent</th>
+                                                    <th>Religion</th>
+                                                    <th>Studying</th>
+                                                    <th>Has Job</th>
+                                                    <th>Job</th>
+                                                    <th>Known Work</th>
+                                                    <th>Where</th>
+                                                    <th>Sector</th>
+                                                    <th>Position</th>
+                                                    <th>Monthly Income</th>
+                                                    <th>Level of Nutrition</th>
+                                                    <th>Type of Disability</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($familyMembers as $familyMember)
+                                                    <tr>
+                                                        <td>{{ $familyMember->lastname }}, {{ $familyMember->firstname }} {{ $familyMember->middlename }}</td>
+                                                        <td>{{ $familyMember->birthdate }}</td>
+                                                        <td>{{ $familyMember->relationship_to_head }}</td>
+                                                        <td>{{ $familyMember->gender }}</td>
+                                                        <td>{{ $familyMember->age }}</td>
+                                                        <td>{{ $familyMember->civil_status }}</td>
+                                                        <td>{{ $familyMember->solo_parent }}</td>
+                                                        <td>{{ $familyMember->religion }}</td>
+                                                        <td>{{ $familyMember->studying }}</td>
+                                                        <td>{{ $familyMember->has_job }}</td>
+                                                        <td>{{ $familyMember->job }}</td>
+                                                        <td>{{ $familyMember->known_work }}</td>
+                                                        <td>{{ $familyMember->where }}</td>
+                                                        <td>{{ $familyMember->sector }}</td>
+                                                        <td>{{ $familyMember->position }}</td>
+                                                        <td>{{ $familyMember->monthly_income }}</td>
+                                                        <td>{{ $familyMember->level_of_nutrition }}</td>
+                                                        <td>{{ $familyMember->type_of_disability }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
                     </div>
 
                     <div class="card col-md-12">
@@ -507,7 +570,7 @@
                     </div>
 
                     <div class="row row-cards">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
                                     <h3 class="card-title">16.a May ipinamumuwis ba na ari-arian?</h3>
@@ -524,7 +587,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
                                     <h3 class="card-title">16.b Kung meron, saan?</h3>
@@ -535,10 +598,50 @@
                                 </div>
                             </div>
                         </div>
-
-                        
                     </div>
 
+                    <div class="row row-cards">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">17.a May sasakyan ba kayo?</h3>
+                                    
+                                    @if ($question17)
+                                        @if ($question17->answer1_q17 == 1)
+                                            Meron
+                                        @elseif ($question17->answer1_q17 == 2)
+                                            Wala
+                                        @endif
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">17.b Kung meron, anong uri ng sasakyan?</h3>
+                                    @if ($question17)
+                                        {{$question17->answer2_q17}}
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">17.c Kung meron, ilan?</h3>
+                                    @if ($question17)
+                                        {{$question17->answer3_q17}}
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     
                 </div>
@@ -547,67 +650,7 @@
         
         
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Birthdate</th>
-                    <th>Relationship to Head</th>
-                    <th>Gender</th>
-                    <th>Age</th>
-                    <th>Civil Status</th>
-                    <th>Solo Parent</th>
-                    <th>Religion</th>
-                    <th>Studying</th>
-                    <th>Has Job</th>
-                    <th>Job</th>
-                    <th>Known Work</th>
-                    <th>Where</th>
-                    <th>Sector</th>
-                    <th>Position</th>
-                    <th>Monthly Income</th>
-                    <th>Level of Nutrition</th>
-                    <th>Type of Disability</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($familyMembers as $familyMember)
-                    <tr>
-                        <td>{{ $familyMember->lastname }}, {{ $familyMember->firstname }} {{ $familyMember->middlename }}</td>
-                        <td>{{ $familyMember->birthdate }}</td>
-                        <td>{{ $familyMember->relationship_to_head }}</td>
-                        <td>{{ $familyMember->gender }}</td>
-                        <td>{{ $familyMember->age }}</td>
-                        <td>{{ $familyMember->civil_status }}</td>
-                        <td>{{ $familyMember->solo_parent }}</td>
-                        <td>{{ $familyMember->religion }}</td>
-                        <td>{{ $familyMember->studying }}</td>
-                        <td>{{ $familyMember->has_job }}</td>
-                        <td>{{ $familyMember->job }}</td>
-                        <td>{{ $familyMember->known_work }}</td>
-                        <td>{{ $familyMember->where }}</td>
-                        <td>{{ $familyMember->sector }}</td>
-                        <td>{{ $familyMember->position }}</td>
-                        <td>{{ $familyMember->monthly_income }}</td>
-                        <td>{{ $familyMember->level_of_nutrition }}</td>
-                        <td>{{ $familyMember->type_of_disability }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-<br>
-<br>
-{{$question15->answer1_q15}}<br>
-{{$question15->answer2_q15}}<br>
-{{$question15->answer3_q15}}<br>
-<br>
-{{$question16->answer1_q16}}<br>
-{{$question16->answer2_q16}}<br>
-<br>
-{{$question17->answer1_q17}}<br>
-{{$question17->answer2_q17}}<br>
-{{$question17->answer3_q17}}<br>
+        
 
 
     </div>
