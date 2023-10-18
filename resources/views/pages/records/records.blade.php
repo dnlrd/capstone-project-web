@@ -119,16 +119,21 @@
                                             {{ $household->year }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('detail-records', ['id' => $household->id]) }}" class="btn-action text-blue">View Household Details</a>
+                                            <a href="{{ route('detail-records', ['id' => $household->id]) }}" class="btn-action text-blue">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                                    <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
+                                                </svg>
+                                            </a>
 
-                                            <button type="button" class="btn-action text-blue" data-bs-toggle="modal" data-bs-target="#viewDetailsModal-{{ $household->id }}">
+                                            <!-- <button type="button" class="btn-action text-blue" data-bs-toggle="modal" data-bs-target="#viewDetailsModal-{{ $household->id }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                     <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
                                                     <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
                                                 </svg>
                                             </button>
-                                            <!-- View User Modal -->
                                             <div class="modal" id="viewDetailsModal-{{ $household->id }}" tabindex="-1">
                                                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                                     <div class="modal-content">
@@ -147,7 +152,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <!-- <button type="button" class="btn-action text-blue" data-bs-toggle="modal" data-bs-target="#editUserModal-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
