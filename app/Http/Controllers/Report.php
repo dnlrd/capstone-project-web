@@ -62,6 +62,20 @@ class Report extends Controller
         return view('pages.report.reports');
     }
 
+    public function getData(Request $request)
+    {
+        // Replace this with your data retrieval logic
+        $BARANGAY_NAMES = self::BARANGAY_NAMES;
+        $currentYear = Carbon::now()->year;
+        $selectedYear = $request->input('year', $currentYear);
+        $selectedBarangay = $request->input('barangay');
+        $availableYears = Household::distinct()->orderBy('year', 'desc')->pluck('year');
+        
+        $data = FamilyMembers::DemographicReportGender($selectedYear,$selectedBarangay);
+
+        return response()->json($data);
+    }
+
     public function demographic(Request $request)
     {
         $BARANGAY_NAMES = self::BARANGAY_NAMES;

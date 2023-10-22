@@ -55,11 +55,16 @@
             </div>
         </div>
     </div>
+    <canvas id="myChart" width="400" height="200"></canvas>
+    <canvas id="myChart1" width="400" height="200"></canvas>
 </div>
 @push('plugins')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{asset('js/file.js')}}"></script>
+
+<script src="{{asset('js/chart.umd.js')}}"></script>
+
 <script src="{{asset('js/printThis.js')}}" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<script src="{{asset('js/chartjs-plugin-datalabels.min.js')}}"></script>
 
 <script>
     $( ".printDemo" ).click(function() {

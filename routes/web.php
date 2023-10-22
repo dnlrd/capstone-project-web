@@ -45,7 +45,7 @@ Route::middleware(['auth', 'role:0'])->group(function () {
     Route::get('/health-report', [Report::class, 'health'])->name('health-report');
     Route::get('/migration-report', [Report::class, 'migration'])->name('migration-report');
     Route::get('/housing-report', [Report::class, 'housing'])->name('housing-report');
-
+    Route::get('/chart-data', [Report::class, 'getData']);
     Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management');
     
     Route::post('/user-management/create-new-user', [UserManagementController::class, 'store'])->name('store-new-user');
